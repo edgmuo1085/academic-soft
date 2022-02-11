@@ -1,0 +1,151 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19/11/2021, 10:08:09 p. m.
+    Author     : LEIDY CORDOBA
+*/
+body{
+    background-color: #d2edf8;
+}
+h3{
+    color: #ec9200;
+}
+
+tr:hover{
+    color: #eadc00;
+}
+
+th{
+    background-color: #1c47dd;
+    color: #ec9200;
+}
+
+input:focus{
+    color: #eadc00;
+}
+
+input:hover{
+    
+}
+
+#banner{
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    height: 100px;
+    width: 1300px;
+    z-index: 1;
+    background-color: #1c47dd;
+}
+
+#menu{
+    position: absolute;
+    top: 120px;
+    left: 25px;
+    height: 30px;
+    width: 1300px;
+    z-index: 2;
+    background-color: #1cdd5a;
+}
+
+ul{
+    list-style-type: none;
+    text-align: center;
+}
+
+li{
+    display: inline;
+    margin-right: 10px;
+}
+
+#contenido{
+   position: absolute;
+    top: 160px;
+    left: 25px;
+    width: 1300px;
+    z-index: 3;
+    background-color: #FFFFFF;
+    color: #1c3455;
+}
+
+
+
+/*@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.container{
+  padding: 50px;
+}
+
+.card{
+  width: 300px;
+  height: 420px;
+  background-color: #1E2B32;
+  border-radius: 10px 10px;
+}
+
+.header{
+  border-radius: 10px 10px 0px 0px;
+  padding: 5px;
+  background-color: #2A3942;
+}
+
+h3{
+  color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 1rem;
+}
+
+.iconM{
+  font-size: 18px;
+  margin-left: 170px;
+  color: #2f89fc;
+}
+
+.icon{
+  margin-right: 8px;
+}
+
+.body li{
+  transition: 1s all;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  padding: 15px;
+  margin-left: -40px;
+  margin-top: 0px;
+  color: #fff;
+  list-style: none;
+  display: block;
+  border-top-right-radius: 10px 10px;
+  border-bottom-right-radius: 10px 10px;
+}
+
+li:hover{
+  transition: 1s all;
+  color: #2f89fc;
+  background-color: rgba(42, 56, 65, 0.82);
+  border-top-right-radius: 10px 10px;
+  border-bottom-right-radius: 10px 10px;
+  cursor: pointer;
+}
+
+.body > li{
+  float: left;
+}
+
+.body li ul{
+  background: #1E2B32;
+  margin-left: 280px;
+  margin-top: -38px;
+  display: none;
+  position: absolute;
+  border-top-right-radius: 15px 15px;
+  border-bottom-right-radius: 15px 15px;
+}
+
+.body li:hover > ul{
+  display: block;
+  cursor: pointer;
+}*/
