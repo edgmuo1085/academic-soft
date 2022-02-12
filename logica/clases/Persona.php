@@ -169,17 +169,17 @@ class Persona
     {
         $resultado = Persona::getLista($filtro, $orden);
         $lista = array();
-        for ($i = 0; $i < count($resultado); $i++) {
-            $persona = new Persona($resultado[$i], null);
-            $lista[$i] = $persona;
+        foreach ($resultado as $key) {
+            $persona = new Persona($key, null);
+            array_push($lista, $persona);
         }
         return $lista;
     }
     public static function validar($usuario, $clave)
     {
-        $resultado = Persona::getListaEnObjetos("identificacion='$usuario' and contrasenia=md5('$clave')", null);
+        $resultado = Persona::getListaEnObjetos("identificacion='$usuario' and clave=md5('$clave')", null);
         $usuario = null;
-        if (count($resultado) > 0)  $usuario = $resultado[0];
+        if (count($resultado) > 0) $usuario = $resultado[0];
         return $usuario;
     }
 }
