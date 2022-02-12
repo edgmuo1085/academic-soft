@@ -1,0 +1,204 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #454a58;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+    height: auto;
+    background-image: url('../imagenes/1.jpg');
+}
+
+.as-nav-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    text-align: center;
+}
+
+.as-nav-header div {
+    margin: 0.5rem;
+}
+
+.as-nav-header div:nth-child(1) {
+    margin-top: 1rem;
+}
+
+.as-nav-header .as-logo {
+    max-width: 7rem;
+}
+
+.as-nav-header .as-information {
+    background-color: mediumseagreen;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.as-nav-header .as-information p {
+    font-weight: 300;
+}
+
+.as-content {
+    margin: 3rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.as-content div {
+    max-width: 22rem;
+    text-align: center;
+}
+
+.as-content .as-msg-error {
+    margin-bottom: 4rem;
+    width: 100%;
+}
+
+.as-content .as-msg-error span {
+    color: #ffffff;
+    font-weight: 300;
+    text-transform: capitalize;
+    background-color: #a34444;
+    padding: 0.8rem;
+    border-radius: 10px;
+}
+
+.as-content .as-form {
+    background: #2c3e50;
+    color: #fff;
+    border-radius: 0.8rem;
+}
+
+.as-content .as-form .as-form-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: relative;
+    top: -30px;
+    left: calc(50% - 30px);
+}
+
+.as-content .as-form .as-form-avatar img {
+    width: 100%;
+}
+
+.as-content .as-form .as-form-margin {
+    padding: 0 2rem 2rem 2rem;
+}
+
+.as-content .as-form .as-form-margin h2 {
+    font-weight: 400;
+    padding: 0 0.4rem;
+}
+
+.as-content .as-form .as-form-margin h4 {
+    font-weight: 400;
+    padding: 0 0.4rem;
+}
+
+.as-content .as-form .as-form-margin .as-form-fields {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+
+.as-content .as-form .as-form-margin .as-form-input {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+}
+
+.as-content .as-form .as-form-margin .as-form-input label {
+    font-weight: 300;
+}
+
+.as-content .as-form .as-form-margin .as-form-input input[type="text"],
+.as-content .as-form .as-form-margin .as-form-input input[type="password"] {
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    color: #fff;
+    padding: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 100;
+}
+
+.as-content .as-form .as-form-margin .as-form-submit button {
+    margin-top: 2rem;
+    background-color: #721111;
+    width: 90%;
+    padding: 0.7rem;
+    border-radius: 30px;
+    font-weight: 400;
+    color: #ffffff;
+    text-transform: uppercase;
+    border: none;
+    outline: none;
+}
+
+.as-content .as-form .as-form-margin .as-form-submit button:hover {
+    background-color: #972525;
+}
+
+.as-content .as-form .as-form-margin .as-form-submit button:active {
+    background-color: #b81d1d;
+    color: unset;
+}
+
+.as-footer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.as-footer p {
+    padding: 0.2rem;
+    margin: 0;
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+
+@media (min-width: 576px) {
+    .as-nav-header {
+        flex-direction: row;
+        margin: 1rem;
+    }
+    .as-nav-header div {
+        margin: 1rem;
+    }
+    .as-content {
+        margin: 4rem 2rem;
+        align-items: flex-start;
+    }
+}
+
+
+/* Medium devices (tablets, 768px and up) */
+
+@media (min-width: 768px) {}
+
+
+/* Large devices (desktops, 992px and up) */
+
+@media (min-width: 992px) {}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1200px) {
+    .as-nav-header {
+        flex-direction: row;
+        margin: 1.5rem;
+    }
+    .as-nav-header div {
+        margin: 1.5rem;
+    }
+}
