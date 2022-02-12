@@ -2,20 +2,23 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
 */
+
+
 /* 
     Created on : 25 ene. 2022, 22:49:08
     Author     : LRNeg
 */
 
-*{
+* {
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;   
+    margin: 0;
 }
+
 .nav-bar {
-    background: #E38646;
+    background: #e38646;
     padding: 20px;
     display: block;
     color: white;
@@ -23,17 +26,21 @@ body {
     font-size: 1.5em;
     width: 100%;
 }
-.menu, .submenu {
+
+.menu,
+.submenu {
     list-style: none;
     padding: 0;
     margin: 0;
 }
+
 .menu {
     background: #555;
     width: 100%;
     margin-left: -100%;
     transition: all 0.5s;
 }
+
 .menu__link {
     display: block;
     padding: 10px;
@@ -41,27 +48,31 @@ body {
     font-size: 1.2em;
     text-decoration: none;
 }
-.menu__link:hover{
+
+.menu__link:hover {
     background: #444;
 }
+
 .submenu .menu__link:hover {
     background: #222;
 }
+
 .submenu {
     height: 0;
     overflow: hidden;
     transition: all 0.3s;
-    
 }
+
 .submenu .menu__link {
     background: #333;
     padding-left: 50px;
 }
+
 .mostrar {
     margin-left: 0;
 }
 
-@media(min-width:1024px) {
+@media (min-width: 1024px) {
     .nav-bar {
         display: none;
     }

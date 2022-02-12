@@ -2,24 +2,25 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
+
+
 /* 
     Created on : 22 oct. 2021, 13:57:22
     Author     : LRNeg
 */
 
 body {
-  margin: 0;
-  padding: 0;
-  background-color: #454a58;
-  background-size: cover;
-  font-family: sans-serif;
-  height: 100vh;
-  font-family: ubuntuRegular;
-  text-align: center;
-  
+    margin: 0;
+    padding: 0;
+    background-color: #454a58;
+    background-size: cover;
+    font-family: sans-serif;
+    height: 100vh;
+    font-family: ubuntuRegular;
+    text-align: center;
 }
 
-#banner{
+#banner {
     position: absolute;
     font-family: sans-serif;
     top: 40px;
@@ -31,14 +32,13 @@ body {
     border-radius: 10px;
 }
 
-.foto1 { 
+.foto1 {
     margin: 15px;
     width: 120px;
     top: 20px;
-    
 }
 
-#Contenido{
+#Contenido {
     position: absolute;
     top: 180px;
     left: 40px;
@@ -47,90 +47,92 @@ body {
     background-color: beige;
 }
 
-.texto-justificado{
-text-align: justify;
+.texto-justificado {
+    text-align: justify;
 }
 
 .login-box {
-  width: 320px;
-  height: 420px;
-  background: #2C3E50;
-  color: #fff;
-  top: 75%;
-  left: 17%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  box-sizing: border-box;
-  padding: 70px 30px;
-  border-radius: 10px;
+    width: 320px;
+    height: 420px;
+    background: #2c3e50;
+    color: #fff;
+    top: 75%;
+    left: 17%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+    border-radius: 10px;
 }
 
 .login-box .avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  position: absolute;
-  top: -50px;
-  left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
 }
 
 .login-box h1 {
-  margin: 0;
-  padding: 0 0 20px;
-  text-align: center;
-  font-size: 22px;
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
 }
 
 .login-box label {
-  margin: 0;
-  padding: 0;
-  font-weight: bold;
-  display: block;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    display: block;
 }
 
 .login-box input {
-  width: 100%;
-  margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-.login-box input[type="text"], .login-box input[type="password"] {
-  border: none;
-  border-bottom: 1px solid #fff;
-  background: transparent;
-  outline: none;
-  height: 40px;
-  color: #fff;
-  font-size: 16px;
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
 }
 
 .login-box input[type="submit"] {
-  border: none;
-  outline: none;
-  height: 40px;
-  background: #b80f22;
-  color: #fff;
-  font-size: 18px;
-  border-radius: 20px;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #b80f22;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
 }
 
 .login-box input[type="submit"]:hover {
-  cursor: pointer;
-  background: #ffc107;
-  color: #000;
+    cursor: pointer;
+    background: #ffc107;
+    color: #000;
 }
 
 .login-box a {
-  text-decoration: none;
-  font-size: 12px;
-  line-height: 20px;
-  color: darkgrey;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
 }
 
 .login-box a:hover {
-  color: #fff;
+    color: #fff;
 }
+
 #chartdiv {
-  width: 100%;
-  max-height: 600px;
-  height: 100vh;
+    width: 100%;
+    max-height: 600px;
+    height: 100vh;
 }
