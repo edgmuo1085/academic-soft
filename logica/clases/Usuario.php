@@ -7,11 +7,11 @@
  */
 
 /**
- * Description of Persona
+ * Description of Usuario
  *
  * @author LEIDY CORDOBA
  */
-class Persona
+class Usuario
 {
     protected $identificacion;
     protected $nombres;
@@ -27,19 +27,19 @@ class Persona
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "select identificacion, nombres, apellidos, tlefono, email, direccion, clave, tipo, estado clave from persona where $campo=$valor";
+                $cadenaSQL = "select identificacion, nombres, apellidos, tlefono, email, direccion, clave, tipo, estado clave from usuario where $campo=$valor";
                 //echo $cadenaSQL.'<P>';
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
             $this->identificacion = $campo['identificacion'];
             $this->nombres = $campo['nombres'];
             $this->apellidos = $campo['apellidos'];
-            $this->apellidos = $campo['telefono'];
-            $this->apellidos = $campo['email'];
-            $this->apellidos = $campo['direccion'];
-            $this->clave = $campo['clave'];
+            $this->telefono = $campo['telefono'];
+            $this->email = $campo['email'];
+            $this->direccion = $campo['direccion'];
+            //$this->clave = $campo['clave'];
             $this->tipo = $campo['tipo'];
-            $this->clave = $campo['estado'];
+            $this->estado = $campo['estado'];
         }
     }
     public function getTelefono()
@@ -128,7 +128,7 @@ class Persona
     }
     public function getTipoEnObjeto()
     {
-        return new TipoPersona($this->tipo);
+        return new TipoUsuario($this->tipo);
     }
 
     public function setClave($clave): void
@@ -147,12 +147,12 @@ class Persona
     public function modificar($identificacionAnterior)
     {
         if (strlen($this->clave) < 32) $clave = md5($this->clave); //$clave="md5($clave)";
-        $cadenaSQL = "update persona set identificacion='{$this->identificacion}', nombres='{$this->nombres}', apellidos='{$this->apellidos}', telefono='{$this->telefono}', email='{$this->email}', direccion='{$this->direccion}', clave='{$this->clave}', tipo='{$this->tipo}', estado='{$this->estado}' where identificacion='{$identificacionAnterior}'";
+        $cadenaSQL = "update usuario set identificacion='{$this->identificacion}', nombres='{$this->nombres}', apellidos='{$this->apellidos}', telefono='{$this->telefono}', email='{$this->email}', direccion='{$this->direccion}', clave='{$this->clave}', tipo='{$this->tipo}', estado='{$this->estado}' where identificacion='{$identificacionAnterior}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
     public function eliminar()
     {
-        $cadenaSQL = "delete from persona where identificacion='{$this->identificacion}'";
+        $cadenaSQL = "delete from usuario where identificacion='{$this->identificacion}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
     public static function getLista($filtro, $orden)
@@ -161,23 +161,23 @@ class Persona
         else $filtro = " where $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " order by $orden";
-        $cadenaSQL = "select identificacion, nombres, apellidos, telefono, email, direccion, clave, tipo, estado from persona $filtro $orden";
+        $cadenaSQL = "select identificacion, nombres, apellidos, telefono, email, direccion, clave, tipo, estado from usuario $filtro $orden";
         //echo $cadenaSQL;
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
     public static function getListaEnObjetos($filtro, $orden)
     {
-        $resultado = Persona::getLista($filtro, $orden);
+        $resultado = Usuario::getLista($filtro, $orden);
         $lista = array();
         foreach ($resultado as $key) {
-            $persona = new Persona($key, null);
-            array_push($lista, $persona);
+            $usuario = new Usuario($key, null);
+            array_push($lista, $usuario);
         }
         return $lista;
     }
     public static function validar($usuario, $clave)
     {
-        $resultado = Persona::getListaEnObjetos("identificacion='$usuario' and clave=md5('$clave')", null);
+        $resultado = Usuario::getListaEnObjetos("identificacion='$usuario' and clave=md5('$clave')", null);
         $usuario = null;
         if (count($resultado) > 0) $usuario = $resultado[0];
         return $usuario;

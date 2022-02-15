@@ -11,7 +11,7 @@
  *
  * @author LEIDY CORDOBA
  */
-class Votante extends Persona{
+class Votante extends Usuario{
     private $id;
     private $idEvento;
     

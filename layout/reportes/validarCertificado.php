@@ -7,8 +7,8 @@
  */
 require_once '../../logica/clasesGenericas/ConectorBD.php';
 require_once '../../logica/clasesGenericas/Fecha.php';
-require_once '../../logica/clases/Persona.php'; 
-require_once '../../logica/clases/TipoPersona.php';
+require_once '../../logica/clases/Usuario.php'; 
+require_once '../../logica/clases/TipoUsuairo.php';
 require_once '../../logica/clases/Evento.php';
 require_once '../../logica/clases/Candidato.php';
 require_once '../../logica/clases/Votante.php';
@@ -19,7 +19,7 @@ $idVotante= Evento::consultarCodigoBarras($_REQUEST['codigoB']);
 if($idVotante!=0){
     $votante=new Votante('id', $idVotante);
     $evento=new Evento('id', $votante->getIdEvento());
-    $persona=new Persona('identificacion', $votante->getIdentificacion());
+    $persona=new Usuario('identificacion', $votante->getIdentificacion());
 }else {
     $mensaje='No se encontro un certificado válido';
 }

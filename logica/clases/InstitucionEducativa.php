@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of Persona
+ * Description of Usuario
  *
  * @author 
  */
@@ -96,7 +96,7 @@ class InstitucionEducativa {
     }
         
     public function getTipoEnObjeto() {
-        return new TipoPersona($this->tipo); 
+        return new TipoUsuario($this->tipo); 
     }
 
     public function __toString() {
@@ -124,10 +124,10 @@ class InstitucionEducativa {
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
     public static function getListaEnObjetos($filtro, $orden) {
-        $resultado= Persona::getLista($filtro, $orden);
+        $resultado= Usuario::getLista($filtro, $orden);
         $lista= array();
         for ($i = 0; $i < count($resultado); $i++) {
-           $persona=new Persona($resultado[$i],null);
+           $persona=new Usuario($resultado[$i],null);
            $lista[$i]=$persona;
         }
         return $lista;

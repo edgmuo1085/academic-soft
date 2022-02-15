@@ -5,16 +5,16 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php
- require_once '../../logica/clases/Persona.php';
+ require_once '../../logica/clases/Usuario.php';
  require_once '../../logica/clasesGenericas/ConectorBD.php';
- require_once '../../logica/clases/TipoPersona.php';
+ require_once '../../logica/clases/TipoUsuario.php';
  require_once '../../logica/clases/Evento.php';
  require_once '../../logica/clasesGenericas/Fecha.php';
  require_once '../../logica/clases/Candidato.php';
  require_once '../../logica/clases/Votante.php';
  
  $evento=new Evento('id', $_REQUEST['idEvento']);
- $votante=new Persona('identificacion', $_REQUEST['identificacion']);
+ $votante=new Usuario('identificacion', $_REQUEST['identificacion']);
  $estadoVotacion=$evento->consultarVoto($votante->getIdentificacion());//0 si no voto
 ?>
 <html>
