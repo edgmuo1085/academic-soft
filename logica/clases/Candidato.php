@@ -11,7 +11,7 @@
  *
  * @author LEIDY CORDOBA
  */
-class Candidato extends Persona
+class Candidato extends Usuario
 {
     private $id;
     private $foto;
@@ -23,7 +23,7 @@ class Candidato extends Persona
         if ($campo != null) {
             if (!is_array($campo)) {
                 $cadenaSQL = "select persona.identificacion, nombres, apellidos, tipo, clave, id, foto, propuesta, idEvento"
-                    . " from persona inner join candidato on persona.identificacion=candidato.identificacion where $campo=$valor";
+                    . " from usuario inner join candidato on persona.identificacion=candidato.identificacion where $campo=$valor";
                 //echo $cadenaSQL.'<P>';
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }

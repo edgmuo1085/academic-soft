@@ -14,8 +14,8 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>.::SIDCA - SISTEMA DE CONTROL ACADÉMICO::.</title>
-
-	<link rel="stylesheet" type="text/css" href="presentacion/css/main.css">
+	<link rel="icon" type="image/png" href="layout/img/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="layout/css/main.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 	<header>
 		<nav class="as-nav-header">
 			<div>
-				<img class="as-logo" src="presentacion/imagenes/pixlr-bg-result.png" alt="logo" />
+				<img class="as-logo" src="layout/img/logo-oficial.png" alt="logo" />
 			</div>
 			<div class="as-information">
 				<h3 class="as-title">COLEGIO LOS ANDES NUESTRA SEÑORA DE LAS MERCEDES</h3>
@@ -37,7 +37,6 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 		</nav>
 	</header>
 	<main class="as-content">
-		<!-- <div class="as-msg-error"><span>Acceso denegado</span></div> -->
 		<?php
 		if ($mensaje) {
 		?>
@@ -46,7 +45,7 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 		<div>
 			<form class="as-form" name="formulario" method="post" action="control/validar.php" autocomplete="off">
 				<div class="as-form-avatar">
-					<img src="presentacion/img/avatar.png" alt="logo">
+					<img src="layout/img/avatar.png" alt="logo">
 				</div>
 				<div class="as-form-margin">
 					<h2>SISTEMA DE CONTROL ACADEMICO</h2>

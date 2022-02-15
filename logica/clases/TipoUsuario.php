@@ -7,11 +7,11 @@
  */
 
 /**
- * Description of TipoPersona
+ * Description of TipoUsuario
  *
  * @author 
  */
-class TipoPersona {
+class TipoUsuario {
     private $codigo;
     
     public function __construct($codigo) {
