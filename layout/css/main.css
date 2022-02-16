@@ -1,11 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #454a58;
+    background-color: #c7c7c7;
     background-size: cover;
     font-family: 'Roboto', sans-serif;
     height: auto;
-    background-image: url('../img/background.jpg');
 }
 
 .as-nav-header {
@@ -159,6 +158,74 @@ body {
 }
 
 
+/*
+ * Menu
+ */
+
+.as-nav-bar {
+    display: flex;
+    padding: 1.5em;
+    background-color: rgb(189, 189, 189);
+    color: rgb(46, 44, 44);
+    cursor: pointer;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+.as-menu,
+.as-submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.as-menu {
+    background-color: rgb(143, 142, 142);
+    width: 100%;
+    margin-left: -100%;
+    transition: all 0.5s;
+}
+
+.as-menu__link {
+    display: flex;
+    padding: 1.5em 1.5em;
+    color: rgb(24, 24, 24);
+    font-size: 1em;
+    text-decoration: none;
+}
+
+.as-menu__link:hover,
+.as-menu__link:active {
+    background-color: rgb(128, 126, 126);
+}
+
+.as-submenu {
+    height: 0;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.as-submenu .as-menu__link {
+    background-color: rgb(128, 126, 126);
+    padding-left: 3em;
+}
+
+.as-submenu .as-menu__link:hover {
+    background-color: rgb(95, 94, 94);
+}
+
+.show-menu {
+    margin-left: 0;
+}
+
+
+/* Layout */
+
+.as-layout {
+    display: flex;
+}
+
+
 /* Small devices (landscape phones, 576px and up) */
 
 @media (min-width: 576px) {
@@ -194,7 +261,34 @@ body {
 
 /* Large devices (desktops, 992px and up) */
 
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+    .as-nav-bar {
+        display: none;
+    }
+    .as-menu {
+        margin-left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+    }
+    .as-dropdown-submenu {
+        position: relative;
+    }
+    .as-submenu {
+        position: absolute;
+        top: 4.2em;
+        overflow: visible;
+        width: 15em;
+        visibility: hidden;
+        opacity: 0;
+        z-index: 9999;
+    }
+    .as-dropdown-submenu:hover .as-submenu,
+    .as-dropdown-submenu:active .as-submenu {
+        visibility: visible;
+        opacity: 1;
+    }
+}
 
 
 /* Extra large devices (large desktops, 1200px and up) */

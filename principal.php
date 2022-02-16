@@ -14,7 +14,6 @@ require_once 'logica/clases/Candidato.php';
 require_once 'logica/clases/Votante.php';
 
 date_default_timezone_set('America/Bogota');
-
 session_start();
 if (!isset($_SESSION['usuario'])) header('location: index.php?mensaje=Acceso no autorizado');
 $USUARIO = unserialize($_SESSION['usuario']);
@@ -28,7 +27,7 @@ $USUARIO = unserialize($_SESSION['usuario']);
     <title>Bienvenido al software académico - <?= $USUARIO ?> (<?= $USUARIO->getTipoEnObjeto() ?>)</title>
     <link rel="icon" type="image/png" href="layout/img/favicon.png" />
     <link rel="stylesheet" type="text/css" href="layout/css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,100;1,400;1,700&display=swap" rel="stylesheet">
@@ -49,34 +48,65 @@ $USUARIO = unserialize($_SESSION['usuario']);
         </nav>
     </header>
 
-
-    <span class="nav-bar" id="btnMenu"><i class="fas fa-bars"></i>Menú</span>
-    <nav class="main-nav">
-        <ul class="menu" id="menu">
-            <li class="menu__item"><a href="" class="menu__link">Inicio</a></li>
-            <li class="menu__item"><a href="" class="menu__link">Institución</a></li>
-            <li class="menu__item container-submenu">
-                <a href="#" class="menu__link submenu-btn">Notas<i class="fas fa-chevron-down"></i></a>
-                <ul class="submenu">
-                    <li class="menu__item"><a href="" class="menu__link">Ingresar Notas</a>
+    <span class="as-nav-bar" id="as-menu-btn"><i class="fas fa-bars"></i> Menú</span>
+    <nav class="as-main-nav">
+        <ul class="as-menu" id="as-menu">
+            <li class="menu__item"><a href="#" class="as-menu__link">Inicio</a></li>
+            <li class="menu__item"><a href="#" class="as-menu__link">Nosotros</a></li>
+            <li class="menu__item as-dropdown-submenu">
+                <a href="#" class="as-menu__link as-submenu-btn">Servicios <i class="fas fa-chevron-down"></i></a>
+                <ul class="as-submenu">
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link">Play</a>
                     </li>
-                    <li class="menu__item"><a href="" class="menu__link">Corregir Notas</a>
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link">Platos</a>
                     </li>
-                    <li class="menu__item"><a href="" class="menu__link">Consultar Notas Por Estudiante</a>
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link">Restaurant</a>
                     </li>
-                    <li class="menu__item"><a href="" class="menu__link">Consultar Notas Por Curso</a>
-                    </li>
-                    <li class="menu__item"><a href="" class="menu__link">Imprimir Notas</a>
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link">Ciudades</a>
                     </li>
                 </ul>
             </li>
-            <li class="menu__item"><a href="" class="menu__link">Cambiar Clave</a></li>
-            <li class="menu__item"><a href="" class="menu__link">Salir</a></li>
+            <li class="menu__item"><a href="#" class="as-menu__link">Ayuda</a></li>
+            <li class="menu__item as-dropdown-submenu">
+                <a href="#" class="as-menu__link as-submenu-btn">Servicios <i class="fas fa-chevron-down"></i></a>
+                <ul class="as-submenu">
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link">Play</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link">Platos</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link">Restaurant</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link">Ciudades</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
-    <script src="menu.js">
 
-    </script>
+    <main class="as-layout">
+        <?= include $_REQUEST['CONTENIDO']; ?>
+    </main>
+
+    <footer class="as-footer">
+        <p>Derechos Reservados</p>
+        <p>
+            <script>
+                date = new Date().getFullYear();
+                document.write(date);
+            </script>
+        </p>
+        <p>&copy;</p>
+    </footer>
+
+    <script src="layout/js/main.js"></script>
 </body>
 
 </html>

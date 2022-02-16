@@ -57,7 +57,6 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 						</div>
 
 						<div class="as-form-input">
-							<!-- PASSWORD -->
 							<label for="clave">Clave</label>
 							<input type="password" name="clave" id="clave" placeholder="Ingresar clave">
 						</div>
