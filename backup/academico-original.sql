@@ -87,63 +87,81 @@ VALUES (
 --
 --
 --
-CREATE TABLE name_table { };
+CREATE TABLE evento (
+    id varchar(3),
+    idTipoDeActividad varchar(10),
+    digitarNota varchar(10),
+    fecha varchar(10),
+    nombreActividad varchar(10),
+    identificacionEstudiante varchar(10),
+    idPeriodoacademico varchar(10),
+    idAsignatura varchar(10)
+);
+--
+INSERT INTO evento (
+        id,
+        idTipoDeActividad,
+        digitarNota,
+        fecha,
+        nombreActividad,
+        identificacionEstudiante,
+        idPeriodoacademico,
+        idAsignatura
+    )
+VALUES ('1', '1', 'd', '2022', 'nombre', '100100', '1','2');
+--
+--
+--
+CREATE TABLE name_table ();
 --
 INSERT INTO name_table ()
 VALUES ();
 --
 --
 --
-CREATE TABLE name_table { };
+CREATE TABLE name_table ();
 --
 INSERT INTO name_table ()
 VALUES ();
 --
 --
 --
-CREATE TABLE name_table { };
+CREATE TABLE name_table ();
 --
 INSERT INTO name_table ()
 VALUES ();
 --
 --
 --
-CREATE TABLE name_table { };
+CREATE TABLE name_table ();
 --
 INSERT INTO name_table ()
 VALUES ();
 --
 --
 --
-CREATE TABLE name_table { };
+CREATE TABLE name_table ();
 --
 INSERT INTO name_table ()
 VALUES ();
 --
 --
 --
-CREATE TABLE name_table { };
+CREATE TABLE name_table ();
 --
 INSERT INTO name_table ()
 VALUES ();
 --
 --
 --
-CREATE TABLE name_table { };
+CREATE TABLE name_table ();
 --
 INSERT INTO name_table ()
 VALUES ();
 --
 --
 --
-CREATE TABLE name_table { };
---
-INSERT INTO name_table ()
-VALUES ();
---
---
---
-CREATE TABLE name_table { };
+CREATE TABLE name_table ();
 --
 INSERT INTO name_table ()
 VALUES ();
