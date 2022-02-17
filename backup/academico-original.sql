@@ -69,7 +69,8 @@ VALUES (
 CREATE TABLE institucion_educativa (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre varchar(150) NOT NULL,
-    direccion varchar(40) DEFAULT NULL,
+    direccion varchar(40) NULL,
+    telefono varchar(10) DEFAULT NULL,
     email varchar(40) NOT NULL,
     nombre_directora varchar(60) NULL,
     pagina_web varchar(60) NULL
@@ -80,35 +81,11 @@ VALUES (
         null,
         'Institucion Educativa Departamental',
         'Cll. 10 # 3 - 0',
+        '1234567',
         'institucion@gmail.com',
         'Ana Vasquez',
         'http://www.institucion.com'
     );
---
---
---
-CREATE TABLE evento (
-    id varchar(3),
-    idTipoDeActividad varchar(10),
-    digitarNota varchar(10),
-    fecha varchar(10),
-    nombreActividad varchar(10),
-    identificacionEstudiante varchar(10),
-    idPeriodoacademico varchar(10),
-    idAsignatura varchar(10)
-);
---
-INSERT INTO evento (
-        id,
-        idTipoDeActividad,
-        digitarNota,
-        fecha,
-        nombreActividad,
-        identificacionEstudiante,
-        idPeriodoacademico,
-        idAsignatura
-    )
-VALUES ('1', '1', 'd', '2022', 'nombre', '100100', '1','2');
 --
 --
 --

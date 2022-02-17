@@ -70,6 +70,7 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 			</form>
 		</div>
 	</main>
+	
 	<footer class="as-footer">
 		<p>Derechos Reservados</p>
 		<p>

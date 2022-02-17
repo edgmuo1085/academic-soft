@@ -20,7 +20,6 @@ class ConectorBD
     private $controlador;
     private $usuario;
     private $clave;
-
     private $conexion;
 
     public function __construct()

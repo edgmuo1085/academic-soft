@@ -8,10 +8,8 @@ and open the template in the editor.
 require_once 'logica/clases/Usuario.php';
 require_once 'logica/clasesGenericas/ConectorBD.php';
 require_once 'logica/clases/TipoUsuario.php';
-require_once 'logica/clases/Evento.php';
+require_once 'logica/clases/InstitucionEducativa.php';
 require_once 'logica/clasesGenericas/Fecha.php';
-require_once 'logica/clases/Candidato.php';
-require_once 'logica/clases/Votante.php';
 
 date_default_timezone_set('America/Bogota');
 session_start();
@@ -92,7 +90,7 @@ $USUARIO = unserialize($_SESSION['usuario']);
     </nav>
 
     <main class="as-layout">
-        <?= include $_REQUEST['CONTENIDO']; ?>
+        <?= include $_REQUEST['CONTENIDO'] ?>
     </main>
 
     <footer class="as-footer">

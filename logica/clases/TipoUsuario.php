@@ -1,16 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of TipoUsuario
- *
- * @author 
- */
 class TipoUsuario {
     private $codigo;
     
@@ -57,7 +46,7 @@ class TipoUsuario {
         return $menu;
     }
     
-    public function getMenuV1() {
+    /* public function getMenuV1() {
         $menu="<ul>";
         $menu.="<a id='v' href=layout/inicio.php><i class='fas fa-home icon'></i>Inicio</a>" . "<a id='v' href=layout/cambiarClave.php><img src='layout/imagenes/claveC.png'>Cambiar Clave</a>";
         
@@ -74,6 +63,6 @@ class TipoUsuario {
         $menu.="<a id='v' href=index.php><img src='layout/imagenes/salir.png'>Salir</a>";
         $menu.="</ul>";
         return $menu;
-    }
+    } */
 }
 
