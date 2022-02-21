@@ -1,13 +1,47 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 @session_start();
-if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado'); //linea para que no se pueda acceder en otro navegador copiando la direccin de la barra
-//$eventos = Evento::getListaEnObjetos("now() between inicio and fin", null);
+if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
+$institution = InstitucionEducativa::getListaEnObjetos(null, null)[0];
 ?>
 
-<h3>BIENVENIDO</h3>
+<div class="as-institution">
+    <div class="as-institution-title">
+        <h4>Nombres</h4>
+    </div>
+    <div class="as-institution-description">
+        <p><?= $institution->getNombre() ?></p>
+    </div>
+</div>
+<div class="as-institution">
+    <div class="as-institution-title">
+        <h4>Dirección</h4>
+    </div>
+    <div class="as-institution-description">
+        <p><?= $institution->getDireccion() ?></p>
+    </div>
+</div>
+<div class="as-institution">
+    <div class="as-institution-title">
+        <h4>Email</h4>
+    </div>
+    <div class="as-institution-description">
+        <p><?= $institution->getEmail() ?></p>
+    </div>
+</div>
+<div class="as-institution">
+    <div class="as-institution-title">
+        <h4>Directora</h4>
+    </div>
+    <div class="as-institution-description">
+        <p><?= $institution->getNombreDirectora() ?></p>
+    </div>
+</div>
+<div class="as-institution">
+    <div class="as-institution-title">
+        <h4>Página Web</h4>
+    </div>
+    <div class="as-institution-description">
+        <p><?= $institution->getPaginaWeb() ?></p>
+    </div>
+</div>

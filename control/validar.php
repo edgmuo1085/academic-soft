@@ -14,7 +14,6 @@ $usuario = Usuario::validar($usuario, $clave);
 if ($usuario == null) {
     header('location:../index.php?mensaje=usuario o contraseña no valido');
 } else {
-    echo 'usuario inicia sesion';
     session_start();
     $_SESSION['usuario'] = serialize($usuario);
     header('location: ../principal.php?CONTENIDO=layout/inicio.php');

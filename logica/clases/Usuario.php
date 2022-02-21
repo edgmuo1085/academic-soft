@@ -1,16 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Usuario
- *
- * @author LEIDY CORDOBA
- */
 class Usuario
 {
     protected $identificacion;
@@ -27,8 +16,7 @@ class Usuario
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "select identificacion, nombres, apellidos, tlefono, email, direccion, clave, tipo, estado clave from usuario where $campo=$valor";
-                //echo $cadenaSQL.'<P>';
+                $cadenaSQL = "select identificacion, nombres, apellidos, telefono, email, direccion, clave, tipo, estado clave from usuario where $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
             $this->identificacion = $campo['identificacion'];
@@ -37,11 +25,12 @@ class Usuario
             $this->telefono = $campo['telefono'];
             $this->email = $campo['email'];
             $this->direccion = $campo['direccion'];
-            //$this->clave = $campo['clave'];
+            $this->clave = $campo['clave'];
             $this->tipo = $campo['tipo'];
             $this->estado = $campo['estado'];
         }
     }
+
     public function getTelefono()
     {
         return $this->telefono;
@@ -126,6 +115,7 @@ class Usuario
     {
         $this->tipo = $tipo;
     }
+
     public function getTipoEnObjeto()
     {
         return new TipoUsuario($this->tipo);
@@ -135,26 +125,31 @@ class Usuario
     {
         $this->clave = $clave;
     }
+
     public function __toString()
     {
         return $this->nombres . ' ' . $this->apellidos;
     }
+
     public function guardar()
     {
         $cadenaSQL = "insert into usuario (identificacion, nombres, apellidos, telefono, email, direccion, clave, tipo, estado ) values ('$this->identificacion','$this->nombres','$this->apellidos','$this->telefono','$this->email','$this->direccion',md5('$this->clave','$this->tipo','$this->estado'))";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
+
     public function modificar($identificacionAnterior)
     {
         if (strlen($this->clave) < 32) $clave = md5($this->clave); //$clave="md5($clave)";
         $cadenaSQL = "update usuario set identificacion='{$this->identificacion}', nombres='{$this->nombres}', apellidos='{$this->apellidos}', telefono='{$this->telefono}', email='{$this->email}', direccion='{$this->direccion}', clave='{$this->clave}', tipo='{$this->tipo}', estado='{$this->estado}' where identificacion='{$identificacionAnterior}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
+
     public function eliminar()
     {
         $cadenaSQL = "delete from usuario where identificacion='{$this->identificacion}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
+
     public static function getLista($filtro, $orden)
     {
         if ($filtro == null || $filtro == '') $filtro = '';
@@ -162,9 +157,9 @@ class Usuario
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " order by $orden";
         $cadenaSQL = "select identificacion, nombres, apellidos, telefono, email, direccion, clave, tipo, estado from usuario $filtro $orden";
-        //echo $cadenaSQL;
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
+
     public static function getListaEnObjetos($filtro, $orden)
     {
         $resultado = Usuario::getLista($filtro, $orden);
@@ -175,6 +170,7 @@ class Usuario
         }
         return $lista;
     }
+
     public static function validar($usuario, $clave)
     {
         $resultado = Usuario::getListaEnObjetos("identificacion='$usuario' and clave=md5('$clave')", null);

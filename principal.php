@@ -8,10 +8,8 @@ and open the template in the editor.
 require_once 'logica/clases/Usuario.php';
 require_once 'logica/clasesGenericas/ConectorBD.php';
 require_once 'logica/clases/TipoUsuario.php';
-require_once 'logica/clases/Evento.php';
-require_once 'logica/clasesGenericas/Fecha.php';
-require_once 'logica/clases/Candidato.php';
-require_once 'logica/clases/Votante.php';
+require_once 'logica/clases/InstitucionEducativa.php';
+//require_once 'logica/clasesGenericas/Fecha.php';
 
 date_default_timezone_set('America/Bogota');
 session_start();
@@ -36,55 +34,79 @@ $USUARIO = unserialize($_SESSION['usuario']);
 <body>
     <header>
         <nav class="as-nav-header">
-            <div>
+            <div class="as-first-div">
                 <img class="as-logo" src="layout/img/logo-oficial.png" alt="logo" />
             </div>
             <div class="as-information">
                 <h3 class="as-title">COLEGIO LOS ANDES NUESTRA SEÑORA DE LAS MERCEDES</h3>
                 <p>Institución educativa con 35 años de trayectoria, basada en la educación integral
                     y personalizada. Contamos con altos estándares en educación, donde hacemos énfasis a
-                    nuestro lema "NADA ES TAM IMPORTANTE COMO UN NIÑO".</p>
+                    nuestro lema <span>&quot;NADA ES TAN IMPORTANTE COMO UN NIÑO&quot;</span>.</p>
             </div>
         </nav>
     </header>
 
-    <span class="as-nav-bar" id="as-menu-btn"><i class="fas fa-bars"></i> Menú</span>
+    <span class="as-nav-bar" id="as-menu-btn"><i class="fas fa-bars"></i> <span>Menú</span></span>
     <nav class="as-main-nav">
         <ul class="as-menu" id="as-menu">
-            <li class="menu__item"><a href="#" class="as-menu__link">Inicio</a></li>
-            <li class="menu__item"><a href="#" class="as-menu__link">Nosotros</a></li>
+            <li class="menu__item"><a href="#" class="as-menu__link">Institución</a></li>
             <li class="menu__item as-dropdown-submenu">
-                <a href="#" class="as-menu__link as-submenu-btn">Servicios <i class="fas fa-chevron-down"></i></a>
+                <a href="#" class="as-menu__link as-submenu-btn"> <span>Institución</span> <i class="fas fa-chevron-down"></i></a>
                 <ul class="as-submenu">
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link">Play</a>
+                        <a href="#" class="as-menu__link as-submenu-color">Año escolar</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link">Platos</a>
+                        <a href="#" class="as-menu__link as-submenu-color">Grados</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link">Restaurant</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="#" class="as-menu__link">Ciudades</a>
+                        <a href="#" class="as-menu__link as-submenu-color">Grupos</a>
                     </li>
                 </ul>
             </li>
-            <li class="menu__item"><a href="#" class="as-menu__link">Ayuda</a></li>
+            <li class="menu__item"><a href="#" class="as-menu__link">Asignaturas</a></li>
             <li class="menu__item as-dropdown-submenu">
-                <a href="#" class="as-menu__link as-submenu-btn">Servicios <i class="fas fa-chevron-down"></i></a>
+                <a href="#" class="as-menu__link as-submenu-btn">Docentes <i class="fas fa-chevron-down"></i></a>
                 <ul class="as-submenu">
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link">Play</a>
+                        <a href="#" class="as-menu__link as-submenu-color">Personal docente</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link">Platos</a>
+                        <a href="#" class="as-menu__link as-submenu-color">Asignación docente</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu__item as-dropdown-submenu">
+                <a href="#" class="as-menu__link as-submenu-btn">Estudiantes <i class="fas fa-chevron-down"></i></a>
+                <ul class="as-submenu">
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link as-submenu-color">Listados</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link">Restaurant</a>
+                        <a href="#" class="as-menu__link as-submenu-color">Inasistencias</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu__item as-dropdown-submenu">
+                <a href="#" class="as-menu__link as-submenu-btn">Notas <i class="fas fa-chevron-down"></i></a>
+                <ul class="as-submenu">
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link as-submenu-color">Consulta de notas</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link">Ciudades</a>
+                        <a href="#" class="as-menu__link as-submenu-color">Imprimir notas</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu__item"><a href="#" class="as-menu__link">Foro</a></li>
+            <li class="menu__item as-dropdown-submenu">
+                <a href="#" class="as-menu__link as-submenu-btn">Perfi <i class="fas fa-chevron-down"></i></a>
+                <ul class="as-submenu">
+                    <li class="menu__item">
+                        <a href="#" class="as-menu__link as-submenu-color">Cambiar contraseña</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="index.php" class="as-menu__link as-submenu-color">Cerrar sesión</a>
                     </li>
                 </ul>
             </li>
@@ -92,7 +114,7 @@ $USUARIO = unserialize($_SESSION['usuario']);
     </nav>
 
     <main class="as-layout">
-        <?= include $_REQUEST['CONTENIDO']; ?>
+        <?php include $_REQUEST['CONTENIDO']; ?>
     </main>
 
     <footer class="as-footer">
