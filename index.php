@@ -25,14 +25,14 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 <body>
 	<header>
 		<nav class="as-nav-header">
-			<div>
+			<div class="as-first-div">
 				<img class="as-logo" src="layout/img/logo-oficial.png" alt="logo" />
 			</div>
 			<div class="as-information">
 				<h3 class="as-title">COLEGIO LOS ANDES NUESTRA SEÑORA DE LAS MERCEDES</h3>
 				<p>Institución educativa con 35 años de trayectoria, basada en la educación integral
 					y personalizada. Contamos con altos estándares en educación, donde hacemos énfasis a
-					nuestro lema "NADA ES TAM IMPORTANTE COMO UN NIÑO".</p>
+					nuestro lema <span>&quot;NADA ES TAN IMPORTANTE COMO UN NIÑO&quot;</span>.</p>
 			</div>
 		</nav>
 	</header>
@@ -48,7 +48,7 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 					<img src="layout/img/avatar.png" alt="logo">
 				</div>
 				<div class="as-form-margin">
-					<h2>SISTEMA DE CONTROL ACADEMICO</h2>
+					<h2>SISTEMA DE CONTROL ACADÉMICO</h2>
 					<h4>Iniciar sesión</h4>
 					<div class="as-form-fields">
 						<div class="as-form-input">
@@ -70,7 +70,7 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 			</form>
 		</div>
 	</main>
-	
+
 	<footer class="as-footer">
 		<p>Derechos Reservados</p>
 		<p>
