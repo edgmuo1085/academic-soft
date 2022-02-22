@@ -115,12 +115,6 @@ class InstitucionEducativa
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
-    public function eliminar()
-    {
-        $cadenaSQL = "delete from institucion_educativa where id='$this->id'";
-        ConectorBD::ejecutarQuery($cadenaSQL);
-    }
-
     public static function getLista($filtro, $orden)
     {
         if ($filtro == null || $filtro == '') $filtro = '';

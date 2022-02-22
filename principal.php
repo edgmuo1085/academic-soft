@@ -9,7 +9,7 @@ require_once 'logica/clases/Usuario.php';
 require_once 'logica/clasesGenericas/ConectorBD.php';
 require_once 'logica/clases/TipoUsuario.php';
 require_once 'logica/clases/InstitucionEducativa.php';
-//require_once 'logica/clasesGenericas/Fecha.php';
+require_once 'logica/clasesGenericas/Footer.php';
 
 date_default_timezone_set('America/Bogota');
 session_start();
@@ -49,7 +49,6 @@ $USUARIO = unserialize($_SESSION['usuario']);
     <span class="as-nav-bar" id="as-menu-btn"><i class="fas fa-bars"></i> <span>Menú</span></span>
     <nav class="as-main-nav">
         <ul class="as-menu" id="as-menu">
-            <li class="menu__item"><a href="#" class="as-menu__link">Institución</a></li>
             <li class="menu__item as-dropdown-submenu">
                 <a href="#" class="as-menu__link as-submenu-btn"> <span>Institución</span> <i class="fas fa-chevron-down"></i></a>
                 <ul class="as-submenu">
@@ -117,16 +116,10 @@ $USUARIO = unserialize($_SESSION['usuario']);
         <?php include $_REQUEST['CONTENIDO']; ?>
     </main>
 
-    <footer class="as-footer">
-        <p>Derechos Reservados</p>
-        <p>
-            <script>
-                date = new Date().getFullYear();
-                document.write(date);
-            </script>
-        </p>
-        <p>&copy;</p>
-    </footer>
+    <?php
+    $footer = Footer::showFooter();
+    echo $footer;
+    ?>
 
     <script src="layout/js/main.js"></script>
 </body>
