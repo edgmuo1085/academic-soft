@@ -14,10 +14,9 @@ class InstitucionEducativa
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "select id, nombre, direccion, telefono, email, nombre_directora, pagina_web from institucion_educativa where $campo=$valor";
+                $cadenaSQL = "SELECT id, nombre, direccion, telefono, email, nombre_directora, pagina_web FROM institucion_educativa WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
-
             $this->id = $campo['id'];
             $this->nombre = $campo['nombre'];
             $this->direccion = $campo['direccion'];
@@ -105,23 +104,23 @@ class InstitucionEducativa
 
     public function guardar()
     {
-        $cadenaSQL = "insert into institucion_educativa (nombre, direccion, telefono, email, nombre_directora, pagina_web) values ('$this->nombre','$this->direccion','$this->telefono','$this->email', '$this->nombreDirectora', '$this->paginaWeb'))";
+        $cadenaSQL = "INSERT INTO institucion_educativa (nombre, direccion, telefono, email, nombre_directora, pagina_web) VALUES ('$this->nombre','$this->direccion','$this->telefono','$this->email', '$this->nombreDirectora', '$this->paginaWeb'))";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
-    public function modificar()
+    public function modificar($ID)
     {
-        $cadenaSQL = "update institucion_educativa set id='{$this->id}', nombre='{$this->nombre}', direccion='{$this->direccion}', telefono='{$this->telefono}', email='{$this->email}', nombre_directora='{$this->nombreDirectora}', pagina_web='{$this->paginaWeb}')";
+        $cadenaSQL = "UPDATE institucion_educativa SET nombre='{$this->nombre}', direccion='{$this->direccion}', telefono='{$this->telefono}', email='{$this->email}', nombre_directora='{$this->nombreDirectora}', pagina_web='{$this->paginaWeb}' WHERE id='{$ID}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public static function getLista($filtro, $orden)
     {
         if ($filtro == null || $filtro == '') $filtro = '';
-        else $filtro = " where $filtro";
+        else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
-        else $orden = " order by $orden";
-        $cadenaSQL = "select id, nombre, direccion, telefono, email, nombre_directora, pagina_web from institucion_educativa $filtro $orden";
+        else $orden = " ORDER BY $orden";
+        $cadenaSQL = "SELECT id, nombre, direccion, telefono, email, nombre_directora, pagina_web FROM institucion_educativa $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

@@ -3,9 +3,11 @@
 if (!isset($_SESSION['usuario'])) header('location: ../../index.php?mensaje=Acceso no autorizado');
 
 if (isset($_REQUEST['id'])) {
-    $titulo = 'Modificar';
+    $titulo = 'modificar';
     $array = new InstitucionEducativa('id', $_REQUEST['id']);
     $institution = InstitucionEducativa::getListaEnObjetos("id={$array->getId()}", null)[0];
+} else {
+    echo 'nbada';
 }
 ?>
 
@@ -16,8 +18,8 @@ if (isset($_REQUEST['id'])) {
 </div>
 
 <div class="as-update-institution">
-    <!-- <form name="formulario" method="post" action="principal.php?CONTENIDO=presentacion/configuracion/votantesActualizar.php"> -->
-    <form class="as-form-create" method="post" action="" autocomplete="off">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-update-institution-action.php" autocomplete="off">
+        <!-- <form class="as-form-create" method="post" action="" autocomplete="off"> -->
         <div class="as-form-margin">
             <h2>Actualizar datos de la institución</h2>
             <div class="as-form-fields">
@@ -37,13 +39,18 @@ if (isset($_REQUEST['id'])) {
                 </div>
 
                 <div class="as-form-input">
+                    <label class="hide-label" for="telefono">Teléfono</label>
+                    <input type="number" name="telefono" id="telefono" value="<?= $institution->getTelefono() ?>" required placeholder="# telefónico">
+                </div>
+
+                <div class="as-form-input">
                     <label class="hide-label" for="director">Nombre del Director/a</label>
                     <input type="text" name="director" id="director" value="<?= $institution->getNombreDirectora() ?>" required placeholder="Nombre del director/a">
                 </div>
 
                 <div class="as-form-input">
                     <label class="hide-label" for="ulrWeb">Página Web</label>
-                    <input type="text" name="ulrWeb" id="ulrWeb" value="<?= $institution->getPaginaWeb() ?>" required placeholder="Página web">
+                    <input type="url" name="ulrWeb" id="ulrWeb" value="<?= $institution->getPaginaWeb() ?>" required placeholder="Página web">
                 </div>
 
             </div>
@@ -53,5 +60,7 @@ if (isset($_REQUEST['id'])) {
                 </button>
             </div>
         </div>
+        <input type="hidden" name="id" value="<?= $institution->getId() ?>">
+        <input type="hidden" name="accion" value="<?= $titulo ?>">
     </form>
 </div>
