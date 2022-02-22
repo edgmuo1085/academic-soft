@@ -389,12 +389,12 @@ body {
 
 .as-layout .as-form-margin {
     padding: 0 2rem 2rem 2rem;
-    width: 100%;
 }
 
 .as-layout .as-form-margin h2 {
     font-weight: 400;
-    padding: 0 0.4rem;
+    padding: 1rem 0.4rem;
+    text-align: center;
 }
 
 .as-layout .as-form-margin .as-form-fields {
@@ -418,7 +418,9 @@ body {
 }
 
 .as-layout .as-form-margin .as-form-input input[type="text"],
-.as-layout .as-form-margin .as-form-input input[type="email"] {
+.as-layout .as-form-margin .as-form-input input[type="email"],
+.as-layout .as-form-margin .as-form-input input[type="url"],
+.as-layout .as-form-margin .as-form-input input[type="number"] {
     border: none;
     border-bottom: 1px solid #8e8b8b;
     background: transparent;

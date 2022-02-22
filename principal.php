@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <?php
 require_once 'logica/clases/Usuario.php';
 require_once 'logica/clasesGenericas/ConectorBD.php';
@@ -16,6 +10,7 @@ session_start();
 if (!isset($_SESSION['usuario'])) header('location: index.php?mensaje=Acceso no autorizado');
 $USUARIO = unserialize($_SESSION['usuario']);
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -53,7 +48,7 @@ $USUARIO = unserialize($_SESSION['usuario']);
                 <a href="#" class="as-menu__link as-submenu-btn"> <span>Institución</span> <i class="fas fa-chevron-down"></i></a>
                 <ul class="as-submenu">
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link as-submenu-color">Año escolar</a>
+                        <a href="principal.php?CONTENIDO=layout/inicio.php" class="as-menu__link as-submenu-color">Año escolar</a>
                     </li>
                     <li class="menu__item">
                         <a href="#" class="as-menu__link as-submenu-color">Grados</a>
