@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <?php
+require_once 'logica/clasesGenericas/Footer.php';
+
 session_start();
 session_unset();
 session_destroy();
@@ -61,8 +63,8 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 							<input type="password" name="clave" id="clave" placeholder="Ingresar clave">
 						</div>
 					</div>
-					<div class="as-form-submit">
-						<button type="submit">
+					<div class="as-form-button">
+						<button class="as-color-btn-red" type="submit">
 							Ingresar
 						</button>
 					</div>
@@ -71,16 +73,10 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 		</div>
 	</main>
 
-	<footer class="as-footer">
-		<p>Derechos Reservados</p>
-		<p>
-			<script>
-				date = new Date().getFullYear();
-				document.write(date);
-			</script>
-		</p>
-		<p>&copy;</p>
-	</footer>
+	<?php
+		$footer = Footer::showFooter();
+		echo $footer;
+	?>
 </body>
 
 </html>
