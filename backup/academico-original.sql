@@ -87,6 +87,29 @@ VALUES (
         'http://www.institucion.com'
     );
 --
+CREATE TABLE  asignatura(
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre_asignatura varchar(30) NOT NULL
+);
+--
+INSERT INTO asignatura ()
+VALUES (
+    null,
+    'Matematicas'
+);
+--
+--
+--
+CREATE TABLE grado (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre_grado varchar(30) NOT NULL
+);
+--
+INSERT INTO grado ()
+VALUES (
+    null,
+    'Quinto'
+);
 --
 --
 CREATE TABLE name_table ();
