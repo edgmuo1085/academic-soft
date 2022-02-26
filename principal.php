@@ -53,14 +53,14 @@ $USUARIO = unserialize($_SESSION['usuario']);
                         <a href="principal.php?CONTENIDO=layout/inicio.php" class="as-menu__link as-submenu-color">Año escolar</a>
                     </li>
                     <li class="menu__item">
-                        <a href="principal.php?CONTENIDO=layout/components/grado.php" class="as-menu__link as-submenu-color">Grados</a>
+                        <a href="principal.php?CONTENIDO=layout/components/lista-grado.php" class="as-menu__link as-submenu-color">Grados</a>
                     </li>
                     <li class="menu__item">
                         <a href="#" class="as-menu__link as-submenu-color">Grupos</a>
                     </li>
                 </ul>
             </li>
-            <li class="menu__item"><a href="principal.php?CONTENIDO=layout/components/asignatura.php" class="as-menu__link">Asignaturas</a></li>
+            <li class="menu__item"><a href="principal.php?CONTENIDO=layout/components/lista-asignatura.php" class="as-menu__link">Asignaturas</a></li>
             <li class="menu__item as-dropdown-submenu">
                 <a href="#" class="as-menu__link as-submenu-btn">Docentes <i class="fas fa-chevron-down"></i></a>
                 <ul class="as-submenu">

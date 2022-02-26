@@ -20,7 +20,7 @@ if (isset($_REQUEST['id'])) {
     </a>
 </div>
 <h3><?php strtoupper($titulo) ?> ASIGNATURA</h3>
-<form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/asignaturaActualizar.php">
+<form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-asignatura-action.php">
     <table>
         <tr>
             <th>Nombre Asignatura</th>

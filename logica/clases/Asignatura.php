@@ -57,7 +57,7 @@ class Asignatura
 
     public function eliminar()
     {
-        $cadenaSQL = "DELETE from asignatura where id='$this->id'";
+        $cadenaSQL = "DELETE FROM asignatura WHERE id='$this->id'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -67,7 +67,7 @@ class Asignatura
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, nombre_asignatura from asignatura $filtro $orden";
+        $cadenaSQL = "SELECT id, nombre_asignatura FROM asignatura $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
