@@ -26,5 +26,5 @@ switch ($_REQUEST['accion']) {
 
 ?>
 <script>
-  window.location = 'principal.php?CONTENIDO=layout/components/asignatura.php';
+  window.location = 'principal.php?CONTENIDO=layout/components/lista-asignatura.php';
 </script>

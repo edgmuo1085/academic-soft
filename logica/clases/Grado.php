@@ -4,18 +4,17 @@ class Grado
 {
     private $id;
     private $nombreGrado;
-    
+
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, nombre_grado from grado where $campo=$valor";
+                $cadenaSQL = "SELECT id, nombre_grado FROM grado WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
 
-            $this->id=$campo['id'];
-            $this->nombreGrado=$campo['nombre_grado'];
-           
+            $this->id = $campo['id'];
+            $this->nombreGrado = $campo['nombre_grado'];
         }
     }
 
@@ -24,18 +23,18 @@ class Grado
         return $this->id;
     }
 
-    public function getNombreGrado() 
+    public function getNombreGrado()
     {
         return $this->nombreGrado;
     }
 
-            
+
     public function setId($id): void
     {
         $this->id = $id;
     }
 
-    public function setNombreGrado($nombreGrado): void 
+    public function setNombreGrado($nombreGrado): void
     {
         $this->nombreGrado = $nombreGrado;
     }
@@ -47,19 +46,19 @@ class Grado
 
     public function guardar()
     {
-        $cadenaSQL = "INSERT INTO grado (nombre_grado) values ('$this->nombreGrado'))";
+        $cadenaSQL = "INSERT INTO grado (nombre_grado) values ('$this->nombreGrado')";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function modificar($ID)
     {
-        $cadenaSQL = "UPDATE grado set id='{$this->id}', nombre_grado='{$this->nombreGrado}')";
+        $cadenaSQL = "UPDATE grado SET nombre_grado='{$this->nombreGrado}' WHERE id={$ID}";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function eliminar()
     {
-        $cadenaSQL = "DELETE from grado where id='$this->id'";
+        $cadenaSQL = "DELETE FROM grado WHERE id='$this->id'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -69,7 +68,7 @@ class Grado
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, nombre_grado from grado $filtro $orden";
+        $cadenaSQL = "SELECT id, nombre_grado FROM grado $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

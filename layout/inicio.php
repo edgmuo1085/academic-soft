@@ -58,7 +58,7 @@ $institution = InstitucionEducativa::getListaEnObjetos('id=1', null)[0];
     </div>
 
     <div class="as-form-button">
-        <a href="principal.php?CONTENIDO=layout/components/form-update-institution.php&id=<?= $institution->getId(); ?>" class="as-color-btn-green">
+        <a href="principal.php?CONTENIDO=layout/components/form-institution.php&id=<?= $institution->getId(); ?>" class="as-color-btn-green">
             Editar información
         </a>
     </div>

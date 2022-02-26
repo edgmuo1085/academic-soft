@@ -6,8 +6,6 @@ if (isset($_REQUEST['id'])) {
     $titulo = 'modificar';
     $array = new InstitucionEducativa('id', $_REQUEST['id']);
     $institution = InstitucionEducativa::getListaEnObjetos("id={$array->getId()}", null)[0];
-} else {
-    echo 'nbada';
 }
 ?>
 
@@ -18,8 +16,7 @@ if (isset($_REQUEST['id'])) {
 </div>
 
 <div class="as-update-institution">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-update-institution-action.php" autocomplete="off">
-        <!-- <form class="as-form-create" method="post" action="" autocomplete="off"> -->
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-institution-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Actualizar datos de la institución</h2>
             <div class="as-form-fields">
