@@ -432,6 +432,75 @@ body {
 }
 
 
+/** Estilos Tablas **/
+
+.as-layout-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.as-layout-table .as-title-table {
+    font-weight: 400;
+    padding: 1rem 0.4rem;
+    text-align: center;
+}
+
+.as-add-signature a {
+    display: block;
+    text-align: right;
+}
+
+.as-layout-table .as-table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    margin: 1rem .5rem;
+}
+
+.as-layout-table .as-table tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+}
+
+.as-layout-table .as-table thead {
+    vertical-align: bottom;
+    border-bottom: 1px solid #212529;
+}
+
+.as-layout-table .as-table thead tr th {
+    vertical-align: bottom;
+    padding: .7rem .8rem;
+}
+
+.as-layout-table .as-table tbody tr {
+    border-bottom: 1px solid #babec2;
+}
+
+.as-layout-table .as-table tbody tr td {
+    padding: .7rem .8rem;
+}
+
+.as-text-center {
+    text-align: center;
+}
+
+.as-edit {
+    padding: 0 .4rem;
+}
+
+.as-trash {
+    padding: 0 .4rem;
+    cursor: pointer;
+}
+
+
 /* Small devices (landscape phones, 576px and up) */
 
 @media (min-width: 576px) {

@@ -4,18 +4,17 @@ class Asignatura
 {
     private $id;
     private $nombreAsignatura;
-    
+
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, nombre_asignatura from asignatura where $campo=$valor";
+                $cadenaSQL = "SELECT id, nombre_asignatura FROM asignatura WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
 
             $this->id = $campo['id'];
             $this->nombreAsignatura = $campo['nombre_asignatura'];
-           
         }
     }
 
@@ -24,23 +23,21 @@ class Asignatura
         return $this->id;
     }
 
-    public function getNombreAsignatura() 
+    public function getNombreAsignatura()
     {
         return $this->nombreAsignatura;
     }
 
-        
     public function setId($id): void
     {
         $this->id = $id;
     }
-    
-    public function setNombreAsignatura($nombreAsignatura): void 
+
+    public function setNombreAsignatura($nombreAsignatura): void
     {
         $this->nombreAsignatura = $nombreAsignatura;
     }
 
-    
     public function __toString()
     {
         return $this->nombreAsignatura;
@@ -48,13 +45,13 @@ class Asignatura
 
     public function guardar()
     {
-        $cadenaSQL = "INSERT INTO asignatura (nombre_asignatura) values ('$this->nombreAsignatura'))";
+        $cadenaSQL = "INSERT INTO asignatura (nombre_asignatura) VALUES ('$this->nombreAsignatura')";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function modificar($ID)
     {
-        $cadenaSQL = "UPDATE asignatura set id='{$this->id}', nombre_asignatura='{$this->nombreAsignatura}')";
+        $cadenaSQL = "UPDATE asignatura SET nombre_asignatura='{$this->nombreAsignatura}' WHERE id='{$ID}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
