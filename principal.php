@@ -3,6 +3,8 @@ require_once 'logica/clases/Usuario.php';
 require_once 'logica/clasesGenericas/ConectorBD.php';
 require_once 'logica/clases/TipoUsuario.php';
 require_once 'logica/clases/InstitucionEducativa.php';
+require_once 'logica/clases/Asignatura.php';
+require_once 'logica/clases/Grado.php';
 require_once 'logica/clasesGenericas/Footer.php';
 
 date_default_timezone_set('America/Bogota');
@@ -51,14 +53,14 @@ $USUARIO = unserialize($_SESSION['usuario']);
                         <a href="principal.php?CONTENIDO=layout/inicio.php" class="as-menu__link as-submenu-color">Año escolar</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link as-submenu-color">Grados</a>
+                        <a href="principal.php?CONTENIDO=layout/components/grado.php" class="as-menu__link as-submenu-color">Grados</a>
                     </li>
                     <li class="menu__item">
                         <a href="#" class="as-menu__link as-submenu-color">Grupos</a>
                     </li>
                 </ul>
             </li>
-            <li class="menu__item"><a href="#" class="as-menu__link">Asignaturas</a></li>
+            <li class="menu__item"><a href="principal.php?CONTENIDO=presentacion/configuracion/asignatura.php" class="as-menu__link">Asignaturas</a></li>
             <li class="menu__item as-dropdown-submenu">
                 <a href="#" class="as-menu__link as-submenu-btn">Docentes <i class="fas fa-chevron-down"></i></a>
                 <ul class="as-submenu">
