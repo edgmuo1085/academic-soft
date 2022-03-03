@@ -49,7 +49,6 @@ class AnioEscolar
     {
         $this->finAnio = $finAnio;
     }
-
     
     public function __toString()
     {

@@ -15,7 +15,7 @@ if (isset($_REQUEST['id'])) {
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/asignatura.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/lista-asignatura.php" class="as-btn-back">
         Regresar
     </a>
 </div>
