@@ -12,7 +12,7 @@ foreach ($anioEscolarList as $item) {
     $lista .= "<td>{$item->getInicio()}</td>";
     $lista .= "<td>{$item->getFin()}</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/form-anio-escolar.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/form-anio.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";
     $lista .= "</td>";
     $lista .= "</tr>";
@@ -26,7 +26,7 @@ foreach ($anioEscolarList as $item) {
         <h3 class="as-title-table">AÑOS ESCOLARES</h3>
     </div>
     <div class="as-form-button-back">
-        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/form-anio-escolar.php">Agregar año escolar</a>
+        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/form-anio.php">Agregar año escolar</a>
     </div>
     <div>
         <table class="as-table">
@@ -48,6 +48,6 @@ foreach ($anioEscolarList as $item) {
 <script type="text/javascript">
     function eliminar(id) {
         var respuesta = confirm("Esta seguro de eliminar este registro?");
-        if (respuesta) location = "principal.php?CONTENIDO=layout/components/form-anio-escolar-action.php&accion=Eliminar&id=" + id;
+        if (respuesta) location = "principal.php?CONTENIDO=layout/components/form-anio-action.php&accion=Eliminar&id=" + id;
     }
 </script>

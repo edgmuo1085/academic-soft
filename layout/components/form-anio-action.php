@@ -23,5 +23,5 @@ switch ($_REQUEST['accion']) {
 }
 ?>
 <script>
-    window.location = 'principal.php?CONTENIDO=layout/components/lista-anio-escolar.php';
+    window.location = 'principal.php?CONTENIDO=layout/components/lista-anio.php';
 </script>

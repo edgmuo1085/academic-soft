@@ -16,13 +16,13 @@ if (isset($_REQUEST['id'])) {
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/lista-anio-escolar.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/lista-anio.php" class="as-btn-back">
         Regresar
     </a>
 </div>
 
 <div class="as-form-content">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-anio-escolar-action.php" autocomplete="off">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-anio-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Año escolar</h2>
             <div class="as-form-fields">

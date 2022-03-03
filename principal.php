@@ -52,7 +52,7 @@ $USUARIO = unserialize($_SESSION['usuario']);
                 <a href="#" class="as-menu__link as-submenu-btn"> <span>Institución</span> <i class="fas fa-chevron-down"></i></a>
                 <ul class="as-submenu">
                     <li class="menu__item">
-                        <a href="principal.php?CONTENIDO=layout/components/lista-anio-escolar.php" class="as-menu__link as-submenu-color">Año escolar</a>
+                        <a href="principal.php?CONTENIDO=layout/components/lista-anio.php" class="as-menu__link as-submenu-color">Año escolar</a>
                     </li>
                     <li class="menu__item">
                         <a href="principal.php?CONTENIDO=layout/components/lista-grado.php" class="as-menu__link as-submenu-color">Grados</a>
