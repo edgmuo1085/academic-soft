@@ -9,8 +9,8 @@ $periodoList = PeriodoAcademico::getListaEnObjetos(null, null);
 foreach ($periodoList as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td>{$item->getInicioPeriodo() }</td>";
-    $lista .= "<td>{$item->getFinalizacionPeriodo() }</td>";
+    $lista .= "<td>" . Fecha::convertDate($item->getInicioPeriodo(), false) . "</td>";
+    $lista .= "<td>" . Fecha::convertDate($item->getFinalizacionPeriodo(), false) . "</td>";
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/form-periodo.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";

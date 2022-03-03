@@ -1,6 +1,7 @@
 <?php
 require_once 'logica/clasesGenericas/ConectorBD.php';
 require_once 'logica/clasesGenericas/Footer.php';
+require_once 'logica/clasesGenericas/Fecha.php';
 require_once 'logica/clases/Usuario.php';
 require_once 'logica/clases/TipoUsuario.php';
 require_once 'logica/clases/InstitucionEducativa.php';
@@ -29,6 +30,9 @@ $USUARIO = unserialize($_SESSION['usuario']);
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,100;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>

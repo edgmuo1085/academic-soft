@@ -6,14 +6,14 @@ if (!isset($_SESSION['usuario'])) header('location: ../../index.php?mensaje=Acce
 $periodo = new PeriodoAcademico(null, null);
 switch ($_REQUEST['accion']) {
     case 'Adicionar':
-        $periodo->setInicioPeriodo($_REQUEST['inicio']);
-        $periodo->setFinalizacionPeriodo($_REQUEST['fin']);
+        $periodo->setInicioPeriodo(Fecha::convertDate($_REQUEST['inicio'], true));
+        $periodo->setFinalizacionPeriodo(Fecha::convertDate($_REQUEST['fin'], true));
         $periodo->guardar();
         break;
     case 'Modificar':
         $periodo->setId($_REQUEST['id']);
-        $periodo->setInicioPeriodo($_REQUEST['inicio']);
-        $periodo->setFinalizacionPeriodo($_REQUEST['fin']);
+        $periodo->setInicioPeriodo(Fecha::convertDate($_REQUEST['inicio'], true));
+        $periodo->setFinalizacionPeriodo(Fecha::convertDate($_REQUEST['fin'], true));
         $periodo->modificar($_REQUEST['id']);
         break;
     case 'Eliminar':

@@ -9,8 +9,8 @@ if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new AnioEscolar('id', $_REQUEST['id']);
     $grado = AnioEscolar::getListaEnObjetos("id={$array->getId()}", null, null)[0];
-    $inicio = $array->getInicio();
-    $fin = $array->getFin();
+    $inicio = Fecha::convertDate($array->getInicio(), false);
+    $fin = Fecha::convertDate($array->getFin(), false);
     $idAnioEscolar = $array->getId();
 }
 ?>
@@ -47,3 +47,14 @@ if (isset($_REQUEST['id'])) {
         <input type="hidden" name="accion" value="<?= $titulo ?>">
     </form>
 </div>
+
+<script>
+    $(function() {
+        $("#inicio").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+        $("#fin").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+    });
+</script>

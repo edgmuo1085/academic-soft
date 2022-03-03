@@ -18,4 +18,16 @@ class Fecha
         $diferencia = $fechaFin->diff($fechaInicio);
         return $diferencia->days;
     }
+
+    public static function convertDate($datetime, $convert)
+    {
+        $fechaInicio = new DateTime($datetime);
+        $date = '';
+        if ($convert) {
+            $date = $fechaInicio->format('Y-m-d H:i:s');
+        } else {
+            $date = $fechaInicio->format('d-m-Y');
+        }
+        return $date;
+    }
 }
