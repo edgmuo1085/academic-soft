@@ -15,7 +15,7 @@ if (isset($_REQUEST['id'])) {
     </a>
 </div>
 
-<div class="as-update-institution">
+<div class="as-form-content">
     <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-institution-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Actualizar datos de la institución</h2>

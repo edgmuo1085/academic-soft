@@ -76,7 +76,14 @@ CREATE TABLE institucion_educativa (
     pagina_web varchar(60) NULL
 );
 --
-INSERT INTO institucion_educativa
+INSERT INTO institucion_educativa (
+        nombre,
+        direccion,
+        telefono,
+        email,
+        nombre_directora,
+        pagina_web
+    )
 VALUES (
         null,
         'Institucion Educativa Departamental',
@@ -87,16 +94,13 @@ VALUES (
         'http://www.institucion.com'
     );
 --
-CREATE TABLE  asignatura(
+CREATE TABLE asignatura(
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre_asignatura varchar(30) NOT NULL
 );
 --
-INSERT INTO asignatura ()
-VALUES (
-    null,
-    'Matematicas'
-);
+INSERT INTO asignatura (nombre_asignatura)
+VALUES (null, 'Matematicas');
 --
 --
 --
@@ -105,17 +109,18 @@ CREATE TABLE grado (
     nombre_grado varchar(30) NOT NULL
 );
 --
-INSERT INTO grado ()
-VALUES (
-    null,
-    'Quinto'
+INSERT INTO grado (nombre_grado)
+VALUES (null, 'Quinto');
+--
+--
+CREATE TABLE anio_escolar (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    inicio DATETIME NULL DEFAULT NULL,
+    fin DATETIME NULL DEFAULT NULL
 );
 --
---
-CREATE TABLE name_table ();
---
-INSERT INTO name_table ()
-VALUES ();
+INSERT INTO anio_escolar (inicio, fin)
+VALUES ('2020-09-09', '2020-09-09');
 --
 --
 --
