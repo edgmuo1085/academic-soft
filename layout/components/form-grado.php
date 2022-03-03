@@ -18,15 +18,24 @@ if (isset($_REQUEST['id'])) {
         Regresar
     </a>
 </div>
-<h3><?= strtoupper($titulo) ?> GRADOS</h3>
-<form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-grado-action.php" autocomplete="off">
-    <table>
-        <tr>
-            <th>Nombre Del Grado</th>
-            <td><input type="text" name="nombre_grado" id="nombre" value="<?php echo $nameGrado; ?>" required></td>
-        </tr>
-    </table>
-    <p>
-        <input type="submit" name="accion" value="<?= $titulo ?>">
+
+<div class="as-form-content">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-grado-action.php" autocomplete="off">
+        <div class="as-form-margin">
+            <h2>Nombre del grado</h2>
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="nombre_grado">Nombre</label>
+                    <input type="text" name="nombre_grado" id="nombre_grado" value="<?php echo $nameGrado; ?>" required placeholder="Nombre del grado">
+                </div>
+            </div>
+            <div class="as-form-button">
+                <button class="as-color-btn-green" type="submit">
+                    <?php echo $titulo; ?>
+                </button>
+            </div>
+        </div>
         <input type="hidden" name="id" value="<?php echo $idGrado; ?>">
-</form>
+        <input type="hidden" name="accion" value="<?= $titulo ?>">
+    </form>
+</div>

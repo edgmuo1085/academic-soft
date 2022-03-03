@@ -1,20 +1,22 @@
 <?php
 
-class Grado
+class AnioEscolar
 {
     private $id;
-    private $nombreGrado;
+    private $inicio;
+    private $fin;
 
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, nombre_grado FROM grado WHERE $campo=$valor";
+                $cadenaSQL = "SELECT id, inicio, fin FROM anio_escolar WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
 
             $this->id = $campo['id'];
-            $this->nombreGrado = $campo['nombre_grado'];
+            $this->inicio = $campo['inicio'];
+            $this->fin = $campo['fin'];
         }
     }
 
@@ -23,9 +25,14 @@ class Grado
         return $this->id;
     }
 
-    public function getNombreGrado()
+    public function getInicio()
     {
-        return $this->nombreGrado;
+        return $this->inicio;
+    }
+
+    public function getFin()
+    {
+        return $this->fin;
     }
 
     public function setId($id): void
@@ -33,31 +40,36 @@ class Grado
         $this->id = $id;
     }
 
-    public function setNombreGrado($nombreGrado): void
+    public function setInicio($inicio): void
     {
-        $this->nombreGrado = $nombreGrado;
+        $this->inicio = $inicio;
+    }
+
+    public function setFin($fin): void
+    {
+        $this->fin = $fin;
     }
 
     public function __toString()
     {
-        return $this->nombreGrado;
+        return $this->inicio;
     }
 
     public function guardar()
     {
-        $cadenaSQL = "INSERT INTO grado (nombre_grado) values ('$this->nombreGrado')";
+        $cadenaSQL = "INSERT INTO anio_escolar (inicio, fin) values ('$this->inicio', '$this->fin')";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function modificar($ID)
     {
-        $cadenaSQL = "UPDATE grado SET nombre_grado='{$this->nombreGrado}' WHERE id={$ID}";
+        $cadenaSQL = "UPDATE anio_escolar SET inicio='{$this->inicio}', fin='{$this->fin}' WHERE id={$ID}";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function eliminar()
     {
-        $cadenaSQL = "DELETE FROM grado WHERE id='$this->id'";
+        $cadenaSQL = "DELETE FROM anio_escolar WHERE id='$this->id'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -67,17 +79,17 @@ class Grado
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, nombre_grado FROM grado $filtro $orden";
+        $cadenaSQL = "SELECT id, inicio, fin FROM anio_escolar $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public static function getListaEnObjetos($filtro, $orden)
     {
-        $resultado = Grado::getLista($filtro, $orden);
+        $resultado = AnioEscolar::getLista($filtro, $orden);
         $lista = array();
         for ($i = 0; $i < count($resultado); $i++) {
-            $grado = new Grado($resultado[$i], null);
-            $lista[$i] = $grado;
+            $anioEscolar = new AnioEscolar($resultado[$i], null);
+            $lista[$i] = $anioEscolar;
         }
         return $lista;
     }

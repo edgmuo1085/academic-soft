@@ -15,18 +15,28 @@ if (isset($_REQUEST['id'])) {
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/asignatura.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/lista-asignatura.php" class="as-btn-back">
         Regresar
     </a>
 </div>
-<h3><?php strtoupper($titulo) ?> ASIGNATURA</h3>
-<form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-asignatura-action.php">
-    <table>
-        <tr>
-            <th>Nombre Asignatura</th>
-            <td><input type="text" name="nombre_asignatura" size="30" maxlength="30" value="<?php echo $nameCourse; ?>" required></td>
-        </tr>
-    </table>
-    <input type="submit" name="accion" value="<?= $titulo ?>">
-    <input type="hidden" name="id" value="<?php echo $idCouse; ?>">
-</form>
+
+<div class="as-form-content">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-asignatura-action.php" autocomplete="off">
+        <div class="as-form-margin">
+            <h2>Nombre de la asignatura</h2>
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="nombre_asignatura">Nombre</label>
+                    <input type="text" name="nombre_asignatura" id="nombre_asignatura" value="<?php echo $nameCourse; ?>" required placeholder="Nombre de la asignatura">
+                </div>
+            </div>
+            <div class="as-form-button">
+                <button class="as-color-btn-green" type="submit">
+                    <?php echo $titulo; ?>
+                </button>
+            </div>
+        </div>
+        <input type="hidden" name="id" value="<?php echo $idCouse; ?>">
+        <input type="hidden" name="accion" value="<?= $titulo ?>">
+    </form>
+</div>
