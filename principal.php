@@ -7,6 +7,8 @@ require_once 'logica/clases/InstitucionEducativa.php';
 require_once 'logica/clases/Asignatura.php';
 require_once 'logica/clases/Grado.php';
 require_once 'logica/clases/AnioEscolar.php';
+require_once 'logica/clases/Grupo.php';
+require_once 'logica/clases/PeriodoAcademico.php';
 
 date_default_timezone_set('America/Bogota');
 session_start();
@@ -55,10 +57,13 @@ $USUARIO = unserialize($_SESSION['usuario']);
                         <a href="principal.php?CONTENIDO=layout/components/lista-anio.php" class="as-menu__link as-submenu-color">Año escolar</a>
                     </li>
                     <li class="menu__item">
+                        <a href="principal.php?CONTENIDO=layout/components/lista-periodo.php" class="as-menu__link as-submenu-color">Periodo Academico</a>
+                    </li>
+                    <li class="menu__item">
                         <a href="principal.php?CONTENIDO=layout/components/lista-grado.php" class="as-menu__link as-submenu-color">Grados</a>
                     </li>
                     <li class="menu__item">
-                        <a href="#" class="as-menu__link as-submenu-color">Grupos</a>
+                        <a href="principal.php?CONTENIDO=layout/components/lista-grupo.php" class="as-menu__link as-submenu-color">Grupos</a>
                     </li>
                 </ul>
             </li>
