@@ -9,8 +9,8 @@ $anioEscolarList = AnioEscolar::getListaEnObjetos(null, 'inicio');
 foreach ($anioEscolarList as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td>{$item->getInicio()}</td>";
-    $lista .= "<td>{$item->getFin()}</td>";
+    $lista .= "<td>" . Fecha::convertDate($item->getInicio(), false) . "</td>";
+    $lista .= "<td>" . Fecha::convertDate($item->getFin(), false) . "</td>";
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/form-anio.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";

@@ -9,8 +9,8 @@ if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new PeriodoAcademico('id', $_REQUEST['id']);
     $periodo = PeriodoAcademico::getListaEnObjetos("id={$array->getId()}", null)[0];
-    $iniciaPeriodo = $array->getInicioPeriodo();
-    $finPeriodo = $array->getFinalizacionPeriodo();
+    $iniciaPeriodo = Fecha::convertDate($array->getInicioPeriodo(), false);
+    $finPeriodo = Fecha::convertDate($array->getFinalizacionPeriodo(), false);
     $idPeriodo = $array->getId();
 }
 ?>
@@ -47,3 +47,15 @@ if (isset($_REQUEST['id'])) {
         <input type="hidden" name="accion" value="<?= $titulo ?>">
     </form>
 </div>
+
+
+<script>
+    $(function() {
+        $("#inicio").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+        $("#fin").datepicker({
+            dateFormat: "dd-mm-yy"
+        });
+    });
+</script>
