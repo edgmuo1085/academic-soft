@@ -124,10 +124,27 @@ VALUES ('2020-09-09', '2020-09-09');
 --
 --
 --
-CREATE TABLE name_table ();
+CREATE TABLE grupo (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre_grupo varchar(30) NOT NULL
+);
 --
-INSERT INTO name_table ()
-VALUES ();
+INSERT INTO grupo (nombre_grupo)
+VALUES ('Capitanes');
+--
+--
+--
+CREATE TABLE periodo_academico (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    inicio_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    finalizacion_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+--
+INSERT INTO periodo_academico (inicio_periodo, finalizacion_periodo)
+VALUES (
+        '2022-02-05 23:59:59',
+        '2022-02-05 23:59:59'
+    );
 --
 --
 --
