@@ -1,2 +1,2 @@
 # academic-soft
-Software académico
+Software académico en PHP
