@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <?php
 require_once 'logica/clasesGenericas/Footer.php';
 
@@ -74,8 +74,8 @@ if (isset($_REQUEST['mensaje'])) $mensaje = $_REQUEST['mensaje'];
 	</main>
 
 	<?php
-		$footer = Footer::showFooter();
-		echo $footer;
+	$footer = Footer::showFooter();
+	echo $footer;
 	?>
 </body>
 

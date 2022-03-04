@@ -2,6 +2,7 @@
 
 class Usuario
 {
+    protected $id;
     protected $identificacion;
     protected $nombres;
     protected $apellidos;
@@ -9,16 +10,17 @@ class Usuario
     protected $email;
     protected $direccion;
     protected $clave;
-    protected $tipo;
+    protected $rol_id;
     protected $estado;
 
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "select identificacion, nombres, apellidos, telefono, email, direccion, clave, tipo, estado clave from usuario where $campo=$valor";
+                $cadenaSQL = "select id, identificacion, nombres, apellidos, telefono, email, direccion, clave, rol_id, estado clave from usuario where $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
+            $this->id = $campo['id'];
             $this->identificacion = $campo['identificacion'];
             $this->nombres = $campo['nombres'];
             $this->apellidos = $campo['apellidos'];
@@ -26,7 +28,7 @@ class Usuario
             $this->email = $campo['email'];
             $this->direccion = $campo['direccion'];
             $this->clave = $campo['clave'];
-            $this->tipo = $campo['tipo'];
+            $this->rol_id = $campo['rol_id'];
             $this->estado = $campo['estado'];
         }
     }
@@ -76,6 +78,11 @@ class Usuario
         return $this->identificacion;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getNombres()
     {
         return $this->nombres;
@@ -86,9 +93,9 @@ class Usuario
         return $this->apellidos;
     }
 
-    public function getTipo()
+    public function getRolId()
     {
-        return $this->tipo;
+        return $this->rol_id;
     }
 
     public function getClave()
@@ -101,6 +108,11 @@ class Usuario
         $this->identificacion = $identificacion;
     }
 
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
     public function setNombres($nombres): void
     {
         $this->nombres = $nombres;
@@ -111,14 +123,14 @@ class Usuario
         $this->apellidos = $apellidos;
     }
 
-    public function setTipo($tipo): void
+    public function setRolId($rol_id): void
     {
-        $this->tipo = $tipo;
+        $this->rol_id = $rol_id;
     }
 
-    public function getTipoEnObjeto()
+    public function getRolNombre()
     {
-        return new TipoUsuario($this->tipo);
+        return new Rol('id', $this->rol_id);
     }
 
     public function setClave($clave): void
@@ -133,30 +145,30 @@ class Usuario
 
     public function guardar()
     {
-        $cadenaSQL = "insert into usuario (identificacion, nombres, apellidos, telefono, email, direccion, clave, tipo, estado ) values ('$this->identificacion','$this->nombres','$this->apellidos','$this->telefono','$this->email','$this->direccion',md5('$this->clave','$this->tipo','$this->estado'))";
+        $cadenaSQL = "INSERT INTO usuario (identificacion, nombres, apellidos, telefono, email, direccion, clave, rol_id, estado ) values ('$this->identificacion','$this->nombres','$this->apellidos','$this->telefono','$this->email','$this->direccion',md5('$this->clave','$this->rol_id','$this->estado'))";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
-    public function modificar($identificacionAnterior)
+    public function modificar($ID)
     {
-        if (strlen($this->clave) < 32) $clave = md5($this->clave); //$clave="md5($clave)";
-        $cadenaSQL = "update usuario set identificacion='{$this->identificacion}', nombres='{$this->nombres}', apellidos='{$this->apellidos}', telefono='{$this->telefono}', email='{$this->email}', direccion='{$this->direccion}', clave='{$this->clave}', tipo='{$this->tipo}', estado='{$this->estado}' where identificacion='{$identificacionAnterior}'";
+        if (strlen($this->clave) < 32) $clave = md5($this->clave);
+        $cadenaSQL = "UPDATE usuario SET identificacion='{$this->identificacion}', nombres='{$this->nombres}', apellidos='{$this->apellidos}', telefono='{$this->telefono}', email='{$this->email}', direccion='{$this->direccion}', clave='{$this->clave}', rol_id='{$this->rol_id}', estado='{$this->estado}' WHERE id='{$ID}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function eliminar()
     {
-        $cadenaSQL = "delete from usuario where identificacion='{$this->identificacion}'";
+        $cadenaSQL = "DELETE FROM usuario WHERE id='{$this->id}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public static function getLista($filtro, $orden)
     {
         if ($filtro == null || $filtro == '') $filtro = '';
-        else $filtro = " where $filtro";
+        else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
-        else $orden = " order by $orden";
-        $cadenaSQL = "select identificacion, nombres, apellidos, telefono, email, direccion, clave, tipo, estado from usuario $filtro $orden";
+        else $orden = " ORDER BY $orden";
+        $cadenaSQL = "SELECT id, identificacion, nombres, apellidos, telefono, email, direccion, clave, rol_id, estado FROM usuario $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
