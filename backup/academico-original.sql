@@ -4,18 +4,32 @@
 -- DROP TABLE IF EXISTS usuario;
 --
 CREATE TABLE usuario (
-    identificacion varchar(10) NOT NULL PRIMARY KEY,
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    identificacion varchar(10) NOT NULL UNIQUE,
     nombres varchar(50) NOT NULL,
     apellidos varchar(50) NOT NULL,
-    telefono varchar(10) NOT NULL,
+    telefono varchar(10) NULL,
     email varchar(50) NOT NULL,
     direccion varchar(30) DEFAULT NULL,
     clave varchar(40) DEFAULT NULL,
-    tipo char(1) NOT NULL,
-    estado bit(1) NOT NULL
+    rol_id INT(4) NOT NULL,
+    estado bit(1) NOT NULL,
+    INDEX (rol_id),
+    FOREIGN KEY usuario(rol_id) REFERENCES roles(id)
 );
+---CREATE INDEX id_index ON usuario (id);
 --
-INSERT INTO usuario
+INSERT INTO usuario (
+        identificacion,
+        nombres,
+        apellidos,
+        telefono,
+        email,
+        direccion,
+        clave,
+        rol_id,
+        estado
+    )
 VALUES (
         '100100',
         'Pedro',
@@ -24,10 +38,20 @@ VALUES (
         'test@gmail.com',
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
-        'A',
+        1,
         true
     );
-INSERT INTO usuario
+INSERT INTO usuario(
+        identificacion,
+        nombres,
+        apellidos,
+        telefono,
+        email,
+        direccion,
+        clave,
+        rol_id,
+        estado
+    )
 VALUES (
         '100101',
         'Pedro',
@@ -36,10 +60,20 @@ VALUES (
         'test@gmail.com',
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
-        'S',
+        2,
         true
     );
-INSERT INTO usuario
+INSERT INTO usuario(
+        identificacion,
+        nombres,
+        apellidos,
+        telefono,
+        email,
+        direccion,
+        clave,
+        rol_id,
+        estado
+    )
 VALUES (
         '100102',
         'Pedro',
@@ -48,10 +82,20 @@ VALUES (
         'test@gmail.com',
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
-        'D',
+        3,
         true
     );
-INSERT INTO usuario
+INSERT INTO usuario(
+        identificacion,
+        nombres,
+        apellidos,
+        telefono,
+        email,
+        direccion,
+        clave,
+        rol_id,
+        estado
+    )
 VALUES (
         '100103',
         'Pedro',
@@ -60,7 +104,51 @@ VALUES (
         'test@gmail.com',
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
-        'E',
+        4,
+        true
+    );
+INSERT INTO usuario(
+        identificacion,
+        nombres,
+        apellidos,
+        telefono,
+        email,
+        direccion,
+        clave,
+        rol_id,
+        estado
+    )
+VALUES (
+        '100104',
+        'Desconocido',
+        'Desconocido',
+        '12344321',
+        'test@gmail.com',
+        'Cll. 19 # 3 - 1',
+        '202cb962ac59075b964b07152d234b70',
+        5,
+        true
+    );
+INSERT INTO usuario(
+        identificacion,
+        nombres,
+        apellidos,
+        telefono,
+        email,
+        direccion,
+        clave,
+        rol_id,
+        estado
+    )
+VALUES (
+        '100105',
+        'Super',
+        'Admin',
+        '12344321',
+        'test@gmail.com',
+        'Cll. 19 # 3 - 1',
+        '202cb962ac59075b964b07152d234b70',
+        6,
         true
     );
 --
@@ -115,8 +203,8 @@ VALUES (null, 'Quinto');
 --
 CREATE TABLE anio_escolar (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    inicio DATETIME NULL DEFAULT NULL,
-    fin DATETIME NULL DEFAULT NULL
+    inicio DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    fin DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 );
 --
 INSERT INTO anio_escolar (inicio, fin)
@@ -148,6 +236,155 @@ VALUES (
 --
 --
 --
+CREATE TABLE menu (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(60) NOT NULL,
+    ruta VARCHAR(200) NULL,
+    tipo INT(2) NOT NULL,
+    es_hijo INT(4) NULL,
+    posicion INT(4) NOT NULL,
+    INDEX (es_hijo),
+    FOREIGN KEY (es_hijo) REFERENCES menu(id)
+);
+/*
+ -- (tipo) = > 1: Padre, 2: Hijo,
+ -- es_hijo: id del padre a quien pertenece el submenu
+ --*/
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Inicio',
+        'principal.php?CONTENIDO=layout/inicio.php',
+        1,
+        null,
+        1
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Institución',
+        '#',
+        1,
+        null,
+        2
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Año escolar',
+        'principal.php?CONTENIDO=layout/components/lista-anio.php',
+        2,
+        2,
+        3
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Periodo Academico',
+        'principal.php?CONTENIDO=layout/components/lista-periodo.php',
+        2,
+        2,
+        4
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Grados',
+        'principal.php?CONTENIDO=layout/components/lista-grado.php',
+        2,
+        2,
+        5
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Grupos',
+        'principal.php?CONTENIDO=layout/components/lista-grupo.php',
+        2,
+        2,
+        6
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Asignatura',
+        'principal.php?CONTENIDO=layout/components/lista-asignatura.php',
+        1,
+        null,
+        7
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Perfil',
+        '#',
+        1,
+        null,
+        8
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Cerrar sesión',
+        'index.php',
+        2,
+        8,
+        9
+    );
+--
+--
+--
+CREATE TABLE permisos (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_rol INT(4) NOT NULL,
+    id_menu INT(4) NOT NULL,
+    estado bit(1) NOT NULL,
+    INDEX (id_rol, id_menu),
+    FOREIGN KEY (id_rol) REFERENCES roles(id),
+    FOREIGN KEY (id_menu) REFERENCES menu(id)
+);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 1, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 8, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (2, 1, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (3, 1, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (4, 1, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (5, 1, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 1, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 2, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 3, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 4, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 5, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 6, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 7, true);
+--
+--
+--
+CREATE TABLE roles (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(20) NOT NULL,
+    valor CHAR(3) NOT NULL
+);
+--
+INSERT INTO roles (nombre, valor)
+VALUES ('Secretaria', 'S');
+INSERT INTO roles (nombre, valor)
+VALUES ('Docente', 'D');
+INSERT INTO roles (nombre, valor)
+VALUES ('Acudiente', 'A');
+INSERT INTO roles (nombre, valor)
+VALUES ('Estudiante', 'E');
+INSERT INTO roles (nombre, valor)
+VALUES ('Desconocido', 'N');
+INSERT INTO roles (nombre, valor)
+VALUES ('Root', 'R');
+--
+--
+--
 CREATE TABLE name_table ();
 --
 INSERT INTO name_table ()
@@ -169,24 +406,32 @@ VALUES ();
 --
 --
 --
-CREATE TABLE name_table ();
---
-INSERT INTO name_table ()
-VALUES ();
---
---
---
-CREATE TABLE name_table ();
---
-INSERT INTO name_table ()
-VALUES ();
---
---
---
-CREATE TABLE name_table ();
---
-INSERT INTO name_table ()
-VALUES ();
---
---
---
+--Consultar indices de la base de datos
+select index_schema,
+    index_name,
+    group_concat(
+        column_name
+        order by seq_in_index
+    ) as index_columns,
+    index_type,
+    case
+        non_unique
+        when 1 then 'not unique'
+        else 'unique'
+    end as is_unique,
+    table_name
+from information_schema.statistics
+where table_schema not in (
+        'information_schema',
+        'mysql',
+        'performance_schema',
+        'sys'
+    )
+    and index_schema = 'academico'
+group by index_schema,
+    index_name,
+    index_type,
+    non_unique,
+    table_name
+order by index_schema,
+    index_name;
