@@ -319,7 +319,11 @@ VALUES ('2022-01-01', '2022-12-01', 1);
 --
 --
 -- TABLA periodo_academico
-INSERT INTO periodo_academico (inicio_periodo, finalizacion_periodo, id_anio_escolar)
+INSERT INTO periodo_academico (
+        inicio_periodo,
+        finalizacion_periodo,
+        id_anio_escolar
+    )
 VALUES (
         '2022-02-05 23:59:59',
         '2022-02-05 23:59:59',
@@ -397,7 +401,7 @@ VALUES (
         'principal.php?CONTENIDO=layout/components/lista-asignatura.php',
         1,
         null,
-        7
+        4
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -405,7 +409,7 @@ VALUES (
         'principal.php?CONTENIDO=layout/components/lista-periodo.php',
         2,
         2,
-        4
+        5
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -413,7 +417,7 @@ VALUES (
         'principal.php?CONTENIDO=layout/components/lista-grado.php',
         2,
         2,
-        5
+        6
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -421,7 +425,7 @@ VALUES (
         'principal.php?CONTENIDO=layout/components/lista-grupo.php',
         2,
         2,
-        6
+        7
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -429,7 +433,7 @@ VALUES (
         '#',
         1,
         null,
-        7
+        8
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -437,7 +441,7 @@ VALUES (
         'index.php',
         2,
         8,
-        8
+        9
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -445,7 +449,7 @@ VALUES (
         '#',
         1,
         null,
-        9
+        10
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -453,7 +457,7 @@ VALUES (
         '#',
         1,
         null,
-        10
+        11
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -461,7 +465,7 @@ VALUES (
         '#',
         1,
         null,
-        11
+        12
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -469,7 +473,47 @@ VALUES (
         '#',
         2,
         12,
-        12
+        13
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Personal Docente',
+        '#',
+        2,
+        10,
+        14
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Asignación Docente',
+        '#',
+        2,
+        10,
+        15
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Imprimir Notas',
+        '#',
+        2,
+        12,
+        16
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Listado',
+        '#',
+        2,
+        11,
+        17
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Inasistencias',
+        '#',
+        2,
+        11,
+        18
     );
 --
 --
@@ -519,11 +563,23 @@ VALUES (1, 7, true);
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 8, true);
 INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 9, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 10, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 11, true);
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 12, true);
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 13, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 14, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 15, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 17, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 18, true);
 -- menu inicio y cerrar sesion a los demas roles
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (2, 1, true);
