@@ -2,8 +2,8 @@
 
 class Asignatura
 {
-    private $id;
-    private $nombreAsignatura;
+    protected $id;
+    protected $nombreAsignatura;
 
     public function __construct($campo, $valor)
     {

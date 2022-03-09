@@ -4,12 +4,24 @@ if (!isset($_SESSION['usuario'])) header('location: ../../index.php?mensaje=Acce
 $titulo = 'Adicionar';
 $nameGrupo = '';
 $idGrupo = null;
+$idGrado = '';
+$selected = '';
+$selectMenu = '';
+
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new Grupo('id', $_REQUEST['id']);
     $grupo = Grupo::getListaEnObjetos("id={$array->getId()}", null)[0];
     $nameGrupo = $array->getNombreGrupo();
+    $idGrado = $array->getIdGrado();
     $idGrupo = $array->getId();
+}
+
+$totalGrados = Grado::getListaEnObjetos(null, null);
+
+foreach ($totalGrados as $param) {
+    $selected = $param->getId() == $idGrado ? 'selected' : '';
+    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' >' . $param->getNombreGrado() . '</option>';
 }
 ?>
 
@@ -27,6 +39,16 @@ if (isset($_REQUEST['id'])) {
                 <div class="as-form-input">
                     <label class="hide-label" for="nombre_grupo">Nombre</label>
                     <input type="text" name="nombre_grupo" id="nombre_grupo" value="<?php echo $nameGrupo; ?>" required placeholder="Nombre del grupo">
+                </div>
+            </div>
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="fin">Grado</label>
+                    <select class="as-form-select" name="id_grado" id="id_grado">
+                        <?php
+                        echo $selectMenu;
+                        ?>
+                    </select>
                 </div>
             </div>
             <div class="as-form-button">
