@@ -4,12 +4,13 @@
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $lista = '';
 $count = 1;
-$gradoList = Grado::getListaEnObjetos(null, 'nombre_grado');
+$gradoList = Grado::getListaEnObjetos(null, 'id');
 
 foreach ($gradoList as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
     $lista .= "<td>{$item->getNombreGrado()}</td>";
+    $lista .= "<td>{$item->getNombreInstitucion()}</td>";
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/form-grado.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";
@@ -33,6 +34,7 @@ foreach ($gradoList as $item) {
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre Grado</th>
+                    <th scope="col">Institución</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>

@@ -5,13 +5,25 @@ $titulo = 'Adicionar';
 $inicio = '';
 $fin = '';
 $idAnioEscolar = null;
+$idInstitucion = '';
+$selected = '';
+$selectMenu = '';
+
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new AnioEscolar('id', $_REQUEST['id']);
     $grado = AnioEscolar::getListaEnObjetos("id={$array->getId()}", null, null)[0];
     $inicio = Fecha::convertDate($array->getInicio(), false);
     $fin = Fecha::convertDate($array->getFin(), false);
+    $idInstitucion = $array->getIdInstitucion();
     $idAnioEscolar = $array->getId();
+}
+
+$totalInstituciones = InstitucionEducativa::getListaEnObjetos(null, null);
+
+foreach ($totalInstituciones as $param) {
+    $selected = $param->getId() == $idInstitucion ? 'selected' : '';
+    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' >' . $param->getNombre() . '</option>';
 }
 ?>
 
@@ -35,6 +47,16 @@ if (isset($_REQUEST['id'])) {
                 <div class="as-form-input">
                     <label class="hide-label" for="fin">Fin</label>
                     <input type="text" name="fin" id="fin" value="<?php echo $fin; ?>" required placeholder="Fecha final">
+                </div>
+            </div>
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="fin">Institución</label>
+                    <select class="as-form-select" name="id_institucion" id="id_institucion">
+                        <?php
+                        echo $selectMenu;
+                        ?>
+                    </select>
                 </div>
             </div>
             <div class="as-form-button">

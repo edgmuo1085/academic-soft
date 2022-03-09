@@ -54,8 +54,8 @@ CREATE TABLE anio_escolar (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     inicio DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     fin DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    institucion_id INT(4) NOT NULL,
-    FOREIGN KEY anio_escolar(institucion_id) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    id_institucion INT(4) NOT NULL,
+    FOREIGN KEY anio_escolar(id_institucion) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -66,8 +66,8 @@ CREATE TABLE periodo_academico (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     inicio_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     finalizacion_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    anio_escolar_id INT(4) NOT NULL,
-    FOREIGN KEY periodo_academico(anio_escolar_id) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    id_anio_escolar INT(4) NOT NULL,
+    FOREIGN KEY periodo_academico(id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -77,8 +77,8 @@ CREATE TABLE periodo_academico (
 CREATE TABLE grado (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre_grado varchar(30) NOT NULL,
-    institucion_id INT(4) NOT NULL,
-    FOREIGN KEY grado(institucion_id) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    id_institucion INT(4) NOT NULL,
+    FOREIGN KEY grado(id_institucion) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -88,8 +88,8 @@ CREATE TABLE grado (
 CREATE TABLE grupo (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre_grupo varchar(30) NOT NULL,
-    grado_id INT(4) NOT NULL,
-    FOREIGN KEY grupo(grado_id) REFERENCES grado(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    id_grado INT(4) NOT NULL,
+    FOREIGN KEY grupo(id_grado) REFERENCES grado(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -313,13 +313,13 @@ VALUES (
 --
 --
 -- TABLA anio_escolar
-INSERT INTO anio_escolar (inicio, fin, institucion_id)
-VALUES ('2020-09-09', '2020-09-09', 1);
+INSERT INTO anio_escolar (inicio, fin, id_institucion)
+VALUES ('2022-01-01', '2022-12-01', 1);
 --
 --
 --
 -- TABLA periodo_academico
-INSERT INTO periodo_academico (inicio_periodo, finalizacion_periodo)
+INSERT INTO periodo_academico (inicio_periodo, finalizacion_periodo, id_anio_escolar)
 VALUES (
         '2022-02-05 23:59:59',
         '2022-02-05 23:59:59',
@@ -329,23 +329,23 @@ VALUES (
 --
 --
 -- TABLA grado
-INSERT INTO grado (nombre_grado, institucion_id)
+INSERT INTO grado (nombre_grado, id_institucion)
 VALUES ('Primero', 1);
-INSERT INTO grado (nombre_grado, institucion_id)
+INSERT INTO grado (nombre_grado, id_institucion)
 VALUES ('Segundo', 1);
-INSERT INTO grado (nombre_grado, institucion_id)
+INSERT INTO grado (nombre_grado, id_institucion)
 VALUES ('Tercero', 1);
 --
 --
 --
 -- TABLA grupo
-INSERT INTO grupo (nombre_grupo, grado_id)
+INSERT INTO grupo (nombre_grupo, id_grado)
 VALUES ('A', 1);
-INSERT INTO grupo (nombre_grupo, grado_id)
+INSERT INTO grupo (nombre_grupo, id_grado)
 VALUES ('B', 1);
-INSERT INTO grupo (nombre_grupo, grado_id)
+INSERT INTO grupo (nombre_grupo, id_grado)
 VALUES ('A', 2);
-INSERT INTO grupo (nombre_grupo, grado_id)
+INSERT INTO grupo (nombre_grupo, id_grado)
 VALUES ('B', 2);
 --
 --

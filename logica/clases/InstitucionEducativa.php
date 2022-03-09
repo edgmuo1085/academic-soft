@@ -99,7 +99,7 @@ class InstitucionEducativa
 
     public function __toString()
     {
-        return $this->nombres;
+        return $this->nombre;
     }
 
     public function guardar()
