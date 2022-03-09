@@ -26,120 +26,119 @@ class Docente
             $this->apellidos = $campo['apellidos'];
             $this->telefono = $campo['telefono'];
             $this->email = $campo['email'];
-            $this->id_asignatura = campo['id_asignatura'];
-            $this->id_grado = campo['id_grado'];
+            $this->id_asignatura = $campo['id_asignatura'];
+            $this->id_grado = $campo['id_grado'];
             $this->direccion = $campo['direccion'];
             $this->estado = $campo['estado'];
         }
     }
-    
-    public function getId() 
+
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getIdentificacion() 
+    public function getIdentificacion()
     {
         return $this->identificacion;
     }
 
-    public function getNombres() 
+    public function getNombres()
     {
         return $this->nombres;
     }
 
-    public function getApellidos() 
+    public function getApellidos()
     {
         return $this->apellidos;
     }
 
-    public function getTelefono() 
+    public function getTelefono()
     {
         return $this->telefono;
     }
 
-    public function getId_asignatura() 
+    public function getId_asignatura()
     {
         return $this->id_asignatura;
     }
 
-    public function getId_grado() 
+    public function getId_grado()
     {
         return $this->id_grado;
     }
 
-    public function getEmail() 
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function getDireccion() 
+    public function getDireccion()
     {
         return $this->direccion;
     }
 
-    public function getEstado() 
+    public function getEstado()
     {
         return $this->estado;
     }
 
-    public function setId($id): void 
+    public function setId($id): void
     {
         $this->id = $id;
     }
 
-    public function setIdentificacion($identificacion): void 
+    public function setIdentificacion($identificacion): void
     {
         $this->identificacion = $identificacion;
     }
 
-    public function setNombres($nombres): void 
+    public function setNombres($nombres): void
     {
         $this->nombres = $nombres;
     }
 
-    public function setApellidos($apellidos): void 
+    public function setApellidos($apellidos): void
     {
         $this->apellidos = $apellidos;
     }
 
-    public function setTelefono($telefono): void 
+    public function setTelefono($telefono): void
     {
         $this->telefono = $telefono;
     }
 
-    public function setId_asignatura($id_asignatura): void 
+    public function setId_asignatura($id_asignatura): void
     {
         $this->id_asignatura = $id_asignatura;
     }
 
-    public function setId_grado($id_grado): void 
+    public function setId_grado($id_grado): void
     {
         $this->id_grado = $id_grado;
     }
 
-    public function setEmail($email): void 
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
 
-    public function setDireccion($direccion): void 
+    public function setDireccion($direccion): void
     {
         $this->direccion = $direccion;
     }
 
-    public function setEstado($estado): void 
+    public function setEstado($estado): void
     {
         $this->estado = $estado;
     }
 
-        
     public function __toString()
     {
         return $this->nombres;
     }
 
-     public function guardar()
+    public function guardar()
     {
         $cadenaSQL = "INSERT INTO docente (identificacion, nombres, apellidos, telefono, id_asignatura, id_grado, email, direccion, estado ) values ('$this->identificacion','$this->nombres','$this->apellidos','$this->telefono','$this->id_asignatura','$this->id_grado','$this->email','$this->direccion','$this->estado'))";
         ConectorBD::ejecutarQuery($cadenaSQL);

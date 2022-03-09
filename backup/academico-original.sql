@@ -1,6 +1,34 @@
 --
--- CREATE DATABASE academico
+-- DROP DATABASE academico;
+-- CREATE DATABASE academico;
+-- USE academico;
 --
+--
+-- CREAR TABLA instinstitucion_educativa
+-- DROP TABLE IF EXISTS institucion_educativa;
+--
+CREATE TABLE institucion_educativa (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre varchar(150) NOT NULL,
+    direccion varchar(40) NULL,
+    telefono varchar(10) DEFAULT NULL,
+    email varchar(40) NOT NULL,
+    nombre_directora varchar(60) NULL,
+    pagina_web varchar(60) NULL
+);
+--
+--
+-- CREAR TABLA roles
+-- DROP TABLE IF EXISTS roles;
+--
+CREATE TABLE roles (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(20) NOT NULL,
+    valor CHAR(3) NOT NULL
+);
+--
+--
+-- CREAR TABLA usuario
 -- DROP TABLE IF EXISTS usuario;
 --
 CREATE TABLE usuario (
@@ -15,10 +43,140 @@ CREATE TABLE usuario (
     rol_id INT(4) NOT NULL,
     estado bit(1) NOT NULL,
     INDEX (rol_id),
-    FOREIGN KEY usuario(rol_id) REFERENCES roles(id)
+    FOREIGN KEY usuario(rol_id) REFERENCES roles(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
----CREATE INDEX id_index ON usuario (id);
 --
+--
+-- CREAR TABLA anio_escolar
+-- DROP TABLE IF EXISTS anio_escolar;
+--
+CREATE TABLE anio_escolar (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    inicio DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    fin DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    institucion_id INT(4) NOT NULL,
+    FOREIGN KEY anio_escolar(institucion_id) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
+-- CREAR TABLA periodo_academico
+-- DROP TABLE IF EXISTS periodo_academico;
+--
+CREATE TABLE periodo_academico (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    inicio_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    finalizacion_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    anio_escolar_id INT(4) NOT NULL,
+    FOREIGN KEY periodo_academico(anio_escolar_id) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
+-- CREAR TABLA grado
+-- DROP TABLE IF EXISTS grado;
+--
+CREATE TABLE grado (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre_grado varchar(30) NOT NULL,
+    institucion_id INT(4) NOT NULL,
+    FOREIGN KEY grado(institucion_id) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
+-- CREAR TABLA grupo
+-- DROP TABLE IF EXISTS grupo;
+--
+CREATE TABLE grupo (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre_grupo varchar(30) NOT NULL,
+    grado_id INT(4) NOT NULL,
+    FOREIGN KEY grupo(grado_id) REFERENCES grado(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
+-- CREAR TABLA asignatura
+-- DROP TABLE IF EXISTS asignatura;
+--
+CREATE TABLE asignatura(
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre_asignatura varchar(30) NOT NULL
+);
+--
+--
+-- CREAR TABLA menu
+-- DROP TABLE IF EXISTS menu;
+--
+CREATE TABLE menu (
+    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(60) NOT NULL,
+    ruta VARCHAR(200) NULL,
+    tipo INT(2) NOT NULL,
+    es_hijo INT(4) NULL,
+    posicion INT(4) NOT NULL,
+    INDEX (es_hijo),
+    FOREIGN KEY (es_hijo) REFERENCES menu(id)
+);
+--
+--
+-- CREAR TABLA permisos
+-- DROP TABLE IF EXISTS permisos;
+--
+CREATE TABLE permisos (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_rol INT(4) NOT NULL,
+    id_menu INT(4) NOT NULL,
+    estado bit(1) NOT NULL,
+    INDEX (id_rol, id_menu),
+    FOREIGN KEY (id_rol) REFERENCES roles(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_menu) REFERENCES menu(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
+--
+--
+--/*************************************************************************************************/
+--
+--
+--
+-- LLENADO DE DATOS PARA LAS TABLAS
+--
+--
+--
+-- TABLA institucion_educativa
+INSERT INTO institucion_educativa (
+        nombre,
+        direccion,
+        telefono,
+        email,
+        nombre_directora,
+        pagina_web
+    )
+VALUES (
+        'Institucion Educativa Departamental',
+        'Cll. 10 # 3 - 0',
+        '1234567',
+        'institucion@gmail.com',
+        'Ana Vasquez',
+        'http://www.institucion.com'
+    );
+--
+--
+-- TABLA roles
+INSERT INTO roles (nombre, valor)
+VALUES ('Secretaria', 'S');
+INSERT INTO roles (nombre, valor)
+VALUES ('Docente', 'D');
+INSERT INTO roles (nombre, valor)
+VALUES ('Acudiente', 'A');
+INSERT INTO roles (nombre, valor)
+VALUES ('Estudiante', 'E');
+INSERT INTO roles (nombre, valor)
+VALUES ('Desconocido', 'N');
+INSERT INTO roles (nombre, valor)
+VALUES ('Root', 'R');
+--
+--
+--
+-- TABLA usuario
 INSERT INTO usuario (
         identificacion,
         nombres,
@@ -154,98 +312,57 @@ VALUES (
 --
 --
 --
-CREATE TABLE institucion_educativa (
-    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre varchar(150) NOT NULL,
-    direccion varchar(40) NULL,
-    telefono varchar(10) DEFAULT NULL,
-    email varchar(40) NOT NULL,
-    nombre_directora varchar(60) NULL,
-    pagina_web varchar(60) NULL
-);
---
-INSERT INTO institucion_educativa (
-        nombre,
-        direccion,
-        telefono,
-        email,
-        nombre_directora,
-        pagina_web
-    )
-VALUES (
-        null,
-        'Institucion Educativa Departamental',
-        'Cll. 10 # 3 - 0',
-        '1234567',
-        'institucion@gmail.com',
-        'Ana Vasquez',
-        'http://www.institucion.com'
-    );
---
-CREATE TABLE asignatura(
-    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre_asignatura varchar(30) NOT NULL
-);
---
-INSERT INTO asignatura (nombre_asignatura)
-VALUES (null, 'Matematicas');
+-- TABLA anio_escolar
+INSERT INTO anio_escolar (inicio, fin, institucion_id)
+VALUES ('2020-09-09', '2020-09-09', 1);
 --
 --
 --
-CREATE TABLE grado (
-    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre_grado varchar(30) NOT NULL
-);
---
-INSERT INTO grado (nombre_grado)
-VALUES (null, 'Quinto');
---
---
-CREATE TABLE anio_escolar (
-    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    inicio DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    fin DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-);
---
-INSERT INTO anio_escolar (inicio, fin)
-VALUES ('2020-09-09', '2020-09-09');
---
---
---
-CREATE TABLE grupo (
-    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre_grupo varchar(30) NOT NULL
-);
---
-INSERT INTO grupo (nombre_grupo)
-VALUES ('Capitanes');
---
---
---
-CREATE TABLE periodo_academico (
-    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    inicio_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    finalizacion_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
---
+-- TABLA periodo_academico
 INSERT INTO periodo_academico (inicio_periodo, finalizacion_periodo)
 VALUES (
         '2022-02-05 23:59:59',
-        '2022-02-05 23:59:59'
+        '2022-02-05 23:59:59',
+        1
     );
 --
 --
 --
-CREATE TABLE menu (
-    id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(60) NOT NULL,
-    ruta VARCHAR(200) NULL,
-    tipo INT(2) NOT NULL,
-    es_hijo INT(4) NULL,
-    posicion INT(4) NOT NULL,
-    INDEX (es_hijo),
-    FOREIGN KEY (es_hijo) REFERENCES menu(id)
-);
+-- TABLA grado
+INSERT INTO grado (nombre_grado, institucion_id)
+VALUES ('Primero', 1);
+INSERT INTO grado (nombre_grado, institucion_id)
+VALUES ('Segundo', 1);
+INSERT INTO grado (nombre_grado, institucion_id)
+VALUES ('Tercero', 1);
+--
+--
+--
+-- TABLA grupo
+INSERT INTO grupo (nombre_grupo, grado_id)
+VALUES ('A', 1);
+INSERT INTO grupo (nombre_grupo, grado_id)
+VALUES ('B', 1);
+INSERT INTO grupo (nombre_grupo, grado_id)
+VALUES ('A', 2);
+INSERT INTO grupo (nombre_grupo, grado_id)
+VALUES ('B', 2);
+--
+--
+--
+-- TABLA asignatura
+INSERT INTO asignatura (nombre_asignatura)
+VALUES ('Matematicas');
+INSERT INTO asignatura (nombre_asignatura)
+VALUES ('Sociales');
+INSERT INTO asignatura (nombre_asignatura)
+VALUES ('Castellano');
+INSERT INTO asignatura (nombre_asignatura)
+VALUES ('Inglés');
+--
+--
+--
+-- TABLA menu
 /*
  -- (tipo) = > 1: Padre, 2: Hijo,
  -- es_hijo: id del padre a quien pertenece el submenu
@@ -324,6 +441,14 @@ VALUES (
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
+        'Cerrar sesión',
+        'index.php',
+        2,
+        8,
+        9
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
         'Docentes',
         '#',
         1,
@@ -351,22 +476,13 @@ VALUES (
         'Consultar Notas',
         '#',
         2,
-        2,
+        12,
         13
     );
 --
 --
 --
-CREATE TABLE permisos (
-    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_rol INT(4) NOT NULL,
-    id_menu INT(4) NOT NULL,
-    estado bit(1) NOT NULL,
-    INDEX (id_rol, id_menu),
-    FOREIGN KEY (id_rol) REFERENCES roles(id),
-    FOREIGN KEY (id_menu) REFERENCES menu(id)
-);
---
+-- TABLA permisos
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 1, true);
 INSERT INTO permisos (id_rol, id_menu, estado)
@@ -420,24 +536,9 @@ VALUES (1, 27, true);
 --
 --
 --
-CREATE TABLE roles (
-    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(20) NOT NULL,
-    valor CHAR(3) NOT NULL
-);
 --
-INSERT INTO roles (nombre, valor)
-VALUES ('Secretaria', 'S');
-INSERT INTO roles (nombre, valor)
-VALUES ('Docente', 'D');
-INSERT INTO roles (nombre, valor)
-VALUES ('Acudiente', 'A');
-INSERT INTO roles (nombre, valor)
-VALUES ('Estudiante', 'E');
-INSERT INTO roles (nombre, valor)
-VALUES ('Desconocido', 'N');
-INSERT INTO roles (nombre, valor)
-VALUES ('Root', 'R');
+--
+--
 --
 --
 --
@@ -491,3 +592,6 @@ group by index_schema,
     table_name
 order by index_schema,
     index_name;
+--
+--
+---CREATE INDEX id_index ON usuario (id);
