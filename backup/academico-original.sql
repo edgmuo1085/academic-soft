@@ -276,6 +276,14 @@ VALUES (
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
+        'Asignatura',
+        'principal.php?CONTENIDO=layout/components/lista-asignatura.php',
+        1,
+        null,
+        7
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
         'Periodo Academico',
         'principal.php?CONTENIDO=layout/components/lista-periodo.php',
         2,
@@ -316,11 +324,35 @@ VALUES (
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
-        'Cerrar sesión',
-        'index.php',
+        'Docentes',
+        '#',
+        1,
+        null,
+        10
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Estudiantes',
+        '#',
+        1,
+        null,
+        11
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Notas',
+        '#',
+        1,
+        null,
+        12
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Consultar Notas',
+        '#',
         2,
-        8,
-        9
+        2,
+        13
     );
 --
 --
@@ -337,8 +369,6 @@ CREATE TABLE permisos (
 --
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 1, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 8, true);
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (2, 1, true);
 INSERT INTO permisos (id_rol, id_menu, estado)
@@ -361,6 +391,32 @@ INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (6, 6, true);
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (6, 7, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 7, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 8, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 8, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 2, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 3, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 4, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (5, 5, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 6, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 21, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 24, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 25, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 26, true);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 27, true);
 --
 --
 --
