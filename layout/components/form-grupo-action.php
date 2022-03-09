@@ -7,11 +7,13 @@ $grupo = new Grupo(null, null);
 switch ($_REQUEST['accion']) {
     case 'Adicionar':
         $grupo->setNombreGrupo($_REQUEST['nombre_grupo']);
+        $grupo->setIdGrado($_REQUEST['id_grado']);
         $grupo->guardar();
         break;
     case 'Modificar':
         $grupo->setId($_REQUEST['id']);
         $grupo->setNombreGrupo($_REQUEST['nombre_grupo']);
+        $grupo->setIdGrado($_REQUEST['id_grado']);
         $grupo->modificar($_REQUEST['id']);
         break;
     case 'Eliminar':

@@ -5,13 +5,25 @@ $titulo = 'Adicionar';
 $iniciaPeriodo = '';
 $finPeriodo = '';
 $idPeriodo = null;
+$idPeriodoAca = '';
+$selected = '';
+$selectMenu = '';
+
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new PeriodoAcademico('id', $_REQUEST['id']);
     $periodo = PeriodoAcademico::getListaEnObjetos("id={$array->getId()}", null)[0];
     $iniciaPeriodo = Fecha::convertDate($array->getInicioPeriodo(), false);
     $finPeriodo = Fecha::convertDate($array->getFinalizacionPeriodo(), false);
+    $idPeriodoAca = $array->getIdAnioEscolar();
     $idPeriodo = $array->getId();
+}
+
+$totalAnioEscolar = AnioEscolar::getListaEnObjetos(null, null);
+
+foreach ($totalAnioEscolar as $param) {
+    $selected = $param->getId() == $idPeriodoAca ? 'selected' : '';
+    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' > Inicia: [' . Fecha::convertDate($param->getInicio(), false).'] - Finaliza: ['. Fecha::convertDate($param->getFin(), false)  . ']</option>';
 }
 ?>
 
@@ -24,7 +36,7 @@ if (isset($_REQUEST['id'])) {
 <div class="as-form-content">
     <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-periodo-action.php" autocomplete="off">
         <div class="as-form-margin">
-            <h2>Año escolar</h2>
+            <h2>Periodo Académico</h2>
             <div class="as-form-fields">
                 <div class="as-form-input">
                     <label class="hide-label" for="inicio">Inicio del periodo</label>
@@ -35,6 +47,16 @@ if (isset($_REQUEST['id'])) {
                 <div class="as-form-input">
                     <label class="hide-label" for="fin">Finalización del periodo</label>
                     <input type="text" name="fin" id="fin" value="<?php echo $finPeriodo; ?>" required placeholder="Finalización del periodo">
+                </div>
+            </div>
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="fin">Periodo Académico</label>
+                    <select class="as-form-select" name="id_anio_escolar" id="id_anio_escolar">
+                        <?php
+                        echo $selectMenu;
+                        ?>
+                    </select>
                 </div>
             </div>
             <div class="as-form-button">
