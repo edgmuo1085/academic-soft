@@ -40,7 +40,7 @@ foreach ($totalInstituciones as $param) {
             <div class="as-form-fields">
                 <div class="as-form-input">
                     <label class="hide-label" for="inicio">Inicio</label>
-                    <input type="text" name="inicio" id="inicio" value="<?php echo $inicio; ?>" required placeholder="Fecha inicial">
+                    <input type="text" name="inicio" id="inicio" value="<?php echo $inicio; ?>" required disabled placeholder="Fecha inicial">
                 </div>
             </div>
             <div class="as-form-fields">
@@ -69,14 +69,3 @@ foreach ($totalInstituciones as $param) {
         <input type="hidden" name="accion" value="<?= $titulo ?>">
     </form>
 </div>
-
-<script>
-    $(function() {
-        $("#inicio").datepicker({
-            dateFormat: "dd-mm-yy"
-        });
-        $("#fin").datepicker({
-            dateFormat: "dd-mm-yy"
-        });
-    });
-</script>

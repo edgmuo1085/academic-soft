@@ -3,6 +3,7 @@
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $institution = InstitucionEducativa::getListaEnObjetos('id=1', null)[0];
+$USUARIO = unserialize($_SESSION['usuario']);
 ?>
 
 <div class="as-layout-institucion">
@@ -57,9 +58,17 @@ $institution = InstitucionEducativa::getListaEnObjetos('id=1', null)[0];
         </div>
     </div>
 
-    <div class="as-form-button">
-        <a href="principal.php?CONTENIDO=layout/components/form-institution.php&id=<?= $institution->getId(); ?>" class="as-color-btn-green">
-            Editar información
-        </a>
-    </div>
+    <?php
+    $editar = $USUARIO->getRolId();
+    
+    if ($editar == 1 || $editar == 6) {
+    ?>
+        <div class="as-form-button">
+            <a href="principal.php?CONTENIDO=layout/components/form-institution.php&id=<?= $institution->getId(); ?>" class="as-color-btn-green">
+                Editar información
+            </a>
+        </div>
+    <?php
+    }
+    ?>
 </div>
