@@ -23,7 +23,7 @@ $totalAnioEscolar = AnioEscolar::getListaEnObjetos(null, null);
 
 foreach ($totalAnioEscolar as $param) {
     $selected = $param->getId() == $idPeriodoAca ? 'selected' : '';
-    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' > Inicia: [' . Fecha::convertDate($param->getInicio(), false).'] - Finaliza: ['. Fecha::convertDate($param->getFin(), false)  . ']</option>';
+    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' > Inicia: [' . Fecha::convertDate($param->getInicio(), false) . '] - Finaliza: [' . Fecha::convertDate($param->getFin(), false)  . ']</option>';
 }
 ?>
 
@@ -69,15 +69,3 @@ foreach ($totalAnioEscolar as $param) {
         <input type="hidden" name="accion" value="<?= $titulo ?>">
     </form>
 </div>
-
-
-<script>
-    $(function() {
-        $("#inicio").datepicker({
-            dateFormat: "dd-mm-yy"
-        });
-        $("#fin").datepicker({
-            dateFormat: "dd-mm-yy"
-        });
-    });
-</script>
