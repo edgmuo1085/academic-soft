@@ -23,18 +23,18 @@ $totalAnioEscolar = AnioEscolar::getListaEnObjetos(null, null);
 
 foreach ($totalAnioEscolar as $param) {
     $selected = $param->getId() == $idPeriodoAca ? 'selected' : '';
-    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' > Inicia: [' . Fecha::convertDate($param->getInicio(), false).'] - Finaliza: ['. Fecha::convertDate($param->getFin(), false)  . ']</option>';
+    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' > Inicia: [' . Fecha::convertDate($param->getInicio(), false) . '] - Finaliza: [' . Fecha::convertDate($param->getFin(), false)  . ']</option>';
 }
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/lista-periodo.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/periodo-academico/lista-periodo.php" class="as-btn-back">
         Regresar
     </a>
 </div>
 
 <div class="as-form-content">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-periodo-action.php" autocomplete="off">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Periodo Académico</h2>
             <div class="as-form-fields">
@@ -69,15 +69,3 @@ foreach ($totalAnioEscolar as $param) {
         <input type="hidden" name="accion" value="<?= $titulo ?>">
     </form>
 </div>
-
-
-<script>
-    $(function() {
-        $("#inicio").datepicker({
-            dateFormat: "dd-mm-yy"
-        });
-        $("#fin").datepicker({
-            dateFormat: "dd-mm-yy"
-        });
-    });
-</script>

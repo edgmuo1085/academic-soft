@@ -14,7 +14,6 @@ switch ($_REQUEST['accion']) {
     $asignatura->guardar();
     break;
   case 'Modificar':
-    $asignatura->setId($_REQUEST['id']);
     $asignatura->setNombreAsignatura($_REQUEST['nombre_asignatura']);
     $asignatura->modificar($_REQUEST['id']);
     break;
@@ -26,5 +25,5 @@ switch ($_REQUEST['accion']) {
 
 ?>
 <script>
-  window.location = 'principal.php?CONTENIDO=layout/components/lista-asignatura.php';
+  window.location = 'principal.php?CONTENIDO=layout/components/asignatura/lista-asignatura.php';
 </script>

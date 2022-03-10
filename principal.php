@@ -1,23 +1,11 @@
 <?php
-require_once 'logica/clasesGenericas/ConectorBD.php';
-require_once 'logica/clasesGenericas/Footer.php';
-require_once 'logica/clasesGenericas/Fecha.php';
-require_once 'logica/clasesGenericas/MenuLista.php';
-require_once 'logica/clases/Usuario.php';
-require_once 'logica/clases/Rol.php';
-require_once 'logica/clases/InstitucionEducativa.php';
-require_once 'logica/clases/Asignatura.php';
-require_once 'logica/clases/Grado.php';
-require_once 'logica/clases/AnioEscolar.php';
-require_once 'logica/clases/Grupo.php';
-require_once 'logica/clases/PeriodoAcademico.php';
-require_once 'logica/clases/Menu.php';
-require_once 'logica/clases/Permiso.php';
+include 'logica/clasesGenericas/Librerias.php';
 
 date_default_timezone_set('America/Bogota');
 session_start();
 if (!isset($_SESSION['usuario'])) header('location: index.php?mensaje=Acceso no autorizado');
 $USUARIO = unserialize($_SESSION['usuario']);
+$roles = Rol::getListaEnObjetos("id={$USUARIO->getRolId()}", null)[0];
 ?>
 
 <!doctype html>
@@ -57,11 +45,16 @@ $USUARIO = unserialize($_SESSION['usuario']);
     <span class="as-nav-bar" id="as-menu-btn"><i class="fas fa-bars"></i> <span>Menú</span></span>
     <nav class="as-main-nav">
         <ul class="as-menu" id="as-menu">
+            <li class="menu__item"><a href="principal.php?CONTENIDO=layout/inicio.php" class="as-menu__link">Inicio</a></li>
             <?php
             $menu = MenuLista::getMenu($USUARIO->getRolId());
             echo $menu;
             ?>
-        </ul>
+            <li class="menu__item as-dropdown-submenu"><a href="#" class="as-menu__link as-submenu-btn"> <span>Perfil <?php echo $roles->getNombre(); ?> </span> <i class="fas fa-chevron-down"></i></a>
+                <ul class="as-submenu">
+                    <li class="menu__item"><a href="index.php" class="as-menu__link as-submenu-color">Cerrar sesión</a></li>
+                </ul>
+            </li>
     </nav>
 
 

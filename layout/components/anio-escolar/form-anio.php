@@ -12,7 +12,6 @@ $selectMenu = '';
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new AnioEscolar('id', $_REQUEST['id']);
-    $grado = AnioEscolar::getListaEnObjetos("id={$array->getId()}", null, null)[0];
     $inicio = Fecha::convertDate($array->getInicio(), false);
     $fin = Fecha::convertDate($array->getFin(), false);
     $idInstitucion = $array->getIdInstitucion();
@@ -28,13 +27,13 @@ foreach ($totalInstituciones as $param) {
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/lista-anio.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/anio-escolar/lista-anio.php" class="as-btn-back">
         Regresar
     </a>
 </div>
 
 <div class="as-form-content">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-anio-action.php" autocomplete="off">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/anio-escolar/form-anio-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Año escolar</h2>
             <div class="as-form-fields">
@@ -69,14 +68,3 @@ foreach ($totalInstituciones as $param) {
         <input type="hidden" name="accion" value="<?= $titulo ?>">
     </form>
 </div>
-
-<script>
-    $(function() {
-        $("#inicio").datepicker({
-            dateFormat: "dd-mm-yy"
-        });
-        $("#fin").datepicker({
-            dateFormat: "dd-mm-yy"
-        });
-    });
-</script>

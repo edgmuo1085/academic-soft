@@ -25,3 +25,14 @@ for (let index = 0; index < subMenuBtn.length; index++) {
     });
 
 }
+
+
+
+$(function() {
+    $("#inicio").datepicker({
+        dateFormat: "dd-mm-yy"
+    });
+    $("#fin").datepicker({
+        dateFormat: "dd-mm-yy"
+    });
+});

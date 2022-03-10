@@ -11,7 +11,6 @@ $selectMenu = '';
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new Grado('id', $_REQUEST['id']);
-    $grado = Grado::getListaEnObjetos("id={$array->getId()}", null)[0];
     $nameGrado = $array->getNombreGrado();
     $idInstitucion = $array->getIdInstitucion();
     $idGrado = $array->getId();
@@ -26,13 +25,13 @@ foreach ($totalInstituciones as $param) {
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/lista-grado.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/grado/lista-grado.php" class="as-btn-back">
         Regresar
     </a>
 </div>
 
 <div class="as-form-content">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-grado-action.php" autocomplete="off">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/grado/form-grado-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Nombre del grado</h2>
             <div class="as-form-fields">

@@ -11,7 +11,6 @@ $selectMenu = '';
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new Grupo('id', $_REQUEST['id']);
-    $grupo = Grupo::getListaEnObjetos("id={$array->getId()}", null)[0];
     $nameGrupo = $array->getNombreGrupo();
     $idGrado = $array->getIdGrado();
     $idGrupo = $array->getId();
@@ -26,13 +25,13 @@ foreach ($totalGrados as $param) {
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/lista-grupo.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/grupo/lista-grupo.php" class="as-btn-back">
         Regresar
     </a>
 </div>
 
 <div class="as-form-content">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-grupo-action.php" autocomplete="off">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/grupo/form-grupo-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Nombre del grupo</h2>
             <div class="as-form-fields">

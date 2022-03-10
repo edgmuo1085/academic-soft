@@ -41,7 +41,7 @@ CREATE TABLE usuario (
     direccion varchar(30) DEFAULT NULL,
     clave varchar(40) DEFAULT NULL,
     rol_id INT(4) NOT NULL,
-    estado bit(1) NOT NULL,
+    estado INT(1) NOT NULL,
     INDEX (rol_id),
     FOREIGN KEY usuario(rol_id) REFERENCES roles(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -102,6 +102,20 @@ CREATE TABLE asignatura(
 );
 --
 --
+-- CREAR TABLA grupo_estudiante
+-- DROP TABLE IF EXISTS grupo_estudiante;
+--
+CREATE TABLE grupo_estudiante (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT(4) NOT NULL,
+    id_grupo INT(4) NOT NULL,
+    id_anio_escolar INT(4) NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_grupo) REFERENCES grupo(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
 -- CREAR TABLA menu
 -- DROP TABLE IF EXISTS menu;
 --
@@ -124,7 +138,7 @@ CREATE TABLE permisos (
     id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_rol INT(4) NOT NULL,
     id_menu INT(4) NOT NULL,
-    estado bit(1) NOT NULL,
+    estado INT(1) NOT NULL,
     INDEX (id_rol, id_menu),
     FOREIGN KEY (id_rol) REFERENCES roles(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (id_menu) REFERENCES menu(id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -190,14 +204,14 @@ INSERT INTO usuario (
     )
 VALUES (
         '100100',
-        'Pedro',
-        'Cifuentes',
+        'Martha',
+        'Ordoñez',
         '12344321',
         'test@gmail.com',
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
         1,
-        true
+        1
     );
 INSERT INTO usuario(
         identificacion,
@@ -219,7 +233,7 @@ VALUES (
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
         2,
-        true
+        1
     );
 INSERT INTO usuario(
         identificacion,
@@ -234,14 +248,14 @@ INSERT INTO usuario(
     )
 VALUES (
         '100102',
-        'Pedro',
-        'Cifuentes',
+        'Tipo',
+        'Peralta',
         '12344321',
         'test@gmail.com',
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
         3,
-        true
+        1
     );
 INSERT INTO usuario(
         identificacion,
@@ -256,14 +270,14 @@ INSERT INTO usuario(
     )
 VALUES (
         '100103',
-        'Pedro',
-        'Cifuentes',
+        'Carlos',
+        'Zambrano',
         '12344321',
         'test@gmail.com',
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
         4,
-        true
+        1
     );
 INSERT INTO usuario(
         identificacion,
@@ -285,7 +299,7 @@ VALUES (
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
         5,
-        true
+        1
     );
 INSERT INTO usuario(
         identificacion,
@@ -307,7 +321,7 @@ VALUES (
         'Cll. 19 # 3 - 1',
         '202cb962ac59075b964b07152d234b70',
         6,
-        true
+        1
     );
 --
 --
@@ -366,6 +380,12 @@ VALUES ('Inglés');
 --
 --
 --
+-- TABLA grupo_estudiante
+--INSERT INTO grupo_estudiante (id_usuario, id_grupo, id_anio_escolar)
+--VALUES (1, 1, 1);
+--
+--
+--
 -- TABLA menu
 /*
  -- (tipo) = > 1: Padre, 2: Hijo,
@@ -373,75 +393,51 @@ VALUES ('Inglés');
  --*/
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
-        'Inicio',
-        'principal.php?CONTENIDO=layout/inicio.php',
+        'Institución',
+        '#',
         1,
         null,
         1
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
-        'Institución',
-        '#',
+        'Año escolar',
+        'principal.php?CONTENIDO=layout/components/anio-escolar/lista-anio.php',
+        2,
         1,
-        null,
         2
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
-        'Año escolar',
-        'principal.php?CONTENIDO=layout/components/lista-anio.php',
+        'Periodo Academico',
+        'principal.php?CONTENIDO=layout/components/periodo-academico/lista-periodo.php',
         2,
-        2,
+        1,
         3
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
-        'Asignatura',
-        'principal.php?CONTENIDO=layout/components/lista-asignatura.php',
+        'Grados',
+        'principal.php?CONTENIDO=layout/components/grado/lista-grado.php',
+        2,
         1,
-        null,
         4
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
-        'Periodo Academico',
-        'principal.php?CONTENIDO=layout/components/lista-periodo.php',
+        'Grupos',
+        'principal.php?CONTENIDO=layout/components/grupo/lista-grupo.php',
         2,
-        2,
+        1,
         5
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
-        'Grados',
-        'principal.php?CONTENIDO=layout/components/lista-grado.php',
-        2,
-        2,
-        6
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
-        'Grupos',
-        'principal.php?CONTENIDO=layout/components/lista-grupo.php',
-        2,
-        2,
-        7
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
-        'Perfil',
-        '#',
+        'Asignatura',
+        'principal.php?CONTENIDO=layout/components/asignatura/lista-asignatura.php',
         1,
         null,
-        8
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
-        'Cerrar sesión',
-        'index.php',
-        2,
-        8,
-        9
+        6
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -449,7 +445,23 @@ VALUES (
         '#',
         1,
         null,
-        10
+        7
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Personal Docente',
+        'principal.php?CONTENIDO=layout/components/docente/lista-docente.php',
+        2,
+        7,
+        8
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Asignación Docente',
+        '#',
+        2,
+        7,
+        9
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -457,7 +469,23 @@ VALUES (
         '#',
         1,
         null,
+        10
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Listado',
+        'principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante.php',
+        2,
+        10,
         11
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Inasistencias',
+        '#',
+        2,
+        10,
+        12
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -465,148 +493,119 @@ VALUES (
         '#',
         1,
         null,
-        12
+        13
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
         'Consultar Notas',
         '#',
         2,
-        12,
-        13
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
-        'Personal Docente',
-        '#',
-        2,
-        10,
+        13,
         14
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
-        'Asignación Docente',
-        '#',
-        2,
-        10,
-        15
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
         'Imprimir Notas',
         '#',
         2,
-        12,
-        16
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
-        'Listado',
-        '#',
-        2,
-        11,
-        17
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
-        'Inasistencias',
-        '#',
-        2,
-        11,
-        18
+        13,
+        15
     );
 --
 --
 --
 -- TABLA permisos
 -- rol = 6 Super Admin
-VALUES (6, 1, true);
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 2, true);
+VALUES (6, 1, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 3, true);
+VALUES (6, 2, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 4, true);
+VALUES (6, 3, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 5, true);
+VALUES (6, 4, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 6, true);
+VALUES (6, 5, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 7, true);
+VALUES (6, 6, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 8, true);
+VALUES (6, 7, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 9, true);
+VALUES (6, 8, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 10, true);
+VALUES (6, 9, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 11, true);
+VALUES (6, 10, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 12, true);
+VALUES (6, 11, 1);
+--
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 13, true);
+VALUES (6, 12, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 13, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 14, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 15, 1);
+--
 --rol=1 secretaria
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 1, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 2, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 3, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 4, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 5, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 6, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 7, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 8, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 9, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 10, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 11, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 12, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 13, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 14, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 15, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 17, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 18, true);
--- menu inicio y cerrar sesion a los demas roles
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 1, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 8, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 9, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (3, 1, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (3, 8, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (3, 9, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (4, 1, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (4, 8, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (4, 9, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (5, 1, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (5, 8, true);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (5, 9, true);
+VALUES (1, 1, 1);
 --
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 2, 1);
 --
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 3, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 4, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 5, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 6, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 7, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 8, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 9, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 10, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 11, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 12, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 13, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 14, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 15, 1);
 --
 --
 --
@@ -647,10 +646,6 @@ VALUES (5, 9, true);
 --
 --
 --
-CREATE TABLE name_table ();
---
-INSERT INTO name_table ()
-VALUES ();
 --
 --
 --

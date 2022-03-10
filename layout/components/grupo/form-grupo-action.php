@@ -11,7 +11,6 @@ switch ($_REQUEST['accion']) {
         $grupo->guardar();
         break;
     case 'Modificar':
-        $grupo->setId($_REQUEST['id']);
         $grupo->setNombreGrupo($_REQUEST['nombre_grupo']);
         $grupo->setIdGrado($_REQUEST['id_grado']);
         $grupo->modificar($_REQUEST['id']);
@@ -23,5 +22,5 @@ switch ($_REQUEST['accion']) {
 }
 ?>
 <script>
-    window.location = 'principal.php?CONTENIDO=layout/components/lista-grupo.php';
+    window.location = 'principal.php?CONTENIDO=layout/components/grupo/lista-grupo.php';
 </script>
