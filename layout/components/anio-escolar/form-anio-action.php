@@ -11,7 +11,6 @@ switch ($_REQUEST['accion']) {
         $anioEscolar->guardar();
         break;
     case 'Modificar':
-        $anioEscolar->setId($_REQUEST['id']);
         $anioEscolar->setInicio(Fecha::convertDate($_REQUEST['inicio'], true));
         $anioEscolar->setFin(Fecha::convertDate($_REQUEST['fin'], true));
         $anioEscolar->setIdInstitucion($_REQUEST['id_institucion']);
@@ -24,5 +23,5 @@ switch ($_REQUEST['accion']) {
 }
 ?>
 <script>
-    window.location = 'principal.php?CONTENIDO=layout/components/lista-anio.php';
+    window.location = 'principal.php?CONTENIDO=layout/components/anio-escolar/lista-anio.php';
 </script>

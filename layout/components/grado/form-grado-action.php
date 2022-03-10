@@ -11,7 +11,6 @@ switch ($_REQUEST['accion']) {
         $grado->guardar();
         break;
     case 'Modificar':
-        $grado->setId($_REQUEST['id']);
         $grado->setNombreGrado($_REQUEST['nombre_grado']);
         $grado->setIdInstitucion($_REQUEST['id_institucion']);
         $grado->modificar($_REQUEST['id']);
@@ -23,5 +22,5 @@ switch ($_REQUEST['accion']) {
 }
 ?>
 <script>
-    window.location = 'principal.php?CONTENIDO=layout/components/lista-grado.php';
+    window.location = 'principal.php?CONTENIDO=layout/components/grado/lista-grado.php';
 </script>

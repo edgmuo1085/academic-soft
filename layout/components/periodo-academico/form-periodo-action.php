@@ -12,7 +12,6 @@ switch ($_REQUEST['accion']) {
         $periodo->guardar();
         break;
     case 'Modificar':
-        $periodo->setId($_REQUEST['id']);
         $periodo->setInicioPeriodo(Fecha::convertDate($_REQUEST['inicio'], true));
         $periodo->setFinalizacionPeriodo(Fecha::convertDate($_REQUEST['fin'], true));
         $periodo->setIdAnioEscolar($_REQUEST['id_anio_escolar']);
@@ -25,5 +24,5 @@ switch ($_REQUEST['accion']) {
 }
 ?>
 <script>
-    window.location = 'principal.php?CONTENIDO=layout/components/lista-periodo.php';
+    window.location = 'principal.php?CONTENIDO=layout/components/periodo-academico/lista-periodo.php';
 </script>
