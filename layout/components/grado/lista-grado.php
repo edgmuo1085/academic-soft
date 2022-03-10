@@ -12,7 +12,7 @@ foreach ($gradoList as $item) {
     $lista .= "<td>{$item->getNombreGrado()}</td>";
     $lista .= "<td>{$item->getNombreInstitucion()}</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/form-grado.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/grado/form-grado.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";
     $lista .= "</td>";
     $lista .= "</tr>";
@@ -26,7 +26,7 @@ foreach ($gradoList as $item) {
         <h3 class="as-title-table">LISTADO DE GRADOS</h3>
     </div>
     <div class="as-form-button-back">
-        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/form-grado.php">Agregar grado</a>
+        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/grado/form-grado.php">Agregar grado</a>
     </div>
     <div>
         <table class="as-table">
@@ -48,6 +48,6 @@ foreach ($gradoList as $item) {
 <script type="text/javascript">
     function eliminar(id) {
         var respuesta = confirm("Esta seguro de eliminar este registro?");
-        if (respuesta) location = "principal.php?CONTENIDO=layout/components/form-grado-action.php&accion=Eliminar&id=" + id;
+        if (respuesta) location = "principal.php?CONTENIDO=layout/components/grado/form-grado-action.php&accion=Eliminar&id=" + id;
     }
 </script>

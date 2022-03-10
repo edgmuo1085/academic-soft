@@ -2,19 +2,20 @@
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location: ../../index.php?mensaje=Acceso no autorizado');
 $titulo = 'Adicionar';
-$nameGrado = '';
-$idGrado = null;
+$inicio = '';
+$fin = '';
+$idAnioEscolar = null;
 $idInstitucion = '';
 $selected = '';
 $selectMenu = '';
 
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
-    $array = new Grado('id', $_REQUEST['id']);
-    $grado = Grado::getListaEnObjetos("id={$array->getId()}", null)[0];
-    $nameGrado = $array->getNombreGrado();
+    $array = new AnioEscolar('id', $_REQUEST['id']);
+    $inicio = Fecha::convertDate($array->getInicio(), false);
+    $fin = Fecha::convertDate($array->getFin(), false);
     $idInstitucion = $array->getIdInstitucion();
-    $idGrado = $array->getId();
+    $idAnioEscolar = $array->getId();
 }
 
 $totalInstituciones = InstitucionEducativa::getListaEnObjetos(null, null);
@@ -26,24 +27,30 @@ foreach ($totalInstituciones as $param) {
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/lista-grado.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/anio-escolar/lista-anio.php" class="as-btn-back">
         Regresar
     </a>
 </div>
 
 <div class="as-form-content">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-grado-action.php" autocomplete="off">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/anio-escolar/form-anio-action.php" autocomplete="off">
         <div class="as-form-margin">
-            <h2>Nombre del grado</h2>
+            <h2>Año escolar</h2>
             <div class="as-form-fields">
                 <div class="as-form-input">
-                    <label class="hide-label" for="nombre_grado">Nombre</label>
-                    <input type="text" name="nombre_grado" id="nombre_grado" value="<?php echo $nameGrado; ?>" required placeholder="Nombre del grado">
+                    <label class="hide-label" for="inicio">Inicio</label>
+                    <input type="text" name="inicio" id="inicio" value="<?php echo $inicio; ?>" required placeholder="Fecha inicial">
                 </div>
             </div>
             <div class="as-form-fields">
                 <div class="as-form-input">
-                    <label class="hide-label" for="fin">Intitución</label>
+                    <label class="hide-label" for="fin">Fin</label>
+                    <input type="text" name="fin" id="fin" value="<?php echo $fin; ?>" required placeholder="Fecha final">
+                </div>
+            </div>
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="fin">Institución</label>
                     <select class="as-form-select" name="id_institucion" id="id_institucion">
                         <?php
                         echo $selectMenu;
@@ -57,7 +64,7 @@ foreach ($totalInstituciones as $param) {
                 </button>
             </div>
         </div>
-        <input type="hidden" name="id" value="<?php echo $idGrado; ?>">
+        <input type="hidden" name="id" value="<?php echo $idAnioEscolar; ?>">
         <input type="hidden" name="accion" value="<?= $titulo ?>">
     </form>
 </div>

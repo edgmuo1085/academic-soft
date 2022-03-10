@@ -13,7 +13,7 @@ foreach ($periodoList as $item) {
     $lista .= "<td>" . Fecha::convertDate($item->getFinalizacionPeriodo(), false) . "</td>";
     $lista .= "<td>" . $item->getAnioEscolar() . "</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/form-periodo.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";
     $lista .= "</td>";
     $lista .= "</tr>";
@@ -27,7 +27,7 @@ foreach ($periodoList as $item) {
         <h4 class="as-title-table">Año escolar comprendido entre el 2022-02-05 23:59:59 y 2022-02-05 23:59:59</h4>
     </div>
     <div class="as-form-button-back">
-        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/form-periodo.php">Agregar Periodo</a>
+        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo.php">Agregar Periodo</a>
     </div>
     <div>
         <table class="as-table">
@@ -50,6 +50,6 @@ foreach ($periodoList as $item) {
 <script type="text/javascript">
     function eliminar(id) {
         var respuesta = confirm("Esta seguro de eliminar este registro?");
-        if (respuesta) location = "principal.php?CONTENIDO=layout/components/form-periodo-action.php&accion=Eliminar&id=" + id;
+        if (respuesta) location = "principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo-action.php&accion=Eliminar&id=" + id;
     }
 </script>

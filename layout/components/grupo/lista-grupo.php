@@ -12,7 +12,7 @@ foreach ($grupoList as $item) {
     $lista .= "<td>{$item->getNombreGrupo()}</td>";
     $lista .= "<td>{$item->getNombreGrado()}</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/form-grupo.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/grupo/form-grupo.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";
     $lista .= "</td>";
     $lista .= "</tr>";
@@ -26,7 +26,7 @@ foreach ($grupoList as $item) {
         <h3 class="as-title-table">LISTADO DE GRUPOS</h3>
     </div>
     <div class="as-form-button-back">
-        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/form-grupo.php">Agregar grupo</a>
+        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/grupo/form-grupo.php">Agregar grupo</a>
     </div>
     <div>
         <table class="as-table">
@@ -48,6 +48,6 @@ foreach ($grupoList as $item) {
 <script type="text/javascript">
     function eliminar(id) {
         var respuesta = confirm("Esta seguro de eliminar este registro?");
-        if (respuesta) location = "principal.php?CONTENIDO=layout/components/form-grupo-action.php&accion=Eliminar&id=" + id;
+        if (respuesta) location = "principal.php?CONTENIDO=layout/components/grupo/form-grupo-action.php&accion=Eliminar&id=" + id;
     }
 </script>

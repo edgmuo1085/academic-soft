@@ -8,20 +8,19 @@ $idCouse = null;
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new Asignatura('id', $_REQUEST['id']);
-    $asignatura = Asignatura::getListaEnObjetos("id={$array->getId()}", null)[0];
     $nameCourse = $array->getNombreAsignatura();
     $idCouse = $array->getId();
 }
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/lista-asignatura.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/asignatura/lista-asignatura.php" class="as-btn-back">
         Regresar
     </a>
 </div>
 
 <div class="as-form-content">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/form-asignatura-action.php" autocomplete="off">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/asignatura/form-asignatura-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Nombre de la asignatura</h2>
             <div class="as-form-fields">

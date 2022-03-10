@@ -145,14 +145,16 @@ class Usuario
 
     public function guardar()
     {
-        $cadenaSQL = "INSERT INTO usuario (identificacion, nombres, apellidos, telefono, email, direccion, clave, rol_id, estado ) values ('$this->identificacion','$this->nombres','$this->apellidos','$this->telefono','$this->email','$this->direccion',md5('$this->clave','$this->rol_id','$this->estado'))";
+        $clave = md5($this->identificacion);
+        $cadenaSQL = "INSERT INTO usuario (identificacion, nombres, apellidos, telefono, email, direccion, clave, rol_id, estado ) values ('$this->identificacion', '$this->nombres', '$this->apellidos', '$this->telefono', '$this->email', '$this->direccion', '$clave', '$this->rol_id', '$this->estado')";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function modificar($ID)
     {
-        if (strlen($this->clave) < 32) $clave = md5($this->clave);
-        $cadenaSQL = "UPDATE usuario SET identificacion='{$this->identificacion}', nombres='{$this->nombres}', apellidos='{$this->apellidos}', telefono='{$this->telefono}', email='{$this->email}', direccion='{$this->direccion}', clave='{$this->clave}', rol_id='{$this->rol_id}', estado='{$this->estado}' WHERE id='{$ID}'";
+        $clave = md5($this->clave);
+        $cadenaSQL = $this->clave ? "UPDATE usuario SET identificacion='{$this->identificacion}', nombres='{$this->nombres}', apellidos='{$this->apellidos}', telefono='{$this->telefono}', email='{$this->email}', direccion='{$this->direccion}', clave='{$clave}', rol_id='{$this->rol_id}', estado='{$this->estado}' WHERE id='{$ID}'" :
+            "UPDATE usuario SET identificacion='{$this->identificacion}', nombres='{$this->nombres}', apellidos='{$this->apellidos}', telefono='{$this->telefono}', email='{$this->email}', direccion='{$this->direccion}', rol_id='{$this->rol_id}', estado='{$this->estado}' WHERE id='{$ID}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

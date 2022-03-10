@@ -60,11 +60,10 @@ $USUARIO = unserialize($_SESSION['usuario']);
 
     <?php
     $editar = $USUARIO->getRolId();
-    
     if ($editar == 1 || $editar == 6) {
     ?>
         <div class="as-form-button">
-            <a href="principal.php?CONTENIDO=layout/components/form-institution.php&id=<?= $institution->getId(); ?>" class="as-color-btn-green">
+            <a href="principal.php?CONTENIDO=layout/components/institucion/form-institution.php&id=<?= $institution->getId(); ?>" class="as-color-btn-green">
                 Editar información
             </a>
         </div>
