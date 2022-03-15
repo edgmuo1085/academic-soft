@@ -4,6 +4,7 @@ include 'logica/clasesGenericas/Librerias.php';
 date_default_timezone_set('America/Bogota');
 session_start();
 if (!isset($_SESSION['usuario'])) header('location: index.php?mensaje=Acceso no autorizado');
+$USUARIO = '';
 $USUARIO = unserialize($_SESSION['usuario']);
 $roles = Rol::getListaEnObjetos("id={$USUARIO->getRolId()}", null)[0];
 ?>

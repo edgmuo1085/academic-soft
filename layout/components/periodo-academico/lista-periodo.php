@@ -13,8 +13,8 @@ foreach ($periodoList as $item) {
     $lista .= "<td>" . Fecha::convertDate($item->getFinalizacionPeriodo(), false) . "</td>";
     $lista .= "<td>" . $item->getAnioEscolar() . "</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
+    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2) . "</span>";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;
@@ -29,7 +29,7 @@ foreach ($periodoList as $item) {
     <div class="as-form-button-back">
         <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo.php">Agregar Periodo</a>
     </div>
-    <div>
+    <div class="as-table-responsive">
         <table class="as-table">
             <thead>
                 <tr>

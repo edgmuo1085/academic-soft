@@ -116,6 +116,24 @@ CREATE TABLE grupo_estudiante (
 );
 --
 --
+-- CREAR TABLA asignacion_docente
+-- DROP TABLE IF EXISTS asignacion_docente;
+--
+CREATE TABLE asignacion_docente (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_usuario_docente INT(4) NOT NULL,
+    id_anio_escolar INT(4) NOT NULL,
+    id_asignatura INT(4) NOT NULL,
+    id_grado INT(4) NOT NULL,
+    link_clase_virtual TEXT NULL,
+    intensidad_horaria DOUBLE NULL,
+    FOREIGN KEY (id_usuario_docente) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_grado) REFERENCES grado(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
 -- CREAR TABLA menu
 -- DROP TABLE IF EXISTS menu;
 --
@@ -457,7 +475,7 @@ VALUES (
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
-        'Asignación Docente',
+        'principal.php?CONTENIDO=layout/components/docente/lista-asignacion-docente.php',
         '#',
         2,
         7,
@@ -691,6 +709,7 @@ group by index_schema,
     non_unique,
     table_name
 order by index_schema,
+    table_name,
     index_name;
 --
 --
