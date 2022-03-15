@@ -17,7 +17,7 @@ class Usuario
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "select id, identificacion, nombres, apellidos, telefono, email, direccion, clave, rol_id, estado clave from usuario where $campo=$valor";
+                $cadenaSQL = "select id, identificacion, nombres, apellidos, telefono, email, direccion, clave, rol_id, estado from usuario where $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
             $this->id = $campo['id'];

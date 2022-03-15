@@ -13,3 +13,5 @@ require_once 'logica/clases/Grupo.php';
 require_once 'logica/clases/PeriodoAcademico.php';
 require_once 'logica/clases/Menu.php';
 require_once 'logica/clases/Permiso.php';
+require_once 'logica/clases/AsignacionDocente.php';
+require_once 'logica/clasesGenericas/Generalidades.php';

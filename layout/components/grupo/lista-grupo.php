@@ -12,8 +12,8 @@ foreach ($grupoList as $item) {
     $lista .= "<td>{$item->getNombreGrupo()}</td>";
     $lista .= "<td>{$item->getNombreGrado()}</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/grupo/form-grupo.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/grupo/form-grupo.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
+    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2) . "</span>";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;
@@ -28,7 +28,7 @@ foreach ($grupoList as $item) {
     <div class="as-form-button-back">
         <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/grupo/form-grupo.php">Agregar grupo</a>
     </div>
-    <div>
+    <div class="as-table-responsive">
         <table class="as-table">
             <thead>
                 <tr>
