@@ -482,7 +482,7 @@ VALUES (
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
         'Inasistencias',
-        '#',
+        'principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php',
         2,
         10,
         12
