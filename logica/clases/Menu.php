@@ -123,8 +123,8 @@ class Menu
         $resultado = Menu::getLista($filtro, $orden);
         $lista = array();
         foreach ($resultado as $key) {
-            $usuario = new Menu($key, null);
-            array_push($lista, $usuario);
+            $menu = new Menu($key, null);
+            array_push($lista, $menu);
         }
         return $lista;
     }

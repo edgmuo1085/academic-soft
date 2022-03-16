@@ -52,9 +52,10 @@ CREATE TABLE usuario (
 --
 CREATE TABLE anio_escolar (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    inicio DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    fin DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    inicio DATETIME NOT NULL,
+    fin DATETIME NOT NULL,
     id_institucion INT(4) NOT NULL,
+    estado INT(4) NOT NULL,
     FOREIGN KEY anio_escolar(id_institucion) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
@@ -64,8 +65,8 @@ CREATE TABLE anio_escolar (
 --
 CREATE TABLE periodo_academico (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    inicio_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    finalizacion_periodo DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    inicio_periodo DATETIME NOT NULL,
+    finalizacion_periodo DATETIME NOT NULL,
     id_anio_escolar INT(4) NOT NULL,
     FOREIGN KEY periodo_academico(id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -113,6 +114,39 @@ CREATE TABLE grupo_estudiante (
     FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (id_grupo) REFERENCES grupo(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
+-- CREAR TABLA asignacion_docente
+-- DROP TABLE IF EXISTS asignacion_docente;
+--
+CREATE TABLE asignacion_docente (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_usuario_docente INT(4) NOT NULL,
+    id_anio_escolar INT(4) NOT NULL,
+    id_asignatura INT(4) NOT NULL,
+    id_grado INT(4) NOT NULL,
+    link_clase_virtual TEXT NULL,
+    intensidad_horaria DOUBLE NULL,
+    FOREIGN KEY (id_usuario_docente) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_grado) REFERENCES grado(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
+-- CREAR TABLA inasistencias
+-- DROP TABLE IF EXISTS inasistencias;
+--
+CREATE TABLE inasistencias (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cantidad INT(4) NOT NULL,
+    justificacion TEXT NULL,
+    fecha DATETIME NOT NULL,
+    id_usuario_estudiante INT(4) NOT NULL,
+    id_asignatura INT(4) NOT NULL,
+    FOREIGN KEY (id_usuario_estudiante) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -327,8 +361,8 @@ VALUES (
 --
 --
 -- TABLA anio_escolar
-INSERT INTO anio_escolar (inicio, fin, id_institucion)
-VALUES ('2022-01-01', '2022-12-01', 1);
+INSERT INTO anio_escolar (inicio, fin, id_institucion, estado)
+VALUES ('2022-01-01', '2022-12-01', 1, 1);
 --
 --
 --
@@ -339,8 +373,8 @@ INSERT INTO periodo_academico (
         id_anio_escolar
     )
 VALUES (
-        '2022-02-05 23:59:59',
-        '2022-02-05 23:59:59',
+        '2022-02-01 23:59:59',
+        '2022-05-01 00:00:00',
         1
     );
 --
@@ -457,8 +491,8 @@ VALUES (
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
-        'Asignación Docente',
-        '#',
+        'Asignacion Docente',
+        'principal.php?CONTENIDO=layout/components/docente/lista-asignacion-docente.php',
         2,
         7,
         9
@@ -482,7 +516,7 @@ VALUES (
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
         'Inasistencias',
-        '#',
+        'principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php',
         2,
         10,
         12
@@ -691,6 +725,7 @@ group by index_schema,
     non_unique,
     table_name
 order by index_schema,
+    table_name,
     index_name;
 --
 --

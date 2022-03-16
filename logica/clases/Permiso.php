@@ -99,8 +99,8 @@ class Permiso
         $resultado = Permiso::getLista($filtro, $orden);
         $lista = array();
         foreach ($resultado as $key) {
-            $usuario = new Permiso($key, null);
-            array_push($lista, $usuario);
+            $permisos = new Permiso($key, null);
+            array_push($lista, $permisos);
         }
         return $lista;
     }
