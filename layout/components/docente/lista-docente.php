@@ -19,6 +19,7 @@ foreach ($listaUsuarios as $item) {
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/docente/form-docente.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2) . "</span>";
+    $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/docente/form-asignacion-docente.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(3) . "</a>";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;

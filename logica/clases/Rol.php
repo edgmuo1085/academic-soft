@@ -87,8 +87,8 @@ class Rol
         $resultado = Rol::getLista($filtro, $orden);
         $lista = array();
         foreach ($resultado as $key) {
-            $usuario = new Rol($key, null);
-            array_push($lista, $usuario);
+            $rol = new Rol($key, null);
+            array_push($lista, $rol);
         }
         return $lista;
     }

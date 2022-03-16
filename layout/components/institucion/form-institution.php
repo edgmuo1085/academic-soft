@@ -1,7 +1,7 @@
 <?php
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location: ../../index.php?mensaje=Acceso no autorizado');
-
+$array = new InstitucionEducativa(null, null);
 if (isset($_REQUEST['id'])) {
     $titulo = 'modificar';
     $array = new InstitucionEducativa('id', $_REQUEST['id']);

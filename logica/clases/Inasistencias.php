@@ -6,21 +6,21 @@ class Inasistencias
     protected $cantidad;
     protected $justificacion;
     protected $fecha;
-    protected $id_rol;
+    protected $id_usuario_estudiante;
     protected $id_asignatura;
 
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, cantidad, justificacion, fecha, id_rol, id_asignatura FROM inasistencias WHERE $campo=$valor";
+                $cadenaSQL = "SELECT id, cantidad, justificacion, fecha, id_usuario_estudiante, id_asignatura FROM inasistencias WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
             $this->id = $campo['id'];
-            $this->cantidad = $campo ['cantidad'];
-            $this->justificacion = $campo ['justificacion'];
-            $this->fecha = $campo ['fecha'];
-            $this->id_rol = $campo['id_rol'];
+            $this->cantidad = $campo['cantidad'];
+            $this->justificacion = $campo['justificacion'];
+            $this->fecha = $campo['fecha'];
+            $this->id_usuario_estudiante = $campo['id_usuario_estudiante'];
             $this->id_asignatura = $campo['id_asignatura'];
         }
     }
@@ -30,31 +30,31 @@ class Inasistencias
         return $this->id;
     }
 
-    public function getIdRol()
+    public function getIdUsuarioEstudiante()
     {
-        return $this->id_rol;
+        return $this->id_usuario_estudiante;
     }
 
-    public function getCantidad() 
+    public function getCantidad()
     {
         return $this->cantidad;
     }
 
-    public function getJustificacion() 
+    public function getJustificacion()
     {
         return $this->justificacion;
     }
 
-    public function getFecha() {
+    public function getFecha()
+    {
         return $this->fecha;
     }
 
-    public function getId_asignatura() 
+    public function getIdAsignatura()
     {
         return $this->id_asignatura;
     }
 
-    
     public function setId($id): void
     {
         $this->id = $id;
@@ -70,38 +70,35 @@ class Inasistencias
         $this->justificacion = $justificacion;
     }
 
-    public function setFecha($fecha): void 
+    public function setFecha($fecha): void
     {
         $this->fecha = $fecha;
     }
 
-    public function setId_rol($id_rol): void 
+    public function setIdUsuarioEstudiante($id_usuario_estudiante): void
     {
-        $this->id_rol = $id_rol;
+        $this->id_usuario_estudiante = $id_usuario_estudiante;
     }
 
-    public function setId_asignatura($id_asignatura): void 
+    public function setIdAsignatura($id_asignatura): void
     {
         $this->id_asignatura = $id_asignatura;
     }
 
-    
-    
-
     public function __toString()
     {
-        return $this->id_rol;
+        return $this->cantidad;
     }
 
     public function guardar()
     {
-        $cadenaSQL = "INSERT INTO inasistencias (cantidad, justificacion, fecha, id_rol, id_asignatura) values ('$this->cantidad','$this->justificacion', '$this->fecha', '$this->id_rol', '$this->id_asignatura')";
+        $cadenaSQL = "INSERT INTO inasistencias (cantidad, justificacion, fecha, id_usuario_estudiante, id_asignatura) values ('$this->cantidad','$this->justificacion', '$this->fecha', '$this->id_usuario_estudiante', '$this->id_asignatura')";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function modificar($ID)
     {
-        $cadenaSQL = "UPDATE inasistencias SET cantidad='{$this->cantidad}', justificacion='{$this->justificacion}', fecha='{$this->fecha}', id_rol='{$this->id_rol}', id_asignatura='{$this->id_asignatura}' WHERE id='{$ID}'";
+        $cadenaSQL = "UPDATE inasistencias SET cantidad='{$this->cantidad}', justificacion='{$this->justificacion}', fecha='{$this->fecha}', id_usuario_estudiante='{$this->id_usuario_estudiante}', id_asignatura='{$this->id_asignatura}' WHERE id='{$ID}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -117,7 +114,7 @@ class Inasistencias
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, cantidad, justificacion, fecha, id_rol, id_asignatura FROM inasistencias $filtro $orden";
+        $cadenaSQL = "SELECT id, cantidad, justificacion, fecha, id_usuario_estudiante, id_asignatura FROM inasistencias $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -126,8 +123,8 @@ class Inasistencias
         $resultado = Inasistencias::getLista($filtro, $orden);
         $lista = array();
         foreach ($resultado as $key) {
-            $usuario = new Inasistencias($key, null);
-            array_push($lista, $usuario);
+            $inasistencia = new Inasistencias($key, null);
+            array_push($lista, $inasistencia);
         }
         return $lista;
     }

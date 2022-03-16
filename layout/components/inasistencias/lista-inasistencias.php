@@ -4,7 +4,7 @@
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $lista = '';
 $count = 1;
-$listaInasistencias = Inasistencias::getListaEnObjetos('rol_id=4', '');
+$listaInasistencias = Inasistencias::getListaEnObjetos(null, null);
 
 foreach ($listaInasistencias as $item) {
     $lista .= "<tr>";
@@ -15,8 +15,8 @@ foreach ($listaInasistencias as $item) {
     $lista .= "<td>{$item->getCantidad ()}</td>";
     $lista .= "<td>{$item->getJustificacion()}</td>";
     $lista .= "<td>{$item->getFecha()}</td>";
-    $lista .= "<td>{$item->getIdRol ()}</td>";
-    $lista .= "<td>{$item->getId_asignatura ()}</td>";
+    $lista .= "<td>{$item->getIdUsuarioEstudiante ()}</td>";
+    $lista .= "<td>{$item->getIdAsignatura ()}</td>";
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias.php&accion=Modificar&id={$item->getId()}'><i class='fas fa-edit'></i></a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'><i class='fas fa-trash'></i></span>";

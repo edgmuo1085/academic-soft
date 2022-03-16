@@ -31,14 +31,17 @@ class AsignacionDocente
     {
         return $this->id;
     }
+
     public function getIdUsuarioDocente()
     {
         return $this->id_usuario_docente;
     }
+
     public function getIdAnioEscolar()
     {
         return $this->id_anio_escolar;
     }
+
     public function getIdAsignatura()
     {
         return $this->id_asignatura;
@@ -94,6 +97,26 @@ class AsignacionDocente
         $this->intensidad_horaria = $intensidad_horaria;
     }
 
+    public function getNombreDocente()
+    {
+        return new Usuario('id', $this->id_usuario_docente);
+    }
+    
+    public function getAnioEscolar()
+    {
+        return new AnioEscolar('id', $this->id_anio_escolar);
+    }
+    
+    public function getNombreGrado()
+    {
+        return new Grado('id', $this->id_grado);
+    }
+    
+    public function getNombreAsignatura()
+    {
+        return new Asignatura('id', $this->id_asignatura);
+    }
+
     public function __toString()
     {
         return $this->id_grado;
@@ -101,7 +124,7 @@ class AsignacionDocente
 
     public function guardar()
     {
-        $cadenaSQL = "INSERT INTO asignacion_docente (id, id_usuario_docente, id_anio_escolar, id_asignatura, id_grado, link_clase_virtual, intensidad_horaria) values ('$this->nombre','$this->valor')";
+        $cadenaSQL = "INSERT INTO asignacion_docente (id_usuario_docente, id_anio_escolar, id_asignatura, id_grado, link_clase_virtual, intensidad_horaria) VALUES ('$this->id_usuario_docente','$this->id_anio_escolar','$this->id_asignatura','$this->id_grado','$this->link_clase_virtual','$this->intensidad_horaria')";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -132,8 +155,8 @@ class AsignacionDocente
         $resultado = AsignacionDocente::getLista($filtro, $orden);
         $lista = array();
         foreach ($resultado as $key) {
-            $usuario = new AsignacionDocente($key, null);
-            array_push($lista, $usuario);
+            $asignacion = new AsignacionDocente($key, null);
+            array_push($lista, $asignacion);
         }
         return $lista;
     }

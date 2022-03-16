@@ -8,12 +8,14 @@ switch ($_REQUEST['accion']) {
         $anioEscolar->setInicio(Fecha::convertDate($_REQUEST['inicio'], true));
         $anioEscolar->setFin(Fecha::convertDate($_REQUEST['fin'], true));
         $anioEscolar->setIdInstitucion($_REQUEST['id_institucion']);
+        $anioEscolar->setEstado($_REQUEST['estado']);
         $anioEscolar->guardar();
         break;
     case 'Modificar':
         $anioEscolar->setInicio(Fecha::convertDate($_REQUEST['inicio'], true));
         $anioEscolar->setFin(Fecha::convertDate($_REQUEST['fin'], true));
         $anioEscolar->setIdInstitucion($_REQUEST['id_institucion']);
+        $anioEscolar->setEstado($_REQUEST['estado']);
         $anioEscolar->modificar($_REQUEST['id']);
         break;
     case 'Eliminar':

@@ -15,10 +15,13 @@ class Generalidades
     {
         switch ($accion) {
             case 1:
-                return "<span class='as-tooltip'><i class='fas fa-edit'></i> <span class='as-tooltiptext'>Editar</span> </span>";
+                return "<span class='as-tooltip'><i class='fas fa-edit'></i> <span class='as-tooltiptext-left'>Editar</span> </span>";
                 break;
             case 2:
-                return "<span class='as-tooltip'><i class='fas fa-trash'></i> <span class='as-tooltiptext'>Eliminar</span> </span>";
+                return "<span class='as-tooltip'><i class='fas fa-trash'></i> <span class='as-tooltiptext-left'>Eliminar</span> </span>";
+                break;
+            case 3:
+                return "<span class='as-tooltip'><i class='fas fa-plus-circle'></i> <span class='as-tooltiptext-left'>Agregar</span> </span>";
                 break;
 
             default:
