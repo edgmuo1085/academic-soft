@@ -4,21 +4,21 @@
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $lista = '';
 $count = 1;
-$listaUsuarios = Usuario::getListaEnObjetos('rol_id=2 AND estado=1', '');
+$listaAsignacionesDocente = AsignacionDocente::getListaEnObjetos('', 'id_usuario_docente, id_grado, id_asignatura');
 
-foreach ($listaUsuarios as $item) {
+foreach ($listaAsignacionesDocente as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td>{$item->getIdentificacion()}</td>";
-    $lista .= "<td>{$item->getNombres()}</td>";
-    $lista .= "<td>{$item->getApellidos()}</td>";
-    $lista .= "<td>{$item->getTelefono()}</td>";
-    $lista .= "<td>{$item->getEmail()}</td>";
-    $lista .= "<td>{$item->getDireccion()}</td>";
-    $lista .= "<td>" . Generalidades::getEstadoUsuario($item->getEstado()) . "</td>";
+    $lista .= "<td><a href='principal.php?CONTENIDO=layout/components/docente/form-docente.php&accion=Modificar&id={$item->getIdUsuarioDocente()}'>{$item->getNombreDocente()}</a></td>";
+    $lista .= "<td>{$item->getAnioEscolar()}</td>";
+    $lista .= "<td>{$item->getNombreGrado()}</td>";
+    $lista .= "<td>{$item->getNombreAsignatura()}</td>";
+    $lista .= "<td> <a href='{$item->getLinkClaseVirtual()}' target='blank'> Enlace </a></td>";
+    $lista .= "<td>{$item->getIntensidadHoraria()}</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/docente/form-docente.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/docente/form-asignacion-docente-edit.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2) . "</span>";
+    $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/docente/form-asignacion-docente.php&accion=crear&id={$item->getIdUsuarioDocente()}'>" . Generalidades::getTooltip(3) . "</a>";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;
@@ -28,23 +28,22 @@ foreach ($listaUsuarios as $item) {
 
 <div class="as-layout-table">
     <div>
-        <h3 class="as-title-table">ASIGNACIÓN DOCENTE</h3>
+        <h3 class="as-title-table">LISTA DE ASIGNACIONES</h3>
     </div>
-    <div class="as-form-button-back">
+    <!-- <div class="as-form-button-back">
         <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/docente/form-docente.php">Agregar docente</a>
-    </div>
+    </div> -->
     <div class="as-table-responsive">
         <table class="as-table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Identificación</th>
-                    <th scope="col">Nombres</th>
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">Teléfono</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Dirección</th>
-                    <th scope="col">Estado</th>
+                    <th scope="col">Docente</th>
+                    <th scope="col">Año escolar</th>
+                    <th scope="col">Grado</th>
+                    <th scope="col">Asignatura</th>
+                    <th scope="col">Clase virtual</th>
+                    <th scope="col">Intensidad horaria</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -60,6 +59,6 @@ foreach ($listaUsuarios as $item) {
 <script type="text/javascript">
     function eliminar(id) {
         var respuesta = confirm("Esta seguro de eliminar este registro?");
-        if (respuesta) location = "principal.php?CONTENIDO=layout/components/docente/form-docente-action.php&accion=Eliminar&id=" + id;
+        if (respuesta) location = "principal.php?CONTENIDO=layout/components/docente/form-asignacion-docente-action.php&accion=Eliminar&id=" + id;
     }
 </script>

@@ -1,13 +1,16 @@
 <?php
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location: ../../index.php?mensaje=Acceso no autorizado');
+$array = new AnioEscolar(null, null);
 $titulo = 'Adicionar';
 $inicio = '';
 $fin = '';
 $idAnioEscolar = null;
 $idInstitucion = '';
 $selected = '';
+$select = '';
 $selectMenu = '';
+$selectMenuOpc = '';
 
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
@@ -50,10 +53,24 @@ foreach ($totalInstituciones as $param) {
             </div>
             <div class="as-form-fields">
                 <div class="as-form-input">
-                    <label class="hide-label" for="fin">Institución</label>
+                    <label class="hide-label" for="id_institucion">Institución</label>
                     <select class="as-form-select" name="id_institucion" id="id_institucion">
                         <?php
                         echo $selectMenu;
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="estado">Estado</label>
+                    <select class="as-form-select" name="estado" id="estado">
+                        <?php
+                        for ($i = 1; $i < 3; $i++) {
+                            $select = $array->getEstado() == $i ? 'selected' : '';
+                            $selectMenuOpc .= '<option value="' . $i . '" ' . $select . ' >' . Generalidades::getEstadoUsuario($i) . ' </option>';
+                        }
+                        echo $selectMenuOpc;
                         ?>
                     </select>
                 </div>

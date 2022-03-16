@@ -418,6 +418,16 @@ body {
     visibility: hidden;
 }
 
+.as-layout .as-form-margin .as-form-input .show-label {
+    border-bottom: 1px solid #8e8b8b;
+    padding: 0.4rem;
+    font-size: 1.1rem;
+}
+
+.as-layout .as-form-margin .as-form-input .show-label span {
+    font-weight: 400;
+}
+
 .as-layout .as-form-margin .as-form-input label {
     font-weight: 300;
 }
@@ -517,12 +527,19 @@ tr {
 }
 
 .as-edit {
-    padding: 0 .4rem;
+    display: inline-block;
+    padding: .4rem 1rem;
 }
 
 .as-trash {
-    padding: 0 .4rem;
+    display: inline-block;
+    padding: .4rem 1rem;
     cursor: pointer;
+}
+
+.as-add {
+    display: inline-block;
+    padding: .4rem 1rem;
 }
 
 
@@ -543,10 +560,27 @@ tr {
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
-    z-index: 1;
+    z-index: 9999;
     bottom: 125%;
     left: 50%;
     margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.as-tooltip .as-tooltiptext-left {
+    visibility: hidden;
+    width: 110px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 9999;
+    bottom: -25%;
+    left: -350%;
+    margin-left: -65px;
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -562,7 +596,23 @@ tr {
     border-color: #555 transparent transparent transparent;
 }
 
+.as-tooltip .as-tooltiptext-left::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 104%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #555;
+}
+
 .as-tooltip:hover .as-tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.as-tooltip:hover .as-tooltiptext-left {
     visibility: visible;
     opacity: 1;
 }

@@ -12,6 +12,7 @@ foreach ($anioEscolarList as $item) {
     $lista .= "<td>" . Fecha::convertDate($item->getInicio(), false) . "</td>";
     $lista .= "<td>" . Fecha::convertDate($item->getFin(), false) . "</td>";
     $lista .= "<td>" . $item->getNombreInstitucion() . "</td>";
+    $lista .= "<td>" . Generalidades::getEstadoUsuario($item->getEstado()) . "</td>";
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/anio-escolar/form-anio.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2) . "</span>";
@@ -37,6 +38,7 @@ foreach ($anioEscolarList as $item) {
                     <th scope="col">Inicia</th>
                     <th scope="col">Finaliza</th>
                     <th scope="col">Institución</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
