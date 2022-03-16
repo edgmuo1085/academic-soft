@@ -1,3 +1,9 @@
+*,
+ ::after,
+ ::before {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -209,9 +215,7 @@ body {
 }
 
 .as-form-button-back {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    display: block;
     text-align: center;
     margin: 1rem 1.5rem 1.5rem 1.5rem;
 }
@@ -287,6 +291,7 @@ body {
     margin-left: -100%;
     transition: all 0.5s;
     position: absolute;
+    z-index: 999;
 }
 
 .as-menu__link {
@@ -448,10 +453,15 @@ body {
 
 /** Estilos Tablas **/
 
+.as-table-responsive {
+    position: relative;
+    overflow-x: auto;
+}
+
 .as-layout-table {
     display: flex;
     justify-content: center;
-    align-items: center;
+    text-align: center;
     flex-direction: column;
 }
 
@@ -469,7 +479,8 @@ body {
 .as-layout-table .as-table {
     caption-side: bottom;
     border-collapse: collapse;
-    margin: 1rem .5rem;
+    padding: 1rem .5rem;
+    width: 100%;
 }
 
 .as-layout-table .as-table tbody,
@@ -512,6 +523,48 @@ tr {
 .as-trash {
     padding: 0 .4rem;
     cursor: pointer;
+}
+
+
+/** Tooltip */
+
+.as-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.as-tooltip .as-tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.as-tooltip .as-tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.as-tooltip:hover .as-tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
 
 
@@ -604,6 +657,9 @@ tr {
     .as-submenu .as-menu__link {
         background-color: rgb(50, 138, 101);
         padding-left: 3em;
+    }
+    .as-layout-table {
+        align-items: center;
     }
 }
 

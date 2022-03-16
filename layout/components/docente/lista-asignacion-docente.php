@@ -4,7 +4,7 @@
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $lista = '';
 $count = 1;
-$listaUsuarios = Usuario::getListaEnObjetos('rol_id=2', '');
+$listaUsuarios = Usuario::getListaEnObjetos('rol_id=2 AND estado=1', '');
 
 foreach ($listaUsuarios as $item) {
     $lista .= "<tr>";
@@ -28,7 +28,7 @@ foreach ($listaUsuarios as $item) {
 
 <div class="as-layout-table">
     <div>
-        <h3 class="as-title-table">LISTADO DE DOCENTES</h3>
+        <h3 class="as-title-table">ASIGNACIÓN DOCENTE</h3>
     </div>
     <div class="as-form-button-back">
         <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/docente/form-docente.php">Agregar docente</a>
@@ -52,6 +52,8 @@ foreach ($listaUsuarios as $item) {
                 <?php print_r($lista); ?>
             </tbody>
         </table>
+
+        <!-- <div class="as-tooltip">Hover over me <span class="as-tooltiptext">Tooltip text</span> </div> -->
     </div>
 </div>
 
