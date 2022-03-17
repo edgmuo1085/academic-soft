@@ -3,6 +3,8 @@
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $titulo = 'Adicionar';
+$selected = '';
+$selectMenu = '';
 $array = new Usuario(null, null);
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
@@ -66,8 +68,13 @@ if (isset($_REQUEST['id'])) {
                     <div class="as-form-input">
                         <label class="hide-label" for="estado">Estado</label>
                         <select class="as-form-select" name="estado" id="estado">
-                            <option value="1">Activo</option>
-                            <option value="2">Inactivo</option>
+                            <?php
+                            for ($i = 1; $i < 3; $i++) {
+                                $selected = $array->getEstado() == $i ? 'selected' : '';
+                                $selectMenu .= '<option value="' . $i . '" ' . $selected . ' >' . Generalidades::getEstadoUsuario($i) . ' </option>';
+                            }
+                            echo $selectMenu;
+                            ?>
                         </select>
                     </div>
                 </div>

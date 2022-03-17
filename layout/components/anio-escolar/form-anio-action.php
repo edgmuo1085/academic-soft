@@ -5,15 +5,15 @@ if (!isset($_SESSION['usuario'])) header('location: ../../index.php?mensaje=Acce
 $anioEscolar = new AnioEscolar(null, null, null);
 switch ($_REQUEST['accion']) {
     case 'Adicionar':
-        $anioEscolar->setInicio(Fecha::convertDate($_REQUEST['inicio'], true));
-        $anioEscolar->setFin(Fecha::convertDate($_REQUEST['fin'], true));
+        $anioEscolar->setInicio(Generalidades::convertDate($_REQUEST['inicio'], true));
+        $anioEscolar->setFin(Generalidades::convertDate($_REQUEST['fin'], true));
         $anioEscolar->setIdInstitucion($_REQUEST['id_institucion']);
         $anioEscolar->setEstado($_REQUEST['estado']);
         $anioEscolar->guardar();
         break;
     case 'Modificar':
-        $anioEscolar->setInicio(Fecha::convertDate($_REQUEST['inicio'], true));
-        $anioEscolar->setFin(Fecha::convertDate($_REQUEST['fin'], true));
+        $anioEscolar->setInicio(Generalidades::convertDate($_REQUEST['inicio'], true));
+        $anioEscolar->setFin(Generalidades::convertDate($_REQUEST['fin'], true));
         $anioEscolar->setIdInstitucion($_REQUEST['id_institucion']);
         $anioEscolar->setEstado($_REQUEST['estado']);
         $anioEscolar->modificar($_REQUEST['id']);

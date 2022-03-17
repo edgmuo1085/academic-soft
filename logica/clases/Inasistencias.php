@@ -5,7 +5,8 @@ class Inasistencias
     protected $id;
     protected $cantidad;
     protected $justificacion;
-    protected $fecha;
+    protected $fecha_creacion;
+    protected $fecha_modificacion;
     protected $id_usuario_estudiante;
     protected $id_asignatura;
 
@@ -13,13 +14,14 @@ class Inasistencias
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, cantidad, justificacion, fecha, id_usuario_estudiante, id_asignatura FROM inasistencias WHERE $campo=$valor";
+                $cadenaSQL = "SELECT id, cantidad, justificacion, fecha_creacion, fecha_modificacion, id_usuario_estudiante, id_asignatura FROM inasistencias WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
             $this->id = $campo['id'];
             $this->cantidad = $campo['cantidad'];
             $this->justificacion = $campo['justificacion'];
-            $this->fecha = $campo['fecha'];
+            $this->fecha_creacion = $campo['fecha_creacion'];
+            $this->fecha_modificacion = $campo['fecha_modificacion'];
             $this->id_usuario_estudiante = $campo['id_usuario_estudiante'];
             $this->id_asignatura = $campo['id_asignatura'];
         }
@@ -45,9 +47,14 @@ class Inasistencias
         return $this->justificacion;
     }
 
-    public function getFecha()
+    public function getFechaCreacion()
     {
-        return $this->fecha;
+        return $this->fecha_creacion;
+    }
+    
+    public function getFechaModificacion()
+    {
+        return $this->fecha_modificacion;
     }
 
     public function getIdAsignatura()
@@ -70,9 +77,14 @@ class Inasistencias
         $this->justificacion = $justificacion;
     }
 
-    public function setFecha($fecha): void
+    public function setFechaCreacion($fecha_creacion): void
     {
-        $this->fecha = $fecha;
+        $this->fecha_creacion = $fecha_creacion;
+    }
+    
+    public function setFechaModificacion($fecha_modificacion): void
+    {
+        $this->fecha_modificacion = $fecha_modificacion;
     }
 
     public function setIdUsuarioEstudiante($id_usuario_estudiante): void
@@ -90,15 +102,25 @@ class Inasistencias
         return $this->cantidad;
     }
 
+    public function getNombreEstudiante()
+    {
+        return new Usuario('id', $this->id_usuario_estudiante);
+    }
+
+    public function getNombreAsignatura()
+    {
+        return new Asignatura('id', $this->id_asignatura);
+    }
+
     public function guardar()
     {
-        $cadenaSQL = "INSERT INTO inasistencias (cantidad, justificacion, fecha, id_usuario_estudiante, id_asignatura) values ('$this->cantidad','$this->justificacion', '$this->fecha', '$this->id_usuario_estudiante', '$this->id_asignatura')";
+        $cadenaSQL = "INSERT INTO inasistencias (cantidad, justificacion, id_usuario_estudiante, id_asignatura) values ('$this->cantidad','$this->justificacion', '$this->id_usuario_estudiante', '$this->id_asignatura')";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function modificar($ID)
     {
-        $cadenaSQL = "UPDATE inasistencias SET cantidad='{$this->cantidad}', justificacion='{$this->justificacion}', fecha='{$this->fecha}', id_usuario_estudiante='{$this->id_usuario_estudiante}', id_asignatura='{$this->id_asignatura}' WHERE id='{$ID}'";
+        $cadenaSQL = "UPDATE inasistencias SET cantidad='{$this->cantidad}', justificacion='{$this->justificacion}', id_usuario_estudiante='{$this->id_usuario_estudiante}', id_asignatura='{$this->id_asignatura}' WHERE id='{$ID}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -114,7 +136,7 @@ class Inasistencias
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, cantidad, justificacion, fecha, id_usuario_estudiante, id_asignatura FROM inasistencias $filtro $orden";
+        $cadenaSQL = "SELECT id, cantidad, justificacion, fecha_creacion, fecha_modificacion, id_usuario_estudiante, id_asignatura FROM inasistencias $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

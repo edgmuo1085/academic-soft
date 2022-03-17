@@ -9,13 +9,13 @@ $anioEscolarList = AnioEscolar::getListaEnObjetos(null, 'inicio');
 foreach ($anioEscolarList as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td>" . Fecha::convertDate($item->getInicio(), false) . "</td>";
-    $lista .= "<td>" . Fecha::convertDate($item->getFin(), false) . "</td>";
+    $lista .= "<td>" . Generalidades::convertDate($item->getInicio(), false) . "</td>";
+    $lista .= "<td>" . Generalidades::convertDate($item->getFin(), false) . "</td>";
     $lista .= "<td>" . $item->getNombreInstitucion() . "</td>";
     $lista .= "<td>" . Generalidades::getEstadoUsuario($item->getEstado()) . "</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/anio-escolar/form-anio.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2) . "</span>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/anio-escolar/form-anio.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;
@@ -50,8 +50,8 @@ foreach ($anioEscolarList as $item) {
 </div>
 
 <script type="text/javascript">
-    function eliminar(id) {
-        var respuesta = confirm("Esta seguro de eliminar este registro?");
+    const eliminar = (id) => {
+        let respuesta = confirm("Esta seguro de eliminar este registro?");
         if (respuesta) location = "principal.php?CONTENIDO=layout/components/anio-escolar/form-anio-action.php&accion=Eliminar&id=" + id;
     }
 </script>
