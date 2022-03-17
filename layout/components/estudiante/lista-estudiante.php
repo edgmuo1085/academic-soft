@@ -6,6 +6,10 @@ $lista = '';
 $count = 1;
 $listaUsuarios = Usuario::getListaEnObjetos('rol_id=4', '');
 
+if (isset($_REQUEST['identificacion'])) {
+    $listaUsuarios = Usuario::getListaEnObjetos("rol_id=4 AND identificacion={$_REQUEST['identificacion']}", '');
+}
+
 foreach ($listaUsuarios as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
@@ -17,14 +21,37 @@ foreach ($listaUsuarios as $item) {
     $lista .= "<td>{$item->getDireccion()}</td>";
     $lista .= "<td>" . Generalidades::getEstadoUsuario($item->getEstado()) . "</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2) . "</span>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
+    $lista .= $item->getEstado() == 1 ? "<a class='as-add' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-create.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(3, 'Registrar inasistencia') . "</a>" : "";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;
 }
 
 ?>
+
+<div class="as-form-content">
+    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante.php" autocomplete="off">
+        <div class="as-form-margin">
+            <h2>Buscar estudiante</h2>
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="identificacion">Identificación</label>
+                    <input type="number" name="identificacion" id="identificacion" required placeholder="Identificación">
+                </div>
+            </div>
+            <div class="as-form-button">
+                <button class="as-color-btn-green" type="submit">
+                    Buscar
+                </button>
+                <a class="as-color-btn-red" href="principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante.php">
+                    Limpiar
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
 
 <div class="as-layout-table">
     <div>
@@ -56,8 +83,8 @@ foreach ($listaUsuarios as $item) {
 </div>
 
 <script type="text/javascript">
-    function eliminar(id) {
-        var respuesta = confirm("Esta seguro de eliminar este registro?");
+    const eliminar = (id) => {
+        let respuesta = confirm("Esta seguro de eliminar este registro?");
         if (respuesta) location = "principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-action.php&accion=Eliminar&id=" + id;
     }
 </script>

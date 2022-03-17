@@ -142,11 +142,39 @@ CREATE TABLE inasistencias (
     id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     cantidad INT(4) NOT NULL,
     justificacion TEXT NULL,
-    fecha DATETIME NOT NULL,
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     id_usuario_estudiante INT(4) NOT NULL,
     id_asignatura INT(4) NOT NULL,
     FOREIGN KEY (id_usuario_estudiante) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (id_asignatura) REFERENCES asignatura(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+--
+--
+-- CREAR TABLA tipo_actividad
+-- DROP TABLE IF EXISTS tipo_actividad;
+--
+CREATE TABLE tipo_actividad (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre_actividad VARCHAR(200) NOT NULL
+);
+--
+--
+-- CREAR TABLA nota
+-- DROP TABLE IF EXISTS nota;
+--
+CREATE TABLE nota (
+    id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_usuario_estudiante INT(4) NOT NULL,
+    id_asignatura INT(4) NOT NULL,
+    id_periodo_academico INT(4) NOT NULL,
+    id_tipo_actividad INT(4) NOT NULL,
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario_estudiante) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_periodo_academico) REFERENCES periodo_academico(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_tipo_actividad) REFERENCES tipo_actividad(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -545,6 +573,14 @@ VALUES (
         13,
         15
     );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
+        'Tipo de Actividades',
+        'principal.php?CONTENIDO=layout/components/tipo-actividad/lista-tipo-actividad.php',
+        2,
+        13,
+        16
+    );
 --
 --
 --
@@ -595,6 +631,9 @@ VALUES (6, 14, 1);
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (6, 15, 1);
 --
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 16, 1);
+--
 --rol=1 secretaria
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 1, 1);
@@ -640,6 +679,9 @@ VALUES (1, 14, 1);
 --
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 15, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 16, 1);
 --
 --
 --

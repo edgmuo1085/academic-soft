@@ -16,3 +16,4 @@ require_once 'logica/clases/Menu.php';
 require_once 'logica/clases/Permiso.php';
 require_once 'logica/clases/AsignacionDocente.php';
 require_once 'logica/clases/Inasistencias.php';
+require_once 'logica/clases/TipoActividad.php';

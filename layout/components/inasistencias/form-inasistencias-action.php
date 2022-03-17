@@ -10,19 +10,17 @@ if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acces
 $inasistencias = new Inasistencias(null, null);
 switch ($_REQUEST['accion']) {
   case 'Adicionar':
-    $inasistencias->setIdentificacion($_REQUEST['identificacion']);
-    $inasistencias->setNombres($_REQUEST['nombres']);
-    $inasistencias->setApellidos($_REQUEST['apellidos']);
+    $inasistencias->setIdUsuarioEstudiante($_REQUEST['id_usuario_estudiante']);
+    $inasistencias->setIdAsignatura($_REQUEST['id_asignatura']);
     $inasistencias->setCantidad($_REQUEST['cantidad']);
     $inasistencias->setJustificacion($_REQUEST['justificacion']);
-    $inasistencias->setFecha($_REQUEST['fecha']);
-    $inasistencias->setRolId(4);
     $inasistencias->guardar();
     break;
   case 'Modificar':
+    $inasistencias->setIdUsuarioEstudiante($_REQUEST['id_usuario_estudiante']);
+    $inasistencias->setIdAsignatura($_REQUEST['id_asignatura']);
     $inasistencias->setCantidad($_REQUEST['cantidad']);
     $inasistencias->setJustificacion($_REQUEST['justificacion']);
-    $inasistencias->setRolId(4);
     $inasistencias->modificar($_REQUEST['id']);
     break;
   case 'Eliminar':
