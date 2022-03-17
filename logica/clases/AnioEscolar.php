@@ -80,7 +80,7 @@ class AnioEscolar
 
     public function __toString()
     {
-        return Fecha::convertDate($this->inicio, false)  . ' - ' . Fecha::convertDate($this->fin, false);
+        return Generalidades::convertDate($this->inicio, false)  . ' - ' . Generalidades::convertDate($this->fin, false);
     }
 
     public function guardar()

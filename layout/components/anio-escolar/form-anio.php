@@ -15,8 +15,8 @@ $selectMenuOpc = '';
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new AnioEscolar('id', $_REQUEST['id']);
-    $inicio = Fecha::convertDate($array->getInicio(), false);
-    $fin = Fecha::convertDate($array->getFin(), false);
+    $inicio = Generalidades::convertDate($array->getInicio(), false);
+    $fin = Generalidades::convertDate($array->getFin(), false);
     $idInstitucion = $array->getIdInstitucion();
     $idAnioEscolar = $array->getId();
 }

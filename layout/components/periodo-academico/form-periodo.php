@@ -13,8 +13,8 @@ if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new PeriodoAcademico('id', $_REQUEST['id']);
     $periodo = PeriodoAcademico::getListaEnObjetos("id={$array->getId()}", null)[0];
-    $iniciaPeriodo = Fecha::convertDate($array->getInicioPeriodo(), false);
-    $finPeriodo = Fecha::convertDate($array->getFinalizacionPeriodo(), false);
+    $iniciaPeriodo = Generalidades::convertDate($array->getInicioPeriodo(), false);
+    $finPeriodo = Generalidades::convertDate($array->getFinalizacionPeriodo(), false);
     $idPeriodoAca = $array->getIdAnioEscolar();
     $idPeriodo = $array->getId();
 }
@@ -23,7 +23,7 @@ $totalAnioEscolar = AnioEscolar::getListaEnObjetos(null, null);
 
 foreach ($totalAnioEscolar as $param) {
     $selected = $param->getId() == $idPeriodoAca ? 'selected' : '';
-    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' > Inicia: [' . Fecha::convertDate($param->getInicio(), false) . '] - Finaliza: [' . Fecha::convertDate($param->getFin(), false)  . ']</option>';
+    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' > Inicia: [' . Generalidades::convertDate($param->getInicio(), false) . '] - Finaliza: [' . Generalidades::convertDate($param->getFin(), false)  . '] - Estado: '. Generalidades::getEstadoUsuario($param->getEstado()).' </option>';
 }
 ?>
 

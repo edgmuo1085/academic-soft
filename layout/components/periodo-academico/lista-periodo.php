@@ -4,17 +4,18 @@
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $lista = '';
 $count = 1;
+$anioEscolar = AnioEscolar::getListaEnObjetos('estado=1', null)[0];
 $periodoList = PeriodoAcademico::getListaEnObjetos(null, null);
 
 foreach ($periodoList as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td>" . Fecha::convertDate($item->getInicioPeriodo(), false) . "</td>";
-    $lista .= "<td>" . Fecha::convertDate($item->getFinalizacionPeriodo(), false) . "</td>";
+    $lista .= "<td>" . Generalidades::convertDate($item->getInicioPeriodo(), false) . "</td>";
+    $lista .= "<td>" . Generalidades::convertDate($item->getFinalizacionPeriodo(), false) . "</td>";
     $lista .= "<td>" . $item->getAnioEscolar() . "</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2) . "</span>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;
@@ -24,7 +25,7 @@ foreach ($periodoList as $item) {
 <div class="as-layout-table">
     <div>
         <h3 class="as-title-table">PERIODOS ACADEMICOS</h3>
-        <h4 class="as-title-table">Año escolar comprendido entre el 2022-02-05 23:59:59 y 2022-02-05 23:59:59</h4>
+        <h4 class="as-title-table">Año escolar activo esta comprendido entre el <?= Generalidades::convertDate($anioEscolar->getInicio(), false) ?> y <?= Generalidades::convertDate($anioEscolar->getFin(), false) ?></h4>
     </div>
     <div class="as-form-button-back">
         <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo.php">Agregar Periodo</a>
@@ -48,8 +49,8 @@ foreach ($periodoList as $item) {
 </div>
 
 <script type="text/javascript">
-    function eliminar(id) {
-        var respuesta = confirm("Esta seguro de eliminar este registro?");
+    const eliminar = (id) => {
+        let respuesta = confirm("Esta seguro de eliminar este registro?");
         if (respuesta) location = "principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo-action.php&accion=Eliminar&id=" + id;
     }
 </script>

@@ -12,8 +12,8 @@ foreach ($gradoList as $item) {
     $lista .= "<td>{$item->getNombreGrado()}</td>";
     $lista .= "<td>{$item->getNombreInstitucion()}</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/grado/form-grado.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1) . "</a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2) . "</span>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/grado/form-grado.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;
@@ -46,8 +46,8 @@ foreach ($gradoList as $item) {
 </div>
 
 <script type="text/javascript">
-    function eliminar(id) {
-        var respuesta = confirm("Esta seguro de eliminar este registro?");
+    const eliminar = (id) => {
+        let respuesta = confirm("Esta seguro de eliminar este registro?");
         if (respuesta) location = "principal.php?CONTENIDO=layout/components/grado/form-grado-action.php&accion=Eliminar&id=" + id;
     }
 </script>
