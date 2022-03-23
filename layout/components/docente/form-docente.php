@@ -67,7 +67,7 @@ if (isset($_REQUEST['id'])) {
                 <div class="as-form-fields">
                     <div class="as-form-input">
                         <label class="hide-label" for="estado">Estado</label>
-                        <select class="as-form-select" name="estado" id="estado">
+                        <select class="as-form-select" name="estado" id="estado" required>
                             <?php
                             for ($i = 1; $i < 3; $i++) {
                                 $selected = $array->getEstado() == $i ? 'selected' : '';
