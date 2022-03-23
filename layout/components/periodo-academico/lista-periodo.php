@@ -10,8 +10,8 @@ $periodoList = PeriodoAcademico::getListaEnObjetos(null, null);
 foreach ($periodoList as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td>" . Generalidades::convertDate($item->getInicioPeriodo(), false) . "</td>";
-    $lista .= "<td>" . Generalidades::convertDate($item->getFinalizacionPeriodo(), false) . "</td>";
+    $lista .= "<td>" . $item->getNombre() . "</td>";
+    $lista .= "<td>[" . Generalidades::convertDate($item->getInicioPeriodo(), false) . " - " . Generalidades::convertDate($item->getFinalizacionPeriodo(), false) . "]</td>";
     $lista .= "<td>" . $item->getAnioEscolar() . "</td>";
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
@@ -35,8 +35,8 @@ foreach ($periodoList as $item) {
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Inicio Periodo</th>
-                    <th scope="col">Finalización Periodo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Periodo académico</th>
                     <th scope="col">Año Escolar</th>
                     <th scope="col">Opciones</th>
                 </tr>

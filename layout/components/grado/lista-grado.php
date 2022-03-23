@@ -13,6 +13,7 @@ foreach ($gradoList as $item) {
     $lista .= "<td>{$item->getNombreInstitucion()}</td>";
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/grado/form-grado.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/grupo/form-grupo-grado.php&accion=Crear&id={$item->getId()}'>" . Generalidades::getTooltip(3, 'Agregar grupo') . "</a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
     $lista .= "</td>";
     $lista .= "</tr>";

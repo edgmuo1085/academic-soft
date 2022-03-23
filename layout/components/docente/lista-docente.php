@@ -4,9 +4,13 @@
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $lista = '';
 $count = 1;
+$consulta = '';
 $listaUsuarios = Usuario::getListaEnObjetos('rol_id=2', '');
-if (isset($_REQUEST['identificacion'])) {
-    $listaUsuarios = Usuario::getListaEnObjetos("rol_id=2 AND identificacion={$_REQUEST['identificacion']}", '');
+if (isset($_REQUEST['identificacion']) || isset($_REQUEST['nombres']) || isset($_REQUEST['apellidos'])) {
+    $consulta .= !empty($_REQUEST['identificacion']) ? " AND identificacion LIKE '%{$_REQUEST['identificacion']}%'" : "";
+    $consulta .= !empty($_REQUEST['nombres']) ? " AND nombres LIKE '%{$_REQUEST['nombres']}%'" : "";
+    $consulta .= !empty($_REQUEST['apellidos']) ? " AND apellidos LIKE '%{$_REQUEST['apellidos']}%'" : "";
+    $listaUsuarios = Usuario::getListaEnObjetos("rol_id=2" . $consulta, '');
 }
 
 foreach ($listaUsuarios as $item) {
@@ -29,28 +33,46 @@ foreach ($listaUsuarios as $item) {
 }
 
 ?>
-
-<div class="as-form-content">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/docente/lista-docente.php" autocomplete="off">
-        <div class="as-form-margin">
-            <h2>Buscar docente</h2>
-            <div class="as-form-fields">
-                <div class="as-form-input">
-                    <label class="hide-label" for="identificacion">Identificación</label>
-                    <input type="number" name="identificacion" id="identificacion" required placeholder="Identificación">
+<div class="as-tab-content">
+    <div class="as-tab-header" id="as-tab-header-click">
+        <i class='fas fa-search'></i> Buscar docente
+    </div>
+    <div class="as-tab-content-form">
+        <div class="as-form-content">
+            <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/docente/lista-docente.php" autocomplete="off">
+                <div class="as-form-margin">
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="hide-label" for="identificacion">Identificación</label>
+                            <input type="number" name="identificacion" id="identificacion" placeholder="Identificación">
+                        </div>
+                    </div>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="hide-label" for="nombres">Nombres</label>
+                            <input type="text" name="nombres" id="nombres" placeholder="Nombres">
+                        </div>
+                    </div>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="hide-label" for="apellidos">Apellidos</label>
+                            <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos">
+                        </div>
+                    </div>
+                    <div class="as-form-button">
+                        <button class="as-color-btn-green" type="submit">
+                            Buscar
+                        </button>
+                        <a class="as-color-btn-red" href="principal.php?CONTENIDO=layout/components/docente/lista-docente.php">
+                            Limpiar
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="as-form-button">
-                <button class="as-color-btn-green" type="submit">
-                    Buscar
-                </button>
-                <a class="as-color-btn-red" href="principal.php?CONTENIDO=layout/components/docente/lista-docente.php">
-                    Limpiar
-                </a>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
+
 
 <div class="as-layout-table">
     <div>
@@ -86,4 +108,15 @@ foreach ($listaUsuarios as $item) {
         let respuesta = confirm("Esta seguro de eliminar este registro?");
         if (respuesta) location = "principal.php?CONTENIDO=layout/components/docente/form-docente-action.php&accion=Eliminar&id=" + id;
     }
+
+    const clickTabShowHidden = document.querySelector("#as-tab-header-click");
+    clickTabShowHidden.addEventListener("click", () => {
+        const contentTab = clickTabShowHidden.nextElementSibling;
+
+        if (contentTab.classList.contains("as-tab-content-form-show")) {
+            contentTab.classList.remove("as-tab-content-form-show");
+        } else {
+            contentTab.classList.add("as-tab-content-form-show");
+        }
+    });
 </script>

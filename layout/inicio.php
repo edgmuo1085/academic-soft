@@ -3,6 +3,7 @@
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $institution = InstitucionEducativa::getListaEnObjetos('id=1', null)[0];
+$anioEscolar = AnioEscolar::getListaEnObjetos('estado=1', null)[0];
 $USUARIO = unserialize($_SESSION['usuario']);
 ?>
 
@@ -54,6 +55,14 @@ $USUARIO = unserialize($_SESSION['usuario']);
             </div>
             <div class="as-institution-description">
                 <p><?= $institution->getPaginaWeb() ?></p>
+            </div>
+        </div>
+        <div class="as-institution">
+            <div class="as-institution-title">
+                <h4>Año Escolar</h4>
+            </div>
+            <div class="as-institution-description">
+                <p><?= $anioEscolar->__toString() ?></p>
             </div>
         </div>
     </div>

@@ -371,8 +371,51 @@ body {
     word-break: break-all;
 }
 
+.as-tab-content {
+    display: block;
+    max-width: 44rem;
+    margin: 0 auto;
+    position: relative;
+}
+
+.as-tab-content .as-tab-header {
+    padding: 1rem;
+    margin-bottom: 1px;
+    background-color: #f0f3f1;
+    -webkit-box-shadow: 1px 2px 5px 1px rgba(119, 119, 119, 0.67);
+    box-shadow: 1px 2px 5px 1px rgba(119, 119, 119, 0.67);
+    cursor: pointer;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s;
+}
+
+.as-tab-content .as-tab-content-form {
+    visibility: hidden;
+    display: none;
+}
+
+.as-tab-content .as-tab-content-form-show {
+    display: block;
+    visibility: visible;
+    background-color: #f0f3f1;
+    padding: 1rem 0.2rem;
+    -webkit-box-shadow: 1px 2px 5px 1px rgba(119, 119, 119, 0.67);
+    box-shadow: 1px 2px 5px 1px rgba(119, 119, 119, 0.67);
+    transition: all 0.3s;
+    border-radius: 0 0 4px 4px;
+}
+
 .as-form-content {
     max-width: 40rem;
+    margin: 0 auto;
+    -webkit-box-shadow: 1px 4px 25px 2px rgba(119, 119, 119, 0.67);
+    box-shadow: 1px 4px 25px 2px rgba(119, 119, 119, 0.67);
+    border-radius: 0.8rem;
+    background-color: #fff;
+}
+
+.as-form-content-form {
+    width: 100%;
     margin: 0 auto;
     -webkit-box-shadow: 1px 4px 25px 2px rgba(119, 119, 119, 0.67);
     box-shadow: 1px 4px 25px 2px rgba(119, 119, 119, 0.67);
