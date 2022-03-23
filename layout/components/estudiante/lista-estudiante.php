@@ -24,6 +24,7 @@ foreach ($listaUsuarios as $item) {
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
     $lista .= $item->getEstado() == 1 ? "<a class='as-add' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-create.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(3, 'Registrar inasistencia') . "</a>" : "";
+    $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/notas/form-notas-create.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(4, 'Agregar nota') . "</a>";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;

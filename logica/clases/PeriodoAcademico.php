@@ -27,15 +27,18 @@ class PeriodoAcademico
         return $this->id;
     }
 
-    public function getInicioPeriodo() {
+    public function getInicioPeriodo()
+    {
         return $this->inicioPeriodo;
     }
 
-    public function getFinalizacionPeriodo() {
+    public function getFinalizacionPeriodo()
+    {
         return $this->finalizacionPeriodo;
     }
-    
-    public function getIdAnioEscolar() {
+
+    public function getIdAnioEscolar()
+    {
         return $this->id_anio_escolar;
     }
 
@@ -48,25 +51,25 @@ class PeriodoAcademico
     {
         $this->id = $id;
     }
-    
-    public function setInicioPeriodo($inicioPeriodo): void 
+
+    public function setInicioPeriodo($inicioPeriodo): void
     {
         $this->inicioPeriodo = $inicioPeriodo;
     }
 
-    public function setFinalizacionPeriodo($finalizacionPeriodo): void 
+    public function setFinalizacionPeriodo($finalizacionPeriodo): void
     {
         $this->finalizacionPeriodo = $finalizacionPeriodo;
     }
-    
-    public function setIdAnioEscolar($id_anio_escolar): void 
+
+    public function setIdAnioEscolar($id_anio_escolar): void
     {
         $this->id_anio_escolar = $id_anio_escolar;
     }
 
     public function __toString()
     {
-        return $this->inicioPeriodo;
+        return Generalidades::convertDate($this->inicioPeriodo, false) . ' - ' . Generalidades::convertDate($this->finalizacionPeriodo, false);
     }
 
     public function guardar()

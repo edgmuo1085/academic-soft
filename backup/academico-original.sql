@@ -166,9 +166,10 @@ CREATE TABLE tipo_actividad (
 CREATE TABLE nota (
     id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_usuario_estudiante INT(4) NOT NULL,
-    id_asignatura INT(4) NOT NULL,
     id_periodo_academico INT(4) NOT NULL,
+    id_asignatura INT(4) NOT NULL,
     id_tipo_actividad INT(4) NOT NULL,
+    nota DOUBLE NULL,
     fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_modificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario_estudiante) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -560,7 +561,7 @@ VALUES (
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
         'Consultar Notas',
-        '#',
+        'principal.php?CONTENIDO=layout/components/notas/lista-notas.php',
         2,
         13,
         14
