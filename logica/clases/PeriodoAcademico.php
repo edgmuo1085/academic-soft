@@ -3,6 +3,7 @@
 class PeriodoAcademico
 {
     protected $id;
+    protected $nombre;
     protected $inicioPeriodo;
     protected $finalizacionPeriodo;
     protected $id_anio_escolar;
@@ -11,11 +12,12 @@ class PeriodoAcademico
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, inicio_periodo, finalizacion_periodo, id_anio_escolar FROM periodo_academico WHERE $campo=$valor";
+                $cadenaSQL = "SELECT id, nombre, inicio_periodo, finalizacion_periodo, id_anio_escolar FROM periodo_academico WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
 
             $this->id = $campo['id'];
+            $this->nombre = $campo['nombre'];
             $this->inicioPeriodo = $campo['inicio_periodo'];
             $this->finalizacionPeriodo = $campo['finalizacion_periodo'];
             $this->id_anio_escolar = $campo['id_anio_escolar'];
@@ -25,6 +27,11 @@ class PeriodoAcademico
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getNombre()
+    {
+        return $this->nombre;
     }
 
     public function getInicioPeriodo()
@@ -52,6 +59,11 @@ class PeriodoAcademico
         $this->id = $id;
     }
 
+    public function setNombre($nombre): void
+    {
+        $this->nombre = $nombre;
+    }
+
     public function setInicioPeriodo($inicioPeriodo): void
     {
         $this->inicioPeriodo = $inicioPeriodo;
@@ -69,18 +81,19 @@ class PeriodoAcademico
 
     public function __toString()
     {
-        return Generalidades::convertDate($this->inicioPeriodo, false) . ' - ' . Generalidades::convertDate($this->finalizacionPeriodo, false);
+        //return Generalidades::convertDate($this->inicioPeriodo, false) . ' - ' . Generalidades::convertDate($this->finalizacionPeriodo, false);
+        return $this->nombre;
     }
 
     public function guardar()
     {
-        $cadenaSQL = "INSERT INTO periodo_academico (inicio_periodo, finalizacion_periodo, id_anio_escolar) values ('$this->inicioPeriodo', '$this->finalizacionPeriodo', '$this->id_anio_escolar')";
+        $cadenaSQL = "INSERT INTO periodo_academico (nombre, inicio_periodo, finalizacion_periodo, id_anio_escolar) values ('$this->nombre', '$this->inicioPeriodo', '$this->finalizacionPeriodo', '$this->id_anio_escolar')";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function modificar($ID)
     {
-        $cadenaSQL = "UPDATE periodo_academico SET inicio_periodo='{$this->inicioPeriodo}', finalizacion_periodo='{$this->finalizacionPeriodo}' , id_anio_escolar='{$this->id_anio_escolar}' WHERE id={$ID}";
+        $cadenaSQL = "UPDATE periodo_academico SET nombre='{$this->nombre}', inicio_periodo='{$this->inicioPeriodo}', finalizacion_periodo='{$this->finalizacionPeriodo}' , id_anio_escolar='{$this->id_anio_escolar}' WHERE id={$ID}";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -96,7 +109,7 @@ class PeriodoAcademico
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, inicio_periodo, finalizacion_periodo, id_anio_escolar FROM periodo_academico $filtro $orden";
+        $cadenaSQL = "SELECT id, nombre, inicio_periodo, finalizacion_periodo, id_anio_escolar FROM periodo_academico $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

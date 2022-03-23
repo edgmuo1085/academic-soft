@@ -5,11 +5,19 @@ if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acces
 $titulo = 'Adicionar';
 $selected = '';
 $selectMenu = '';
+$selectMenuGrado = '';
+$selectMenuGrupo = '';
+$arrayAnioEscolar = AnioEscolar::getListaEnObjetos('estado=1', null)[0];
+$arrayGrado = Grado::getListaEnObjetos(null, 'id');
 $array = new Usuario(null, null);
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new Usuario('id', $_REQUEST['id']);
 }
+foreach ($arrayGrado as $paramG) {
+    $selectMenuGrado .= '<option value="' . $paramG->getId() . '">' . $paramG->getNombreGrado() . '</option>';
+}
+
 ?>
 
 <div class="as-form-button-back">
@@ -53,6 +61,24 @@ if (isset($_REQUEST['id'])) {
                     <input type="text" name="direccion" id="direccion" value="<?= $array->getDireccion() ?>" required placeholder="Dirección">
                 </div>
 
+                <!-- <div class="as-form-fields">
+                    <div class="as-form-input">
+                        <label class="hide-label" for="id_grado">Grados</label>
+                        <select class="as-form-select" name="id_grado" id="id_grado">
+                            <?php
+                            echo $selectMenuGrado;
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="as-form-fields">
+                    <div class="as-form-input">
+                        <label class="hide-label" for="id_grupo">Grupo</label>
+                        <select class="as-form-select" name="id_grupo" id="id_grupo"></select>
+                    </div>
+                </div> -->
+
                 <?php
                 if ($titulo == 'Modificar') {
                 ?>
@@ -87,6 +113,22 @@ if (isset($_REQUEST['id'])) {
             </div>
         </div>
         <input type="hidden" name="id" value="<?= $array->getId() ?>">
-        <input type="hidden" name="accion" value="<?php echo $titulo ?>">
+        <input type="hidden" name="accion" value="<?php echo $titulo; ?>">
+        <!-- <input type="hidden" name="id_anio_escolar" value="<?php echo $$arrayAnioEscolar->getId(); ?>"> -->
     </form>
 </div>
+
+<script language="javascript">
+    /* $(document).ready(function() {
+        $("#id_grado").on('change', function() {
+            $("#id_grado option:selected").each(function() {
+                id = $(this).val();
+                $.post("layout/components/estudiante/lista-combo.php", {
+                    id: id
+                }, function(data) {
+                    $("#id_grupo").html(data);
+                });
+            });
+        });
+    }); */
+</script>
