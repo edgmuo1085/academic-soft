@@ -2,6 +2,7 @@
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location: ../../index.php?mensaje=Acceso no autorizado');
 $titulo = 'Adicionar';
+$nombre = '';
 $iniciaPeriodo = '';
 $finPeriodo = '';
 $idPeriodo = null;
@@ -13,6 +14,7 @@ if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new PeriodoAcademico('id', $_REQUEST['id']);
     $periodo = PeriodoAcademico::getListaEnObjetos("id={$array->getId()}", null)[0];
+    $nombre = $array->getNombre();
     $iniciaPeriodo = Generalidades::convertDate($array->getInicioPeriodo(), false);
     $finPeriodo = Generalidades::convertDate($array->getFinalizacionPeriodo(), false);
     $idPeriodoAca = $array->getIdAnioEscolar();
@@ -37,6 +39,12 @@ foreach ($totalAnioEscolar as $param) {
     <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/periodo-academico/form-periodo-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Periodo Académico</h2>
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="nombre">Nombre del periodo</label>
+                    <input type="text" name="nombre" id="nombre" value="<?php echo $nombre; ?>" required placeholder="Nombre del periodo">
+                </div>
+            </div>
             <div class="as-form-fields">
                 <div class="as-form-input">
                     <label class="hide-label" for="inicio">Inicio del periodo</label>

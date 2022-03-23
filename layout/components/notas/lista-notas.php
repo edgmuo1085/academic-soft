@@ -15,8 +15,8 @@ if (isset($_REQUEST['identificacion'])) {
 foreach ($listaNotas as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreEstudiante()}</a></td>";
     $lista .= "<td>{$item->getPeriodoAcademico()}</td>";
+    $lista .= "<td><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreEstudiante()}</a></td>";
     $lista .= "<td>{$item->getNombreAsignatura()}</td>";
     $lista .= "<td>{$item->getNombreTipoActividad()}</td>";
     $lista .= "<td>{$item->getNota()}</td>";
@@ -61,8 +61,8 @@ foreach ($listaNotas as $item) {
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Estudiante</th>
                     <th scope="col">Periodo académico</th>
+                    <th scope="col">Estudiante</th>
                     <th scope="col">Asignatura</th>
                     <th scope="col">Tipo actividad</th>
                     <th scope="col">Nota</th>

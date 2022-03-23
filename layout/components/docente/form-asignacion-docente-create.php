@@ -7,7 +7,7 @@ $selectMenuAsignatura = '';
 $selectMenuGrado = '';
 $arrayAnioEscolar = AnioEscolar::getListaEnObjetos('estado=1', null)[0];
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
-$arrayGrado = Grado::getListaEnObjetos(null, 'nombre_grado');
+$arrayGrado = Grado::getListaEnObjetos(null, 'id');
 
 if (isset($_REQUEST['id'])) {
     $arrayUsuario = new Usuario('id', $_REQUEST['id']);

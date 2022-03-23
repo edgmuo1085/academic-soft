@@ -34,12 +34,7 @@ foreach ($totalGrados as $param) {
     <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/grupo/form-grupo-action.php" autocomplete="off">
         <div class="as-form-margin">
             <h2>Nombre del grupo</h2>
-            <div class="as-form-fields">
-                <div class="as-form-input">
-                    <label class="hide-label" for="nombre_grupo">Nombre</label>
-                    <input type="text" name="nombre_grupo" id="nombre_grupo" value="<?php echo $nameGrupo; ?>" required placeholder="Nombre del grupo">
-                </div>
-            </div>
+            
             <div class="as-form-fields">
                 <div class="as-form-input">
                     <label class="hide-label" for="fin">Grado</label>
@@ -50,6 +45,14 @@ foreach ($totalGrados as $param) {
                     </select>
                 </div>
             </div>
+
+            <div class="as-form-fields">
+                <div class="as-form-input">
+                    <label class="hide-label" for="nombre_grupo">Nombre</label>
+                    <input type="text" name="nombre_grupo" id="nombre_grupo" value="<?php echo $nameGrupo; ?>" required placeholder="Nombre del grupo">
+                </div>
+            </div>
+
             <div class="as-form-button">
                 <button class="as-color-btn-green" type="submit">
                     <?php echo $titulo; ?>

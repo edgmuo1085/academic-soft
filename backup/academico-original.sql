@@ -67,6 +67,7 @@ CREATE TABLE periodo_academico (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     inicio_periodo DATETIME NOT NULL,
     finalizacion_periodo DATETIME NOT NULL,
+    nombre VARCHAR(150) NOT NULL,
     id_anio_escolar INT(4) NOT NULL,
     FOREIGN KEY periodo_academico(id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -108,10 +109,10 @@ CREATE TABLE asignatura(
 --
 CREATE TABLE grupo_estudiante (
     id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT(4) NOT NULL,
+    id_usuario_estudiante INT(4) NOT NULL,
     id_grupo INT(4) NOT NULL,
     id_anio_escolar INT(4) NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_usuario_estudiante) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (id_grupo) REFERENCES grupo(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -391,19 +392,57 @@ VALUES (
 --
 -- TABLA anio_escolar
 INSERT INTO anio_escolar (inicio, fin, id_institucion, estado)
-VALUES ('2022-01-01', '2022-12-01', 1, 1);
+VALUES ('2023-01-01', '2023-12-01', 1, 1);
 --
 --
 --
 -- TABLA periodo_academico
 INSERT INTO periodo_academico (
+        nombre,
         inicio_periodo,
         finalizacion_periodo,
         id_anio_escolar
     )
 VALUES (
-        '2022-02-01 23:59:59',
-        '2022-05-01 00:00:00',
+        'Periodo 1',
+        '2023-01-01 23:59:59',
+        '2023-03-30 00:00:00',
+        1
+    );
+INSERT INTO periodo_academico (
+        nombre,
+        inicio_periodo,
+        finalizacion_periodo,
+        id_anio_escolar
+    )
+VALUES (
+        'Periodo 2',
+        '2023-04-01 23:59:59',
+        '2023-06-30 00:00:00',
+        1
+    );
+INSERT INTO periodo_academico (
+        nombre,
+        inicio_periodo,
+        finalizacion_periodo,
+        id_anio_escolar
+    )
+VALUES (
+        'Periodo 3',
+        '2023-07-01 23:59:59',
+        '2023-09-30 00:00:00',
+        1
+    );
+INSERT INTO periodo_academico (
+        nombre,
+        inicio_periodo,
+        finalizacion_periodo,
+        id_anio_escolar
+    )
+VALUES (
+        'Periodo 4',
+        '2023-10-01 23:59:59',
+        '2023-12-30 00:00:00',
         1
     );
 --
@@ -411,11 +450,29 @@ VALUES (
 --
 -- TABLA grado
 INSERT INTO grado (nombre_grado, id_institucion)
+VALUES ('Párbulos', 1);
+INSERT INTO grado (nombre_grado, id_institucion)
 VALUES ('Primero', 1);
 INSERT INTO grado (nombre_grado, id_institucion)
 VALUES ('Segundo', 1);
 INSERT INTO grado (nombre_grado, id_institucion)
 VALUES ('Tercero', 1);
+INSERT INTO grado (nombre_grado, id_institucion)
+VALUES ('Cuarto', 1);
+INSERT INTO grado (nombre_grado, id_institucion)
+VALUES ('Quinto', 1);
+INSERT INTO grado (nombre_grado, id_institucion)
+VALUES ('Sexto', 1);
+INSERT INTO grado (nombre_grado, id_institucion)
+VALUES ('Séptimo', 1);
+INSERT INTO grado (nombre_grado, id_institucion)
+VALUES ('Octavo', 1);
+INSERT INTO grado (nombre_grado, id_institucion)
+VALUES ('Noveno', 1);
+INSERT INTO grado (nombre_grado, id_institucion)
+VALUES ('Décimo', 1);
+INSERT INTO grado (nombre_grado, id_institucion)
+VALUES ('Onceavo', 1);
 --
 --
 --
@@ -424,10 +481,61 @@ INSERT INTO grupo (nombre_grupo, id_grado)
 VALUES ('A', 1);
 INSERT INTO grupo (nombre_grupo, id_grado)
 VALUES ('B', 1);
+--
 INSERT INTO grupo (nombre_grupo, id_grado)
 VALUES ('A', 2);
 INSERT INTO grupo (nombre_grupo, id_grado)
 VALUES ('B', 2);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 3);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 3);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 4);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 4);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 5);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 5);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 6);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 6);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 7);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 7);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 8);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 8);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 9);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 9);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 10);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 10);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 11);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 11);
+--
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('A', 12);
+INSERT INTO grupo (nombre_grupo, id_grado)
+VALUES ('B', 12);
 --
 --
 --
@@ -435,17 +543,21 @@ VALUES ('B', 2);
 INSERT INTO asignatura (nombre_asignatura)
 VALUES ('Matematicas');
 INSERT INTO asignatura (nombre_asignatura)
+VALUES ('Español');
+INSERT INTO asignatura (nombre_asignatura)
 VALUES ('Sociales');
 INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Castellano');
+VALUES ('Naturales');
 INSERT INTO asignatura (nombre_asignatura)
 VALUES ('Inglés');
---
---
---
--- TABLA grupo_estudiante
---INSERT INTO grupo_estudiante (id_usuario, id_grupo, id_anio_escolar)
---VALUES (1, 1, 1);
+INSERT INTO asignatura (nombre_asignatura)
+VALUES ('Informática');
+INSERT INTO asignatura (nombre_asignatura)
+VALUES ('Etica y Valores');
+INSERT INTO asignatura (nombre_asignatura)
+VALUES ('Religion');
+INSERT INTO asignatura (nombre_asignatura)
+VALUES ('Educacion Fisica');
 --
 --
 --
@@ -724,19 +836,6 @@ VALUES (1, 16, 1);
 --
 --
 --
---
---
-CREATE TABLE name_table ();
---
-INSERT INTO name_table ()
-VALUES ();
---
---
---
-CREATE TABLE name_table ();
---
-INSERT INTO name_table ()
-VALUES ();
 --
 --
 --

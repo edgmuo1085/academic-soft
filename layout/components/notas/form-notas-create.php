@@ -9,13 +9,15 @@ $selectMenuTipoActividad = '';
 $arrayPeriodoAcademico = PeriodoAcademico::getListaEnObjetos(null, 'inicio_periodo');
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
 $arrayTipoActividad = TipoActividad::getListaEnObjetos(null, 'nombre_actividad');
+$count = 1;
 
 if (isset($_REQUEST['id'])) {
     $arrayUsuario = new Usuario('id', $_REQUEST['id']);
 }
 
 foreach ($arrayPeriodoAcademico as $paramA) {
-    $selectMenuPeriodo .= '<option value="' . $paramA->getId() . '">' . $paramA->__toString() . '</option>';
+    $selectMenuPeriodo .= '<option value="' . $paramA->getId() . '">' . $paramA->getNombre() . '</option>';
+    $count++;
 }
 
 foreach ($arrayAsignatura as $paramA) {
@@ -81,7 +83,7 @@ foreach ($arrayTipoActividad as $paramG) {
 
                 <div class="as-form-input">
                     <label class="hide-label" for="nota">Calificación</label>
-                    <input type="number" name="nota" id="nota" required placeholder="Calificación">
+                    <input type="text" name="nota" id="nota" required placeholder="Calificación" onkeypress="return valideKey(event);">
                 </div>
             </div>
             <div class="as-form-button">
