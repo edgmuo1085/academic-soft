@@ -43,7 +43,7 @@ foreach ($totalGrados as $param) {
             <div class="as-form-fields">
                 <div class="as-form-input">
                     <label class="hide-label" for="fin">Grado</label>
-                    <select class="as-form-select" name="id_grado" id="id_grado">
+                    <select class="as-form-select" name="id_grado" id="id_grado" required>
                         <?php
                         echo $selectMenu;
                         ?>

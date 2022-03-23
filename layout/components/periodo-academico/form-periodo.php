@@ -23,7 +23,7 @@ $totalAnioEscolar = AnioEscolar::getListaEnObjetos(null, null);
 
 foreach ($totalAnioEscolar as $param) {
     $selected = $param->getId() == $idPeriodoAca ? 'selected' : '';
-    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' > Inicia: [' . Generalidades::convertDate($param->getInicio(), false) . '] - Finaliza: [' . Generalidades::convertDate($param->getFin(), false)  . '] - Estado: '. Generalidades::getEstadoUsuario($param->getEstado()).' </option>';
+    $selectMenu .= '<option value="' . $param->getId() . '" ' . $selected . ' > Inicia: [' . Generalidades::convertDate($param->getInicio(), false) . '] - Finaliza: [' . Generalidades::convertDate($param->getFin(), false)  . '] - Estado: ' . Generalidades::getEstadoUsuario($param->getEstado()) . ' </option>';
 }
 ?>
 
@@ -52,7 +52,7 @@ foreach ($totalAnioEscolar as $param) {
             <div class="as-form-fields">
                 <div class="as-form-input">
                     <label class="hide-label" for="fin">Periodo Académico</label>
-                    <select class="as-form-select" name="id_anio_escolar" id="id_anio_escolar">
+                    <select class="as-form-select" name="id_anio_escolar" id="id_anio_escolar" required>
                         <?php
                         echo $selectMenu;
                         ?>

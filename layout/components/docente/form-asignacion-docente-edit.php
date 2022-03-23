@@ -16,7 +16,6 @@ $arrayAnioEscolar = AnioEscolar::getListaEnObjetos('estado=1', null)[0];
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
 $arrayGrado = Grado::getListaEnObjetos(null, 'nombre_grado');
 
-
 foreach ($arrayAsignatura as $paramA) {
     $selected1 = $paramA->getId() == $arrayAsignacionDocente->getIdAsignatura() ? 'selected' : '';
     $selectMenuAsignatura .= '<option value="' . $paramA->getId() . '"' . $selected1 . '>' . $paramA->getNombreAsignatura() . '</option>';
@@ -63,8 +62,7 @@ foreach ($arrayGrado as $paramG) {
                 <div class="as-form-fields">
                     <div class="as-form-input">
                         <label class="hide-label" for="id_grado">Grados</label>
-                        <select class="as-form-select" name="id_grado" id="id_grado">
-                            <option>Grados...</option>
+                        <select class="as-form-select" name="id_grado" id="id_grado" required>
                             <?php
                             echo $selectMenuGrado;
                             ?>
@@ -75,8 +73,7 @@ foreach ($arrayGrado as $paramG) {
                 <div class="as-form-fields">
                     <div class="as-form-input">
                         <label class="hide-label" for="id_asignatura">Asignaturas</label>
-                        <select class="as-form-select" name="id_asignatura" id="id_asignatura">
-                            <option>Asignaturas...</option>
+                        <select class="as-form-select" name="id_asignatura" id="id_asignatura" required>
                             <?php
                             echo $selectMenuAsignatura;
                             ?>
