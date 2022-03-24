@@ -61,7 +61,7 @@ foreach ($arrayGrado as $paramG) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
-                        <label class="hide-label" for="id_grado">Grados</label>
+                        <label class="label" for="id_grado">Grados</label>
                         <select class="as-form-select" name="id_grado" id="id_grado" required>
                             <?php
                             echo $selectMenuGrado;
@@ -72,7 +72,7 @@ foreach ($arrayGrado as $paramG) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
-                        <label class="hide-label" for="id_asignatura">Asignaturas</label>
+                        <label class="label" for="id_asignatura">Asignaturas</label>
                         <select class="as-form-select" name="id_asignatura" id="id_asignatura" required>
                             <?php
                             echo $selectMenuAsignatura;

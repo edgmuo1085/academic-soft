@@ -16,7 +16,7 @@ foreach ($arrayAsignatura as $paramA) {
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/inasistencias/lista-estudiantes.php" class="as-btn-back">
+    <a href="principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante-grupo.php" class="as-btn-back">
         Regresar
     </a>
 </div>
@@ -36,7 +36,7 @@ foreach ($arrayAsignatura as $paramA) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
-                        <label class="hide-label" for="id_asignatura">Asignaturas</label>
+                        <label class="label" for="id_asignatura">Asignaturas</label>
                         <select class="as-form-select" name="id_asignatura" id="id_asignatura" required>
                             <?php
                             echo $selectMenuAsignatura;

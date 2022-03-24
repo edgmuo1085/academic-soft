@@ -171,8 +171,6 @@ class Usuario
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
         $cadenaSQL = "SELECT id, identificacion, nombres, apellidos, telefono, email, direccion, clave, rol_id, estado FROM usuario $filtro $orden";
-        /* var_dump($cadenaSQL);
-        die(); */
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

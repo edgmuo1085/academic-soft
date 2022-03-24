@@ -73,7 +73,6 @@ foreach ($listaUsuarios as $item) {
     </div>
 </div>
 
-
 <div class="as-layout-table">
     <div>
         <h3 class="as-title-table">LISTADO DE DOCENTES</h3>

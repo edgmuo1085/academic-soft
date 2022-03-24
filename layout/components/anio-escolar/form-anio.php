@@ -53,7 +53,7 @@ foreach ($totalInstituciones as $param) {
             </div>
             <div class="as-form-fields">
                 <div class="as-form-input">
-                    <label class="hide-label" for="id_institucion">Institución</label>
+                    <label class="label" for="id_institucion">Institución</label>
                     <select class="as-form-select" name="id_institucion" id="id_institucion" required>
                         <?php
                         echo $selectMenu;
@@ -63,7 +63,7 @@ foreach ($totalInstituciones as $param) {
             </div>
             <div class="as-form-fields">
                 <div class="as-form-input">
-                    <label class="hide-label" for="estado">Estado</label>
+                    <label class="label" for="estado">Estado</label>
                     <select class="as-form-select" name="estado" id="estado" required>
                         <?php
                         for ($i = 1; $i < 3; $i++) {

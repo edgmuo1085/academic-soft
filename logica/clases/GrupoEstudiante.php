@@ -5,13 +5,24 @@ class GrupoEstudiante
     protected $id;
     protected $id_usuario_estudiante;
     protected $id_grupo;
+    protected $nombre_grado;
     protected $id_anio_escolar;
 
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, id_usuario_estudiante, id_grupo, id_anio_escolar FROM grupo_estudiante WHERE $campo=$valor";
+                //$cadenaSQL = "SELECT id, id_usuario_estudiante, id_grupo, id_anio_escolar FROM grupo_estudiante WHERE $campo=$valor";
+                //$cadenaSQL = "SELECT id, id_usuario_estudiante, id_grupo, id_anio_escolar FROM grupo_estudiante ";
+                $cadenaSQL = "SELECT ";
+                $cadenaSQL .= "grupo_estudiante.id, grupo_estudiante.id_usuario_estudiante, grupo_estudiante.id_grupo, grupo_estudiante.id_anio_escolar, ";
+                $cadenaSQL .= "usuario.identificacion, usuario.nombres, usuario.apellidos, ";
+                $cadenaSQL .= "grado.nombre_grado, ";
+                $cadenaSQL .= "grupo.nombre_grupo, grupo.id_grado ";
+                $cadenaSQL .= "FROM grupo_estudiante ";
+                $cadenaSQL .= "JOIN usuario ON grupo_estudiante.id_usuario_estudiante = usuario.id ";
+                $cadenaSQL .= "JOIN grupo ON grupo_estudiante.id_grupo = grupo.id ";
+                $cadenaSQL .= "JOIN grado ON grupo.id_grado = grado.id WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
 
@@ -19,6 +30,7 @@ class GrupoEstudiante
             $this->id_usuario_estudiante = $campo['id_usuario_estudiante'];
             $this->id_grupo = $campo['id_grupo'];
             $this->id_anio_escolar = $campo['id_anio_escolar'];
+            $this->nombre_grado = $campo['nombre_grado'];
         }
     }
 
@@ -27,17 +39,22 @@ class GrupoEstudiante
         return $this->id;
     }
 
-    public function getIdUsuarioEstudiante() 
+    public function getIdUsuarioEstudiante()
     {
         return $this->id_usuario_estudiante;
     }
-   
-    public function getIdGrupo() 
+
+    public function getIdGrupo()
     {
         return $this->id_grupo;
     }
-    
-    public function getIdAnioEscolar() 
+   
+    public function getNombreGrado()
+    {
+        return $this->nombre_grado;
+    }
+
+    public function getIdAnioEscolar()
     {
         return $this->id_anio_escolar;
     }
@@ -46,12 +63,12 @@ class GrupoEstudiante
     {
         return new Usuario('id', $this->id_usuario_estudiante);
     }
-    
+
     public function getNombreGrupo()
     {
         return new Grupo('id', $this->id_grupo);
     }
-    
+
     public function getNombreAnioEscolar()
     {
         return new AnioEscolar('id', $this->id_anio_escolar);
@@ -62,21 +79,21 @@ class GrupoEstudiante
         $this->id = $id;
     }
 
-    public function setIdUsuarioEstudiante($id_usuario_estudiante): void 
+    public function setIdUsuarioEstudiante($id_usuario_estudiante): void
     {
         $this->id_usuario_estudiante = $id_usuario_estudiante;
     }
-    
-    public function setIdGrupo($id_grupo): void 
+
+    public function setIdGrupo($id_grupo): void
     {
         $this->id_grupo = $id_grupo;
     }
-    
-    public function setIdAnioEscolar($id_anio_escolar): void 
+
+    public function setIdAnioEscolar($id_anio_escolar): void
     {
         $this->id_anio_escolar = $id_anio_escolar;
     }
-    
+
     public function __toString()
     {
         return $this->id_usuario_estudiante;
@@ -96,7 +113,8 @@ class GrupoEstudiante
 
     public function eliminar()
     {
-        $cadenaSQL = "DELETE FROM grupo_estudiante WHERE id='$this->id'";
+        $cadenaSQL = "DELETE FROM grupo_estudiante WHERE grupo_estudiante.id='$this->id'";
+        var_dump($cadenaSQL);
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -106,7 +124,16 @@ class GrupoEstudiante
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, id_usuario_estudiante, id_grupo, id_anio_escolar FROM grupo_estudiante $filtro $orden";
+        //$cadenaSQL = "SELECT id, id_usuario_estudiante, id_grupo, id_anio_escolar FROM grupo_estudiante $filtro $orden";
+        $cadenaSQL = "SELECT ";
+        $cadenaSQL .= "grupo_estudiante.id, grupo_estudiante.id_usuario_estudiante, grupo_estudiante.id_grupo, grupo_estudiante.id_anio_escolar, ";
+        $cadenaSQL .= "usuario.identificacion, usuario.nombres, usuario.apellidos, ";
+        $cadenaSQL .= "grado.nombre_grado, ";
+        $cadenaSQL .= "grupo.nombre_grupo, grupo.id_grado ";
+        $cadenaSQL .= "FROM grupo_estudiante ";
+        $cadenaSQL .= "JOIN usuario ON grupo_estudiante.id_usuario_estudiante = usuario.id ";
+        $cadenaSQL .= "JOIN grupo ON grupo_estudiante.id_grupo = grupo.id ";
+        $cadenaSQL .= "JOIN grado ON grupo.id_grado = grado.id $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

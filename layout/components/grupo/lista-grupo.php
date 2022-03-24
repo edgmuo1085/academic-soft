@@ -4,7 +4,7 @@
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $lista = '';
 $count = 1;
-$grupoList = Grupo::getListaEnObjetos(null, 'id_grado');
+$grupoList = Grupo::getListaEnObjetos(null, 'id_grado, nombre_grupo');
 if (isset($_REQUEST['nombre'])) {
     $gradoList = Grado::getListaEnObjetos("nombre_grado like '%{$_REQUEST['nombre']}%'", null)[0];
     $grupoList = Grupo::getListaEnObjetos("id_grado={$gradoList->getId()}", 'id_grado');

@@ -25,7 +25,7 @@ if (isset($_REQUEST['id'])) {
             <div class="as-form-fields">
                 <div class="as-form-input">
                     <label class="hide-label" for="identificacion">Identificación</label>
-                    <input type="number" name="identificacion" id="identificacion" value="<?= $array->getIdentificacion() ?>" required placeholder="Identificación">
+                    <input type="number" name="identificacion" id="identificacion" value="<?= $array->getIdentificacion() ?>" required maxlength="10" size="10" placeholder="Identificación">
                 </div>
 
                 <div class="as-form-input">
@@ -66,7 +66,7 @@ if (isset($_REQUEST['id'])) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
-                        <label class="hide-label" for="estado">Estado</label>
+                        <label class="label" for="estado">Estado</label>
                         <select class="as-form-select" name="estado" id="estado" required>
                             <?php
                             for ($i = 1; $i < 3; $i++) {

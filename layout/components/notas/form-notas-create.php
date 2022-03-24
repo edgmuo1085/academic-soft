@@ -50,7 +50,7 @@ foreach ($arrayTipoActividad as $paramG) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
-                        <label class="hide-label" for="id_periodo_academico">Periodo académico</label>
+                        <label class="label" for="id_periodo_academico">Periodo académico</label>
                         <select class="as-form-select" name="id_periodo_academico" id="id_periodo_academico" required>
                             <?php
                             echo $selectMenuPeriodo;
@@ -61,7 +61,7 @@ foreach ($arrayTipoActividad as $paramG) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
-                        <label class="hide-label" for="id_asignatura">Asignaturas</label>
+                        <label class="label" for="id_asignatura">Asignaturas</label>
                         <select class="as-form-select" name="id_asignatura" id="id_asignatura" required>
                             <?php
                             echo $selectMenuAsignatura;
@@ -72,7 +72,7 @@ foreach ($arrayTipoActividad as $paramG) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
-                        <label class="hide-label" for="id_tipo_actividad">Tipo de actividad</label>
+                        <label class="label" for="id_tipo_actividad">Tipo de actividad</label>
                         <select class="as-form-select" name="id_tipo_actividad" id="id_tipo_actividad" required>
                             <?php
                             echo $selectMenuTipoActividad;
