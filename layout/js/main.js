@@ -1,3 +1,12 @@
+$(function() {
+    $("#inicio").datepicker({
+        dateFormat: "dd-mm-yy"
+    });
+    $("#fin").datepicker({
+        dateFormat: "dd-mm-yy"
+    });
+});
+
 const menuBtn = document.querySelector("#as-menu-btn");
 const menu = document.querySelector("#as-menu");
 
@@ -26,17 +35,7 @@ for (let index = 0; index < subMenuBtn.length; index++) {
 
 }
 
-$(function() {
-    $("#inicio").datepicker({
-        dateFormat: "dd-mm-yy"
-    });
-    $("#fin").datepicker({
-        dateFormat: "dd-mm-yy"
-    });
-});
-
 const valideKey = (evt) => {
-    console.log(evt);
     // code is the decimal ASCII representation of the pressed key.
     let code = (evt.which) ? evt.which : evt.keyCode;
 
@@ -47,4 +46,14 @@ const valideKey = (evt) => {
     } else { // other keys.
         return false;
     }
+}
+
+if (document.getElementById("identificacion")) {
+    document.getElementById("identificacion").addEventListener("input", (e) => {
+        let value = e.target.value;
+        e.target.value = value.replace(/[^A-Z\d-]/g, "");
+        if (value.length >= 12) {
+            e.target.value = "";
+        }
+    });
 }

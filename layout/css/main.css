@@ -405,6 +405,11 @@ body {
     border-radius: 0 0 4px 4px;
 }
 
+.as-tab-content .as-tab-content-form-show .as-form-content {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 .as-form-content {
     max-width: 40rem;
     margin: 0 auto;

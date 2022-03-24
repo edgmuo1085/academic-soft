@@ -7,17 +7,11 @@ $selected = '';
 $selectMenu = '';
 $selectMenuGrado = '';
 $selectMenuGrupo = '';
-$arrayAnioEscolar = AnioEscolar::getListaEnObjetos('estado=1', null)[0];
-$arrayGrado = Grado::getListaEnObjetos(null, 'id');
 $array = new Usuario(null, null);
 if (isset($_REQUEST['id'])) {
     $titulo = 'Modificar';
     $array = new Usuario('id', $_REQUEST['id']);
 }
-foreach ($arrayGrado as $paramG) {
-    $selectMenuGrado .= '<option value="' . $paramG->getId() . '">' . $paramG->getNombreGrado() . '</option>';
-}
-
 ?>
 
 <div class="as-form-button-back">
@@ -33,7 +27,7 @@ foreach ($arrayGrado as $paramG) {
             <div class="as-form-fields">
                 <div class="as-form-input">
                     <label class="hide-label" for="identificacion">Identificación</label>
-                    <input type="number" name="identificacion" id="identificacion" value="<?= $array->getIdentificacion() ?>" required placeholder="Identificación">
+                    <input type="number" name="identificacion" id="identificacion" value="<?= $array->getIdentificacion() ?>" required placeholder="Identificación" maxlength="10">
                 </div>
 
                 <div class="as-form-input">
@@ -61,24 +55,6 @@ foreach ($arrayGrado as $paramG) {
                     <input type="text" name="direccion" id="direccion" value="<?= $array->getDireccion() ?>" required placeholder="Dirección">
                 </div>
 
-                <!-- <div class="as-form-fields">
-                    <div class="as-form-input">
-                        <label class="hide-label" for="id_grado">Grados</label>
-                        <select class="as-form-select" name="id_grado" id="id_grado">
-                            <?php
-                            echo $selectMenuGrado;
-                            ?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="as-form-fields">
-                    <div class="as-form-input">
-                        <label class="hide-label" for="id_grupo">Grupo</label>
-                        <select class="as-form-select" name="id_grupo" id="id_grupo"></select>
-                    </div>
-                </div> -->
-
                 <?php
                 if ($titulo == 'Modificar') {
                 ?>
@@ -92,7 +68,7 @@ foreach ($arrayGrado as $paramG) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
-                        <label class="hide-label" for="estado">Estado</label>
+                        <label class="label" for="estado">Estado</label>
                         <select class="as-form-select" name="estado" id="estado" required>
                             <?php
                             for ($i = 1; $i < 3; $i++) {
@@ -114,21 +90,5 @@ foreach ($arrayGrado as $paramG) {
         </div>
         <input type="hidden" name="id" value="<?= $array->getId() ?>">
         <input type="hidden" name="accion" value="<?php echo $titulo; ?>">
-        <!-- <input type="hidden" name="id_anio_escolar" value="<?php echo $$arrayAnioEscolar->getId(); ?>"> -->
     </form>
 </div>
-
-<script language="javascript">
-    /* $(document).ready(function() {
-        $("#id_grado").on('change', function() {
-            $("#id_grado option:selected").each(function() {
-                id = $(this).val();
-                $.post("layout/components/estudiante/lista-combo.php", {
-                    id: id
-                }, function(data) {
-                    $("#id_grupo").html(data);
-                });
-            });
-        });
-    }); */
-</script>

@@ -42,7 +42,7 @@ foreach ($totalInstituciones as $param) {
             </div>
             <div class="as-form-fields">
                 <div class="as-form-input">
-                    <label class="hide-label" for="fin">Intitución</label>
+                    <label class="label" for="fin">Intitución</label>
                     <select class="as-form-select" name="id_institucion" id="id_institucion" required>
                         <?php
                         echo $selectMenu;

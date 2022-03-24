@@ -59,7 +59,7 @@ foreach ($totalAnioEscolar as $param) {
             </div>
             <div class="as-form-fields">
                 <div class="as-form-input">
-                    <label class="hide-label" for="fin">Periodo Académico</label>
+                    <label class="label" for="id_anio_escolar">Año escolar</label>
                     <select class="as-form-select" name="id_anio_escolar" id="id_anio_escolar" required>
                         <?php
                         echo $selectMenu;

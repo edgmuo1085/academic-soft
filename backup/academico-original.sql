@@ -33,7 +33,7 @@ CREATE TABLE roles (
 --
 CREATE TABLE usuario (
     id INT(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    identificacion varchar(10) NOT NULL UNIQUE,
+    identificacion varchar(15) NOT NULL UNIQUE,
     nombres varchar(50) NOT NULL,
     apellidos varchar(50) NOT NULL,
     telefono varchar(10) NULL,
@@ -656,11 +656,19 @@ VALUES (
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
+        'Listado de Grupos',
+        'principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante-grupo.php',
+        2,
+        10,
+        12
+    );
+INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
+VALUES (
         'Inasistencias',
         'principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php',
         2,
         10,
-        12
+        13
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
@@ -668,31 +676,31 @@ VALUES (
         '#',
         1,
         null,
-        13
+        14
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
         'Consultar Notas',
         'principal.php?CONTENIDO=layout/components/notas/lista-notas.php',
         2,
-        13,
-        14
+        14,
+        15
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
         'Imprimir Notas',
         '#',
         2,
-        13,
-        15
+        14,
+        16
     );
 INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
 VALUES (
         'Tipo de Actividades',
         'principal.php?CONTENIDO=layout/components/tipo-actividad/lista-tipo-actividad.php',
         2,
-        13,
-        16
+        14,
+        17
     );
 --
 --
@@ -747,6 +755,9 @@ VALUES (6, 15, 1);
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (6, 16, 1);
 --
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (6, 17, 1);
+--
 --rol=1 secretaria
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 1, 1);
@@ -795,6 +806,9 @@ VALUES (1, 15, 1);
 --
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 16, 1);
+--
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (1, 17, 1);
 --
 --
 --
@@ -872,3 +886,4 @@ order by index_schema,
 --
 --
 ---CREATE INDEX id_index ON usuario (id);
+---ALTER TABLE name_table AUTO_INCREMENT = 0;
