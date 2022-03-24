@@ -2,10 +2,17 @@
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location: ../../index.php?mensaje=Acceso no autorizado');
 $titulo = 'Adicionar';
-$arrayGrupo = '';
+$arrayGrado = '';
+$arrayGrupo = array();
+$nombresGrupo = '';
 
 if (isset($_REQUEST['id'])) {
-    $arrayGrupo = Grado::getListaEnObjetos("id={$_REQUEST['id']}", null)[0];
+    $arrayGrado = Grado::getListaEnObjetos("id={$_REQUEST['id']}", null)[0];
+    $arrayGrupo = Grupo::getListaEnObjetos("id_grado={$_REQUEST['id']}", null);
+
+    foreach ($arrayGrupo as $item) {
+        $nombresGrupo .= " [ ". $item->getNombreGrupo()." ] ";
+    }
 }
 
 ?>
@@ -21,7 +28,11 @@ if (isset($_REQUEST['id'])) {
         <div class="as-form-margin">
             <h2>Nombre del grupo</h2>
             <div class="as-form-input">
-                <label class="show-label"><span>Grado: </span><?= $arrayGrupo->getNombreGrado(); ?></label>
+                <label class="show-label"><span>Grado: </span><?= $arrayGrado->getNombreGrado(); ?></label>
+            </div>
+
+            <div class="as-form-input">
+                <label class="show-label"><span>Grupos actuales: </span><?= $nombresGrupo; ?></label>
             </div>
 
             <div class="as-form-fields">
@@ -37,7 +48,7 @@ if (isset($_REQUEST['id'])) {
                 </button>
             </div>
         </div>
-        <input type="hidden" name="id_grado" value="<?= $arrayGrupo->getId(); ?>">
+        <input type="hidden" name="id_grado" value="<?= $arrayGrado->getId(); ?>">
         <input type="hidden" name="accion" value="<?= $titulo ?>">
     </form>
 </div>

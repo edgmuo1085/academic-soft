@@ -39,7 +39,7 @@ foreach ($arrayAsignatura as $paramA) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
-                        <label class="hide-label" for="id_asignatura">Asignaturas</label>
+                        <label class="label" for="id_asignatura">Asignaturas</label>
                         <select class="as-form-select" name="id_asignatura" id="id_asignatura">
                             <option>Asignaturas...</option>
                             <?php
