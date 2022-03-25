@@ -4,21 +4,46 @@
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $lista = '';
 $count = 1;
+$selectMenuAsignatura = '';
+$consulta = '';
+$bandera = false;
 $txtResumido = 'as-texto-resumido';
 $txtCompleto = 'as-texto-completo';
-$listaInasistencias = Inasistencias::getListaEnObjetos(null, 'fecha_creacion DESC');
-if (isset($_REQUEST['identificacion'])) {
-    $listaUsuarios = Usuario::getListaEnObjetos("rol_id=4 AND identificacion={$_REQUEST['identificacion']}", '');
-    foreach ($listaUsuarios as $param) {
-        $listaInasistencias = Inasistencias::getListaEnObjetos("id_usuario_estudiante={$param->getId()}", 'fecha_creacion DESC');
+$arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
+$listaInasistencias = Inasistencias::getListaEnObjetos(null, 'i.id_asignatura, i.fecha_creacion DESC');
+
+if (!empty($_REQUEST['identificacion']) || !empty($_REQUEST['nombres']) || !empty($_REQUEST['id_asignatura']) || !empty($_REQUEST['fecha_creacion'])) {
+    $listaGruposPorEstudiante = array();
+    if (!empty($_REQUEST['identificacion'])) {
+        $consulta .= " u.identificacion LIKE '%{$_REQUEST['identificacion']}%'";
+        $bandera = true;
+    }
+
+    if (!empty($_REQUEST['nombres'])) {
+        $consulta .=  $bandera ? " AND u.nombres LIKE '%{$_REQUEST['nombres']}%'" : " u.nombres LIKE '%{$_REQUEST['nombres']}%'";
+        $bandera = true;
+    }
+
+    if (!empty($_REQUEST['id_asignatura'])) {
+        $consulta .=  $bandera ? " AND i.id_asignatura = {$_REQUEST['id_asignatura']}" : " i.id_asignatura = {$_REQUEST['id_asignatura']}";
+        $bandera = true;
+    }
+
+    if (!empty($_REQUEST['fecha_creacion'])) {
+        $consulta .=  $bandera ? " AND i.fecha_creacion LIKE '%{$_REQUEST['fecha_creacion']}%'" : " i.fecha_creacion LIKE '%{$_REQUEST['fecha_creacion']}%'";
+        $bandera = true;
+    }
+    
+    if ($bandera) {
+        $listaInasistencias = Inasistencias::getListaEnObjetos("{$consulta}", "i.id_asignatura, i.fecha_creacion");
     }
 }
 
 foreach ($listaInasistencias as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreEstudiante()}</a></td>";
-    $lista .= "<td>{$item->getNombreAsignatura()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreEstudiante()}</a></td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreAsignatura()}</td>";
     $lista .= "<td>" . Generalidades::convertDate($item->getFechaCreacion(), false) . "</td>";
     $lista .= "<td>{$item->getCantidad()}</td>";
     $lista .= "<td>";
@@ -40,27 +65,61 @@ foreach ($listaInasistencias as $item) {
     $count++;
 }
 
+foreach ($arrayAsignatura as $paramA) {
+    $selectMenuAsignatura .= '<option value="' . $paramA->getId() . '">' . $paramA->getNombreAsignatura() . '</option>';
+}
+
 ?>
-<div class="as-form-content">
-    <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php" autocomplete="off">
-        <div class="as-form-margin">
-            <h2>Buscar inasistencias por estudiante</h2>
-            <div class="as-form-fields">
-                <div class="as-form-input">
-                    <label class="hide-label" for="identificacion">Identificación</label>
-                    <input type="number" name="identificacion" id="identificacion" required placeholder="Identificación">
+
+<div class="as-tab-content">
+    <div class="as-tab-header" id="as-tab-header-click">
+        <i class='fas fa-search'></i> Buscar estudiantes por filtros
+    </div>
+    <div class="as-tab-content-form">
+        <div class="as-form-content">
+            <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php" autocomplete="off">
+                <div class="as-form-margin">
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="hide-label" for="identificacion">Identificación</label>
+                            <input type="number" name="identificacion" id="identificacion" placeholder="Identificación">
+                        </div>
+                    </div>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="hide-label" for="nombres">Nombres</label>
+                            <input type="text" name="nombres" id="nombres" placeholder="Nombres">
+                        </div>
+                    </div>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="label" for="id_asignatura">Asignaturas</label>
+                            <select class="as-form-select" name="id_asignatura" id="id_asignatura">
+                                <option value=""></option>
+                                <?php
+                                echo $selectMenuAsignatura;
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="hide-label" for="fecha_creacion">Fin</label>
+                            <input type="text" name="fecha_creacion" id="fecha_creacion" placeholder="Fecha (aaaa-mm-dd)">
+                        </div>
+                    </div>
+                    <div class="as-form-button">
+                        <button class="as-color-btn-green" type="submit">
+                            Buscar
+                        </button>
+                        <a class="as-color-btn-red" href="principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php">
+                            Limpiar
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="as-form-button">
-                <button class="as-color-btn-green" type="submit">
-                    Buscar
-                </button>
-                <a class="as-color-btn-red" href="principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php">
-                    Limpiar
-                </a>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 <div class="as-layout-table">
@@ -104,4 +163,15 @@ foreach ($listaInasistencias as $item) {
             elementCompleto.classList.add("as-block-hide");
         }
     }
+
+    const clickTabShowHidden = document.querySelector("#as-tab-header-click");
+    clickTabShowHidden.addEventListener("click", () => {
+        const contentTab = clickTabShowHidden.nextElementSibling;
+
+        if (contentTab.classList.contains("as-tab-content-form-show")) {
+            contentTab.classList.remove("as-tab-content-form-show");
+        } else {
+            contentTab.classList.add("as-tab-content-form-show");
+        }
+    });
 </script>

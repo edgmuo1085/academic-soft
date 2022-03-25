@@ -18,8 +18,8 @@ foreach ($listaUsuarios as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
     $lista .= "<td>{$item->getIdentificacion()}</td>";
-    $lista .= "<td>{$item->getNombres()}</td>";
-    $lista .= "<td>{$item->getApellidos()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombres()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getApellidos()}</td>";
     $lista .= "<td>{$item->getTelefono()}</td>";
     $lista .= "<td>{$item->getEmail()}</td>";
     $lista .= "<td>{$item->getDireccion()}</td>";
@@ -27,7 +27,7 @@ foreach ($listaUsuarios as $item) {
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
-    $lista .= $item->getEstado() == 1 ? "<a class='as-add' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-grupo.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(3, 'Agregar a grupo') . "</a>" : "";
+    $lista .= $item->getEstado() == 1 ? "<a class='as-add' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-grupo-create.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(3, 'Agregar a grupo') . "</a>" : "";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;

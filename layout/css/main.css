@@ -137,6 +137,19 @@ body {
     padding: 0.5rem 0;
 }
 
+.as-box-calification {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.5rem;
+}
+
+.as-box-calification .label {
+    display: flex;
+    border: 1px solid;
+    align-content: center;
+    align-items: center;
+}
+
 .as-content .as-form .as-form-margin .as-form-input label {
     font-weight: 300;
 }
@@ -531,6 +544,18 @@ body {
 .as-block-hide {
     display: none;
     visibility: hidden;
+}
+
+.as-text-uppercase {
+    text-transform: uppercase;
+}
+
+.as-text-left {
+    text-align: left;
+}
+
+.as-text-right {
+    text-align: right;
 }
 
 

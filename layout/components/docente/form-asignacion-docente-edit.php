@@ -7,19 +7,21 @@ $selected1 = '';
 $selected2 = '';
 $selectMenuAsignatura = '';
 $selectMenuGrado = '';
-if (isset($_REQUEST['id'])) {
-    $arrayAsignacionDocente = new AsignacionDocente('id', $_REQUEST['id']);
-    $arrayUsuario = new Usuario('id', $arrayAsignacionDocente->getIdUsuarioDocente());
-}
-
+$arrayUsuario = new Usuario(null, null);
 $arrayAnioEscolar = AnioEscolar::getListaEnObjetos('estado=1', null)[0];
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
 $arrayGrado = Grado::getListaEnObjetos(null, 'nombre_grado');
+
+if (isset($_REQUEST['id'])) {
+    $arrayAsignacionDocente = new AsignacionDocente('ad.id', $_REQUEST['id']);
+    $arrayUsuario = new Usuario('id', $arrayAsignacionDocente->getIdUsuarioDocente());
+}
 
 foreach ($arrayAsignatura as $paramA) {
     $selected1 = $paramA->getId() == $arrayAsignacionDocente->getIdAsignatura() ? 'selected' : '';
     $selectMenuAsignatura .= '<option value="' . $paramA->getId() . '"' . $selected1 . '>' . $paramA->getNombreAsignatura() . '</option>';
 }
+
 foreach ($arrayGrado as $paramG) {
     $selected2 = $paramG->getId() == $arrayAsignacionDocente->getIdGrado() ? 'selected' : '';
     $selectMenuGrado .= '<option value="' . $paramG->getId() . '"' . $selected2 . '>' . $paramG->getNombreGrado() . '</option>';
@@ -72,6 +74,15 @@ foreach ($arrayGrado as $paramG) {
 
                 <div class="as-form-fields">
                     <div class="as-form-input">
+                        <label class="label" for="id_grupo">Grupo</label>
+                        <select class="as-form-select" name="id_grupo" id="id_grupo">
+                            <option value="<?= $arrayAsignacionDocente->getIdGrupo() ?>"> <?= $arrayAsignacionDocente->getNombreGrupo() ?></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="as-form-fields">
+                    <div class="as-form-input">
                         <label class="label" for="id_asignatura">Asignaturas</label>
                         <select class="as-form-select" name="id_asignatura" id="id_asignatura" required>
                             <?php
@@ -93,3 +104,18 @@ foreach ($arrayGrado as $paramG) {
         <input type="hidden" name="accion" value="<?php echo $titulo ?>">
     </form>
 </div>
+
+<script language="javascript">
+    $(document).ready(function() {
+        $("#id_grado").on('change', function() {
+            $("#id_grado option:selected").each(function() {
+                id = $(this).val();
+                $.post("layout/components/compartidos/lista-combo.php", {
+                    id: id
+                }, function(data) {
+                    $("#id_grupo").html(data);
+                });
+            });
+        });
+    });
+</script>

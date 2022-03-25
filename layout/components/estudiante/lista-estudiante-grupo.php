@@ -8,48 +8,36 @@ $selectMenuGrado = '';
 $bandera = false;
 $banderaAsignacion = false;
 $consulta = '';
-$consultaAsignacion = '';
 
-$arrayGrupoConsulta = array();
-$arrayGradoConsulta = array();
 $arrayGrado = Grado::getListaEnObjetos(null, 'id');
-$listaUsuarios = Usuario::getListaEnObjetos('rol_id=4', '');
-$listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos('', '');
+$listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos(null, "grado.id, grupo.nombre_grupo");
 
 
-if (!empty($_REQUEST['identificacion']) || !empty($_REQUEST['nombres'])) {
+if (!empty($_REQUEST['identificacion']) || !empty($_REQUEST['nombres']) || !empty($_REQUEST['nombre_grupo']) || !empty($_REQUEST['id_grado'])) {
     $listaGruposPorEstudiante = array();
     if (!empty($_REQUEST['identificacion'])) {
-        $consulta .= " AND identificacion LIKE '%{$_REQUEST['identificacion']}%'";
+        $consulta .= " usuario.identificacion LIKE '%{$_REQUEST['identificacion']}%'";
         $bandera = true;
     }
 
     if (!empty($_REQUEST['nombres'])) {
-        $consulta .= " AND nombres LIKE '%{$_REQUEST['nombres']}%'";
+        $consulta .=  $bandera ? " AND usuario.nombres LIKE '%{$_REQUEST['nombres']}%'" : " usuario.nombres LIKE '%{$_REQUEST['nombres']}%'";
         $bandera = true;
     }
 
-    if ($bandera) {
-        $listaUsuarios = Usuario::getListaEnObjetos("rol_id=4" . $consulta, '');
-        foreach ($listaUsuarios as $param) {
-            $listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos("grupo_estudiante.id_usuario_estudiante={$param->getId()}", null);
-        }
+    if (!empty($_REQUEST['id_grado'])) {
+        $consulta .=  $bandera ? " AND grado.id = {$_REQUEST['id_grado']}" : " grado.id = {$_REQUEST['id_grado']}";
+        $bandera = true;
     }
-}
 
-if (!empty($_REQUEST['nombre_grupo'])) {
-    $listaGruposPorEstudiante = array();
-    $listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos("grupo.nombre_grupo='{$_REQUEST['nombre_grupo']}'", null);
-}
-
-if (!empty($_REQUEST['id_grado'])) {
-    $listaGruposPorEstudiante = array();
-    $listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos("grupo.id_grado={$_REQUEST['id_grado']}", null);
-}
-
-if (!empty($_REQUEST['id_grado']) && !empty($_REQUEST['nombre_grupo'])) {
-    $listaGruposPorEstudiante = array();
-    $listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos("grado.id={$_REQUEST['id_grado']} AND grupo.nombre_grupo='{$_REQUEST['nombre_grupo']}'", null);
+    if (!empty($_REQUEST['nombre_grupo'])) {
+        $consulta .=  $bandera ? " AND grupo.nombre_grupo LIKE '%{$_REQUEST['nombre_grupo']}%'" : " grupo.nombre_grupo LIKE '%{$_REQUEST['nombre_grupo']}%'";
+        $bandera = true;
+    }
+    
+    if ($bandera) {
+        $listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos("{$consulta}", "grado.id, grupo.nombre_grupo");
+    }
 }
 
 foreach ($arrayGrado as $param_grado) {
@@ -59,11 +47,11 @@ foreach ($arrayGrado as $param_grado) {
 foreach ($listaGruposPorEstudiante as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreUsuarioEstudiante()}</a></td>";
-    $lista .= "<td>{$item->getNombreGrado()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreUsuarioEstudiante()}</a></td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreGrado()}</td>";
     $lista .= "<td>{$item->getNombreGrupo()}</td>";
     $lista .= "<td class='as-text-center'>";
-    //$lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-grupo.php&accion=Modificar&id_grupo_estudiante={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-grupo-edit.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
     $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
     $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-create.php&accion=crear&id={$item->getIdUsuarioEstudiante()}'>" . Generalidades::getTooltip(3, 'Registrar inasistencia') . "</a>";
     $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/notas/form-notas-create.php&accion=crear&id={$item->getIdUsuarioEstudiante()}'>" . Generalidades::getTooltip(4, 'Agregar Calificación') . "</a>";
@@ -93,16 +81,6 @@ foreach ($listaGruposPorEstudiante as $item) {
                             <input type="text" name="nombres" id="nombres" placeholder="Nombres">
                         </div>
                     </div>
-                    <div class="as-form-button">
-                        <button class="as-color-btn-green" type="submit">
-                            Buscar
-                        </button>
-                    </div>
-                </div>
-            </form>
-            <hr>
-            <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante-grupo.php" autocomplete="off">
-                <div class="as-form-margin">
                     <div class="as-form-fields">
                         <div class="as-form-input">
                             <label class="label" for="id_grado">Grados</label>
@@ -114,7 +92,6 @@ foreach ($listaGruposPorEstudiante as $item) {
                             </select>
                         </div>
                     </div>
-
                     <div class="as-form-fields">
                         <div class="as-form-input">
                             <label class="label" for="nombre_grupo">Grupo</label>

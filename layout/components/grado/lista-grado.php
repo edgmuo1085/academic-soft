@@ -9,7 +9,7 @@ $gradoList = Grado::getListaEnObjetos(null, 'id');
 foreach ($gradoList as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td>{$item->getNombreGrado()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreGrado()}</td>";
     $lista .= "<td>{$item->getNombreInstitucion()}</td>";
     $lista .= "<td class='as-text-center'>";
     $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/grado/form-grado.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
