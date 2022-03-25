@@ -13,7 +13,7 @@ switch ($_REQUEST['accion']) {
     $asignacionDocente->setIdUsuarioDocente($_REQUEST['id_usuario_docente']);
     $asignacionDocente->setIdAnioEscolar($_REQUEST['id_anio_escolar']);
     $asignacionDocente->setIdAsignatura($_REQUEST['id_asignatura']);
-    $asignacionDocente->setIdGrado($_REQUEST['id_grado']);
+    $asignacionDocente->setIdGrupo($_REQUEST['id_grupo']);
     $asignacionDocente->setLinkClaseVirtual($_REQUEST['link_clase_virtual']);
     $asignacionDocente->setIntensidadHoraria($_REQUEST['intensidad_horaria']);
     $asignacionDocente->guardar();
@@ -22,7 +22,7 @@ switch ($_REQUEST['accion']) {
     $asignacionDocente->setIdUsuarioDocente($_REQUEST['id_usuario_docente']);
     $asignacionDocente->setIdAnioEscolar($_REQUEST['id_anio_escolar']);
     $asignacionDocente->setIdAsignatura($_REQUEST['id_asignatura']);
-    $asignacionDocente->setIdGrado($_REQUEST['id_grado']);
+    $asignacionDocente->setIdGrupo($_REQUEST['id_grupo']);
     $asignacionDocente->setLinkClaseVirtual($_REQUEST['link_clase_virtual']);
     $asignacionDocente->setIntensidadHoraria($_REQUEST['intensidad_horaria']);
     $asignacionDocente->modificar($_REQUEST['id']);

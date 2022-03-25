@@ -17,8 +17,8 @@ foreach ($listaUsuarios as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
     $lista .= "<td>{$item->getIdentificacion()}</td>";
-    $lista .= "<td>{$item->getNombres()}</td>";
-    $lista .= "<td>{$item->getApellidos()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombres()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getApellidos()}</td>";
     $lista .= "<td>{$item->getTelefono()}</td>";
     $lista .= "<td>{$item->getEmail()}</td>";
     $lista .= "<td>{$item->getDireccion()}</td>";

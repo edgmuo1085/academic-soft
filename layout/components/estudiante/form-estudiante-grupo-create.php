@@ -3,22 +3,13 @@
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 $titulo = 'Adicionar';
-$selected = '';
-$selectMenu = '';
 $selectMenuGrado = '';
-$selectMenuGrupo = '';
 $arrayAnioEscolar = AnioEscolar::getListaEnObjetos('estado=1', null)[0];
 $arrayGrado = Grado::getListaEnObjetos(null, 'id');
 $arrayUsuario = new Usuario(null, null);
-$arrayGrupoEstudiante = new GrupoEstudiante(null, null);
 
 if (isset($_REQUEST['id'])) {
     $arrayUsuario = new Usuario('id', $_REQUEST['id']);
-}
-
-if (isset($_REQUEST['id_grupo_estudiante'])) {
-    $titulo = 'Modificar';
-    $arrayUsuario = new GrupoEstudiante('grupo_estudiante.id', $_REQUEST['id_grupo_estudiante']);
 }
 
 foreach ($arrayGrado as $paramG) {
@@ -36,7 +27,7 @@ foreach ($arrayGrado as $paramG) {
 <div class="as-form-content">
     <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-grupo-action.php" autocomplete="off">
         <div class="as-form-margin">
-            <h2>Estudiantes</h2>
+            <h2>Asignar estudiante a grupo</h2>
             <div class="as-form-fields">
                 <div class="as-form-input">
                     <label class="show-label"><span>Identificación: </span><?= $arrayUsuario->getIdentificacion() ?></label>
@@ -68,18 +59,6 @@ foreach ($arrayGrado as $paramG) {
                         <select class="as-form-select" name="id_grupo" id="id_grupo"></select>
                     </div>
                 </div>
-
-                <?php
-                if ($titulo == 'Modificar') {
-                ?>
-                    <div class="as-form-input">
-                        <label class="hide-label" for="pass">Contraseña</label>
-                        <input type="text" name="pass" id="pass" placeholder="Actualizar contraseña">
-                    </div>
-                <?php
-                }
-                ?>
-
             </div>
             <div class="as-form-button">
                 <button class="as-color-btn-green" type="submit">
@@ -98,7 +77,7 @@ foreach ($arrayGrado as $paramG) {
         $("#id_grado").on('change', function() {
             $("#id_grado option:selected").each(function() {
                 id = $(this).val();
-                $.post("layout/components/estudiante/lista-combo.php", {
+                $.post("layout/components/compartidos/lista-combo.php", {
                     id: id
                 }, function(data) {
                     $("#id_grupo").html(data);

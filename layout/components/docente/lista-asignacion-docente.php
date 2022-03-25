@@ -7,46 +7,42 @@ $count = 1;
 $selectMenuAsignatura = '';
 $selectMenuGrado = '';
 $bandera = false;
-$banderaAsignacion = false;
 $consulta = '';
-$consultaAsignacion = '';
+
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
 $arrayGrado = Grado::getListaEnObjetos(null, 'id');
 $listaAsignacionesDocente = array();
-$listaAsignacionesDocente = AsignacionDocente::getListaEnObjetos('', 'id_usuario_docente, id_grado, id_asignatura');
-$listaAsignacionesDocenteTem = array();
+$listaAsignacionesDocente = AsignacionDocente::getListaEnObjetos(null, 'gd.id, ad.id_usuario_docente, ad.id_grupo, ad.id_asignatura');
 
-if (isset($_REQUEST['identificacion']) || isset($_REQUEST['nombres']) || isset($_REQUEST['id_grado']) || isset($_REQUEST['id_asignatura'])) {
-    $listaAsignacionesDocente = '';
+if (!empty($_REQUEST['identificacion']) || !empty($_REQUEST['nombres']) || !empty($_REQUEST['id_grado']) || !empty($_REQUEST['nombre_grupo']) || !empty($_REQUEST['id_asignatura'])) {
+    $listaAsignacionesDocente = array();
     if (!empty($_REQUEST['identificacion'])) {
-        $consulta .= " AND identificacion LIKE '%{$_REQUEST['identificacion']}%'";
+        $consulta .= " u.identificacion LIKE '%{$_REQUEST['identificacion']}%'";
         $bandera = true;
     }
 
     if (!empty($_REQUEST['nombres'])) {
-        $consulta .= " AND nombres LIKE '%{$_REQUEST['nombres']}%'";
+        $consulta .=  $bandera ? " AND u.nombres LIKE '%{$_REQUEST['nombres']}%'" : " u.nombres LIKE '%{$_REQUEST['nombres']}%'";
         $bandera = true;
     }
 
     if (!empty($_REQUEST['id_grado'])) {
-        $consultaAsignacion .= $bandera ? " AND id_grado={$_REQUEST['id_grado']}" : " id_grado={$_REQUEST['id_grado']}";
-        $banderaAsignacion = true;
+        $consulta .=  $bandera ? " AND gd.id = {$_REQUEST['id_grado']}" : " gd.id = {$_REQUEST['id_grado']}";
+        $bandera = true;
+    }
+
+    if (!empty($_REQUEST['nombre_grupo'])) {
+        $consulta .=  $bandera ? " AND gr.nombre_grupo LIKE '%{$_REQUEST['nombre_grupo']}%'" : " gr.nombre_grupo LIKE '%{$_REQUEST['nombre_grupo']}%'";
+        $bandera = true;
     }
 
     if (!empty($_REQUEST['id_asignatura'])) {
-        $consultaAsignacion .= $bandera ? " AND id_asignatura={$_REQUEST['id_asignatura']}" : " id_asignatura={$_REQUEST['id_asignatura']}";
-        $banderaAsignacion = true;
+        $consulta .=  $bandera ? " AND ad.id_asignatura = {$_REQUEST['id_asignatura']}" : " ad.id_asignatura = {$_REQUEST['id_asignatura']}";
+        $bandera = true;
     }
 
     if ($bandera) {
-        $listaUsuarios = Usuario::getListaEnObjetos("rol_id=2" . $consulta, '');
-        foreach ($listaUsuarios as $param) {
-            $listaAsignacionesDocente = AsignacionDocente::getListaEnObjetos("id_usuario_docente={$param->getId()}" . $consultaAsignacion, 'id_usuario_docente, id_grado, id_asignatura');
-        }
-    }
-
-    if (!$bandera) {
-        $listaAsignacionesDocente = AsignacionDocente::getListaEnObjetos("{$consultaAsignacion}", 'id_usuario_docente, id_grado, id_asignatura');
+        $listaAsignacionesDocente = AsignacionDocente::getListaEnObjetos("{$consulta}", 'gd.id, ad.id_usuario_docente, ad.id_grupo, ad.id_asignatura');
     }
 }
 
@@ -60,9 +56,10 @@ foreach ($arrayGrado as $paramG) {
 foreach ($listaAsignacionesDocente as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td><a href='principal.php?CONTENIDO=layout/components/docente/form-docente.php&accion=Modificar&id={$item->getIdUsuarioDocente()}'>{$item->getNombreDocente()}</a></td>";
-    $lista .= "<td>{$item->getNombreGrado()}</td>";
-    $lista .= "<td>{$item->getNombreAsignatura()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/docente/form-docente.php&accion=Modificar&id={$item->getIdUsuarioDocente()}'>{$item->getNombreDocente()}</a></td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreGrado()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreGrupo()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreAsignatura()}</td>";
     $lista .= "<td> <a href='{$item->getLinkClaseVirtual()}' target='blank'> Enlace </a></td>";
     $lista .= "<td>{$item->getIntensidadHoraria()}</td>";
     $lista .= "<td class='as-text-center'>";
@@ -76,7 +73,7 @@ foreach ($listaAsignacionesDocente as $item) {
 ?>
 <div class="as-tab-content">
     <div class="as-tab-header" id="as-tab-header-click">
-        <i class='fas fa-search'></i> Buscar docente
+        <i class='fas fa-search'></i> Buscar asignación docente
     </div>
     <div class="as-tab-content-form">
         <div class="as-form-content">
@@ -96,9 +93,9 @@ foreach ($listaAsignacionesDocente as $item) {
                     </div>
                     <div class="as-form-fields">
                         <div class="as-form-input">
-                            <label class="hide-label" for="id_grado">Grados</label>
+                            <label class="label" for="id_grado">Grados</label>
                             <select class="as-form-select" name="id_grado" id="id_grado">
-                                <option value='0'>Grados...</option>
+                                <option value=""></option>
                                 <?php
                                 echo $selectMenuGrado;
                                 ?>
@@ -107,9 +104,26 @@ foreach ($listaAsignacionesDocente as $item) {
                     </div>
                     <div class="as-form-fields">
                         <div class="as-form-input">
-                            <label class="hide-label" for="id_asignatura">Asignaturas</label>
+                            <label class="label" for="nombre_grupo">Grupo</label>
+                            <select class="as-form-select" name="nombre_grupo" id="nombre_grupo">
+                                <option value=""></option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="I">I</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="label" for="id_asignatura">Asignaturas</label>
                             <select class="as-form-select" name="id_asignatura" id="id_asignatura">
-                                <option value='0'>Asignaturas...</option>
+                                <option></option>
                                 <?php
                                 echo $selectMenuAsignatura;
                                 ?>
@@ -141,6 +155,7 @@ foreach ($listaAsignacionesDocente as $item) {
                     <th scope="col">#</th>
                     <th scope="col">Docente</th>
                     <th scope="col">Grado</th>
+                    <th scope="col">Grupo</th>
                     <th scope="col">Asignatura</th>
                     <th scope="col">Clase virtual</th>
                     <th scope="col">Intensidad horaria</th>

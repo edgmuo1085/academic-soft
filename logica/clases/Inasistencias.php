@@ -14,7 +14,13 @@ class Inasistencias
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, cantidad, justificacion, fecha_creacion, fecha_modificacion, id_usuario_estudiante, id_asignatura FROM inasistencias WHERE $campo=$valor";
+                $cadenaSQL = "SELECT ";
+                $cadenaSQL .= "i.id, i.cantidad, i.justificacion, i.fecha_creacion, i.fecha_modificacion, i.id_usuario_estudiante, i.id_asignatura, ";
+                $cadenaSQL .= "a.nombre_asignatura, ";
+                $cadenaSQL .= "u.identificacion, u.nombres, u.apellidos, u.estado ";
+                $cadenaSQL .= "FROM inasistencias i  ";
+                $cadenaSQL .= "JOIN asignatura a ON i.id_asignatura = a.id ";
+                $cadenaSQL .= "JOIN usuario u ON i.id_usuario_estudiante = u.id WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
             $this->id = $campo['id'];
@@ -51,7 +57,7 @@ class Inasistencias
     {
         return $this->fecha_creacion;
     }
-    
+
     public function getFechaModificacion()
     {
         return $this->fecha_modificacion;
@@ -81,7 +87,7 @@ class Inasistencias
     {
         $this->fecha_creacion = $fecha_creacion;
     }
-    
+
     public function setFechaModificacion($fecha_modificacion): void
     {
         $this->fecha_modificacion = $fecha_modificacion;
@@ -136,7 +142,13 @@ class Inasistencias
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, cantidad, justificacion, fecha_creacion, fecha_modificacion, id_usuario_estudiante, id_asignatura FROM inasistencias $filtro $orden";
+        $cadenaSQL = "SELECT ";
+        $cadenaSQL .= "i.id, i.cantidad, i.justificacion, i.fecha_creacion, i.fecha_modificacion, i.id_usuario_estudiante, i.id_asignatura, ";
+        $cadenaSQL .= "a.nombre_asignatura, ";
+        $cadenaSQL .= "u.identificacion, u.nombres, u.apellidos, u.estado ";
+        $cadenaSQL .= "FROM inasistencias i  ";
+        $cadenaSQL .= "JOIN asignatura a ON i.id_asignatura = a.id ";
+        $cadenaSQL .= "JOIN usuario u ON i.id_usuario_estudiante = u.id $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
