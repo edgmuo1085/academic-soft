@@ -16,8 +16,8 @@ foreach ($listaNotas as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
     $lista .= "<td>{$item->getPeriodoAcademico()}</td>";
-    $lista .= "<td><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreEstudiante()}</a></td>";
-    $lista .= "<td>{$item->getNombreAsignatura()}</td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreEstudiante()}</a></td>";
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreAsignatura()}</td>";
     $lista .= "<td>{$item->getNombreTipoActividad()}</td>";
     $lista .= "<td>{$item->getNota()}</td>";
     $lista .= "<td class='as-text-center'>";

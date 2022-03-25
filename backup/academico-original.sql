@@ -43,7 +43,7 @@ CREATE TABLE usuario (
     rol_id INT(4) NOT NULL,
     estado INT(1) NOT NULL,
     INDEX (rol_id),
-    FOREIGN KEY usuario(rol_id) REFERENCES roles(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (rol_id) REFERENCES roles(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -56,7 +56,7 @@ CREATE TABLE anio_escolar (
     fin DATETIME NOT NULL,
     id_institucion INT(4) NOT NULL,
     estado INT(4) NOT NULL,
-    FOREIGN KEY anio_escolar(id_institucion) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (id_institucion) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -69,7 +69,7 @@ CREATE TABLE periodo_academico (
     finalizacion_periodo DATETIME NOT NULL,
     nombre VARCHAR(150) NOT NULL,
     id_anio_escolar INT(4) NOT NULL,
-    FOREIGN KEY periodo_academico(id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -80,7 +80,7 @@ CREATE TABLE grado (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre_grado varchar(30) NOT NULL,
     id_institucion INT(4) NOT NULL,
-    FOREIGN KEY grado(id_institucion) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (id_institucion) REFERENCES institucion_educativa(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -91,7 +91,7 @@ CREATE TABLE grupo (
     id int(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre_grupo varchar(30) NOT NULL,
     id_grado INT(4) NOT NULL,
-    FOREIGN KEY grupo(id_grado) REFERENCES grado(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (id_grado) REFERENCES grado(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -126,13 +126,13 @@ CREATE TABLE asignacion_docente (
     id_usuario_docente INT(4) NOT NULL,
     id_anio_escolar INT(4) NOT NULL,
     id_asignatura INT(4) NOT NULL,
-    id_grado INT(4) NOT NULL,
+    id_grupo INT(4) NOT NULL,
     link_clase_virtual TEXT NULL,
     intensidad_horaria DOUBLE NULL,
     FOREIGN KEY (id_usuario_docente) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (id_anio_escolar) REFERENCES anio_escolar(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY (id_asignatura) REFERENCES asignatura(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (id_grado) REFERENCES grado(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (id_grupo) REFERENCES grupo(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -240,17 +240,12 @@ VALUES (
 --
 -- TABLA roles
 INSERT INTO roles (nombre, valor)
-VALUES ('Secretaria', 'S');
-INSERT INTO roles (nombre, valor)
-VALUES ('Docente', 'D');
-INSERT INTO roles (nombre, valor)
-VALUES ('Acudiente', 'A');
-INSERT INTO roles (nombre, valor)
-VALUES ('Estudiante', 'E');
-INSERT INTO roles (nombre, valor)
-VALUES ('Desconocido', 'N');
-INSERT INTO roles (nombre, valor)
-VALUES ('Root', 'R');
+VALUES ('Secretaria', 'S'),
+    ('Docente', 'D'),
+    ('Acudiente', 'A'),
+    ('Estudiante', 'E'),
+    ('Desconocido', 'N'),
+    ('Root', 'R');
 --
 --
 --
@@ -276,19 +271,8 @@ VALUES (
         '202cb962ac59075b964b07152d234b70',
         1,
         1
-    );
-INSERT INTO usuario(
-        identificacion,
-        nombres,
-        apellidos,
-        telefono,
-        email,
-        direccion,
-        clave,
-        rol_id,
-        estado
-    )
-VALUES (
+    ),
+    (
         '100101',
         'Pedro',
         'Cifuentes',
@@ -298,19 +282,8 @@ VALUES (
         '202cb962ac59075b964b07152d234b70',
         2,
         1
-    );
-INSERT INTO usuario(
-        identificacion,
-        nombres,
-        apellidos,
-        telefono,
-        email,
-        direccion,
-        clave,
-        rol_id,
-        estado
-    )
-VALUES (
+    ),
+    (
         '100102',
         'Tipo',
         'Peralta',
@@ -320,19 +293,8 @@ VALUES (
         '202cb962ac59075b964b07152d234b70',
         3,
         1
-    );
-INSERT INTO usuario(
-        identificacion,
-        nombres,
-        apellidos,
-        telefono,
-        email,
-        direccion,
-        clave,
-        rol_id,
-        estado
-    )
-VALUES (
+    ),
+    (
         '100103',
         'Carlos',
         'Zambrano',
@@ -342,19 +304,8 @@ VALUES (
         '202cb962ac59075b964b07152d234b70',
         4,
         1
-    );
-INSERT INTO usuario(
-        identificacion,
-        nombres,
-        apellidos,
-        telefono,
-        email,
-        direccion,
-        clave,
-        rol_id,
-        estado
-    )
-VALUES (
+    ),
+    (
         '100104',
         'Desconocido',
         'Desconocido',
@@ -364,19 +315,8 @@ VALUES (
         '202cb962ac59075b964b07152d234b70',
         5,
         1
-    );
-INSERT INTO usuario(
-        identificacion,
-        nombres,
-        apellidos,
-        telefono,
-        email,
-        direccion,
-        clave,
-        rol_id,
-        estado
-    )
-VALUES (
+    ),
+    (
         '100105',
         'Super',
         'Admin',
@@ -408,38 +348,20 @@ VALUES (
         '2023-01-01 23:59:59',
         '2023-03-30 00:00:00',
         1
-    );
-INSERT INTO periodo_academico (
-        nombre,
-        inicio_periodo,
-        finalizacion_periodo,
-        id_anio_escolar
-    )
-VALUES (
+    ),
+    (
         'Periodo 2',
         '2023-04-01 23:59:59',
         '2023-06-30 00:00:00',
         1
-    );
-INSERT INTO periodo_academico (
-        nombre,
-        inicio_periodo,
-        finalizacion_periodo,
-        id_anio_escolar
-    )
-VALUES (
+    ),
+    (
         'Periodo 3',
         '2023-07-01 23:59:59',
         '2023-09-30 00:00:00',
         1
-    );
-INSERT INTO periodo_academico (
-        nombre,
-        inicio_periodo,
-        finalizacion_periodo,
-        id_anio_escolar
-    )
-VALUES (
+    ),
+    (
         'Periodo 4',
         '2023-10-01 23:59:59',
         '2023-12-30 00:00:00',
@@ -450,114 +372,61 @@ VALUES (
 --
 -- TABLA grado
 INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Párbulos', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Primero', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Segundo', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Tercero', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Cuarto', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Quinto', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Sexto', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Séptimo', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Octavo', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Noveno', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Décimo', 1);
-INSERT INTO grado (nombre_grado, id_institucion)
-VALUES ('Onceavo', 1);
+VALUES ('Párbulos', 1),
+    ('Primero', 1),
+    ('Segundo', 1),
+    ('Tercero', 1),
+    ('Cuarto', 1),
+    ('Quinto', 1),
+    ('Sexto', 1),
+    ('Séptimo', 1),
+    ('Octavo', 1),
+    ('Noveno', 1),
+    ('Décimo', 1),
+    ('Onceavo', 1);
 --
 --
 --
 -- TABLA grupo
 INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 1);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 1);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 2);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 2);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 3);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 3);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 4);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 4);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 5);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 5);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 6);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 6);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 7);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 7);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 8);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 8);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 9);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 9);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 10);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 10);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 11);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 11);
---
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('A', 12);
-INSERT INTO grupo (nombre_grupo, id_grado)
-VALUES ('B', 12);
+VALUES ('A', 1),
+    ('B', 1),
+    ('A', 2),
+    ('B', 2),
+    ('A', 3),
+    ('B', 3),
+    ('A', 4),
+    ('B', 4),
+    ('A', 5),
+    ('B', 5),
+    ('A', 6),
+    ('B', 6),
+    ('A', 7),
+    ('B', 7),
+    ('A', 8),
+    ('B', 8),
+    ('A', 9),
+    ('B', 9),
+    ('A', 10),
+    ('B', 10),
+    ('A', 11),
+    ('B', 11),
+    ('A', 12),
+    ('B', 12);
 --
 --
 --
 -- TABLA asignatura
 INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Matematicas');
-INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Español');
-INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Sociales');
-INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Naturales');
-INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Inglés');
-INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Informática');
-INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Etica y Valores');
-INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Religion');
-INSERT INTO asignatura (nombre_asignatura)
-VALUES ('Educacion Fisica');
+VALUES ('Matematicas'),
+    ('Español'),
+    ('Sociales'),
+    ('Naturales'),
+    ('Inglés'),
+    ('Informática'),
+    ('Etica y Valores'),
+    ('Religion'),
+    ('Educacion Fisica');
 --
 --
 --
@@ -573,134 +442,125 @@ VALUES (
         1,
         null,
         1
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Año escolar',
         'principal.php?CONTENIDO=layout/components/anio-escolar/lista-anio.php',
         2,
         1,
         2
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Periodo Academico',
         'principal.php?CONTENIDO=layout/components/periodo-academico/lista-periodo.php',
         2,
         1,
         3
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Grados',
         'principal.php?CONTENIDO=layout/components/grado/lista-grado.php',
         2,
         1,
         4
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Grupos',
         'principal.php?CONTENIDO=layout/components/grupo/lista-grupo.php',
         2,
         1,
         5
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Asignatura',
         'principal.php?CONTENIDO=layout/components/asignatura/lista-asignatura.php',
         1,
         null,
         6
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Docentes',
         '#',
         1,
         null,
         7
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Personal Docente',
         'principal.php?CONTENIDO=layout/components/docente/lista-docente.php',
         2,
         7,
         8
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Asignacion Docente',
         'principal.php?CONTENIDO=layout/components/docente/lista-asignacion-docente.php',
         2,
         7,
         9
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Estudiantes',
         '#',
         1,
         null,
         10
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Listado',
         'principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante.php',
         2,
         10,
         11
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Listado de Grupos',
         'principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante-grupo.php',
         2,
         10,
         12
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
         'Inasistencias',
         'principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php',
         2,
         10,
         13
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+    ),
+    (
+        'Registrar Inasistencias',
+        'principal.php?CONTENIDO=layout/components/inasistencias/form-register-inasistencias.php',
+        2,
+        10,
+        14
+    ),
+    (
         'Notas',
         '#',
         1,
         null,
-        14
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+        15
+    ),
+    (
         'Consultar Notas',
         'principal.php?CONTENIDO=layout/components/notas/lista-notas.php',
         2,
-        14,
-        15
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+        15,
+        16
+    ),
+    (
         'Imprimir Notas',
         '#',
         2,
-        14,
-        16
-    );
-INSERT INTO menu (nombre, ruta, tipo, es_hijo, posicion)
-VALUES (
+        15,
+        17
+    ),
+    (
         'Tipo de Actividades',
         'principal.php?CONTENIDO=layout/components/tipo-actividad/lista-tipo-actividad.php',
         2,
-        14,
-        17
+        15,
+        18
     );
 --
 --
@@ -708,107 +568,44 @@ VALUES (
 -- TABLA permisos
 -- rol = 6 Super Admin
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 1, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 2, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 3, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 4, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 5, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 6, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 7, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 8, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 9, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 10, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 11, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 12, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 13, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 14, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 15, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 16, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (6, 17, 1);
---
+VALUES (6, 1, 1),
+    (6, 2, 1),
+    (6, 3, 1),
+    (6, 4, 1),
+    (6, 5, 1),
+    (6, 6, 1),
+    (6, 7, 1),
+    (6, 8, 1),
+    (6, 9, 1),
+    (6, 10, 1),
+    (6, 11, 1),
+    (6, 12, 1),
+    (6, 13, 1),
+    (6, 14, 1),
+    (6, 15, 1),
+    (6, 16, 1),
+    (6, 17, 1),
+    (6, 18, 1);
 --rol=1 secretaria
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 1, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 2, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 3, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 4, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 5, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 6, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 7, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 8, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 9, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 10, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 11, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 12, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 13, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 14, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 15, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 16, 1);
---
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (1, 17, 1);
+VALUES (1, 1, 1),
+    (1, 2, 1),
+    (1, 3, 1),
+    (1, 4, 1),
+    (1, 5, 1),
+    (1, 6, 1),
+    (1, 7, 1),
+    (1, 8, 1),
+    (1, 9, 1),
+    (1, 10, 1),
+    (1, 11, 1),
+    (1, 12, 1),
+    (1, 13, 1),
+    (1, 14, 1),
+    (1, 15, 1),
+    (1, 16, 1),
+    (1, 17, 1),
+    (1, 18, 1);
 --
 --
 --
@@ -816,6 +613,33 @@ VALUES (1, 17, 1);
 --
 --
 --
+SELECT grupo_estudiante.id,
+    grupo_estudiante.id_usuario_estudiante,
+    grupo_estudiante.id_grupo,
+    grupo_estudiante.id_anio_escolar,
+    usuario.identificacion,
+    usuario.nombres,
+    usuario.apellidos,
+    grado.nombre_grado,
+    grupo.nombre_grupo,
+    grupo.id_grado
+FROM grupo_estudiante
+    JOIN usuario ON grupo_estudiante.id_usuario_estudiante = usuario.id
+    JOIN grupo ON grupo_estudiante.id_grupo = grupo.id
+    JOIN grado ON grupo.id_grado = grado.id;
+---
+SELECT a.id as id_a,
+    gd.nombre_grado,
+    gr.nombre_grupo,
+    a.nombre_asignatura
+FROM asignatura a
+    JOIN asignacion_docente ad ON a.id = ad.id_asignatura
+    JOIN grupo gr ON ad.id_grupo = gr.id
+    JOIN grupo_estudiante ge ON gr.id = ge.id_grupo
+    JOIN grado gd ON gr.id_grado = gd.id
+ORDER BY gd.nombre_grado,
+    gr.nombre_grupo,
+    a.nombre_asignatura;
 --
 --
 --
@@ -887,3 +711,6 @@ order by index_schema,
 --
 ---CREATE INDEX id_index ON usuario (id);
 ---ALTER TABLE name_table AUTO_INCREMENT = 0;
+---ALTER TABLE asignacion_docente DROP FOREIGN KEY asignacion_docente_ibfk_4;
+---ALTER TABLE asignacion_docente RENAME COLUMN id_grado TO id_grupo;
+---ALTER TABLE asignacion_docente ADD FOREIGN KEY(id_grupo) REFERENCES grupo(id) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -5,6 +5,9 @@ $(function() {
     $("#fin").datepicker({
         dateFormat: "dd-mm-yy"
     });
+    $("#fecha_creacion").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
 });
 
 const menuBtn = document.querySelector("#as-menu-btn");

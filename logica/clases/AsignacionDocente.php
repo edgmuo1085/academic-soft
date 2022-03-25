@@ -6,24 +6,38 @@ class AsignacionDocente
     protected $id_usuario_docente;
     protected $id_anio_escolar;
     protected $id_asignatura;
-    protected $id_grado;
+    protected $id_grupo;
     protected $link_clase_virtual;
     protected $intensidad_horaria;
+    protected $id_gd;
+    protected $nombre_grado;
 
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, id_usuario_docente, id_anio_escolar, id_asignatura, id_grado, link_clase_virtual, intensidad_horaria FROM asignacion_docente WHERE $campo=$valor";
+                $cadenaSQL = "SELECT ";
+                $cadenaSQL .= "ad.id, ad.id_usuario_docente, ad.id_anio_escolar, ad.id_asignatura, ad.id_grupo, ad.link_clase_virtual, ad.intensidad_horaria, ";
+                $cadenaSQL .= "u.identificacion, u.nombres, u.apellidos, ";
+                $cadenaSQL .= "gd.id as id_gd, gd.nombre_grado, ";
+                $cadenaSQL .= "gr.nombre_grupo, ";
+                $cadenaSQL .= "a.nombre_asignatura ";
+                $cadenaSQL .= "FROM asignatura a ";
+                $cadenaSQL .= "JOIN asignacion_docente ad ON a.id = ad.id_asignatura ";
+                $cadenaSQL .= "JOIN usuario u ON ad.id_usuario_docente = u.id ";
+                $cadenaSQL .= "JOIN grupo gr ON ad.id_grupo = gr.id ";
+                $cadenaSQL .= "JOIN grado gd ON gr.id_grado = gd.id WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
             $this->id = $campo['id'];
             $this->id_usuario_docente = $campo['id_usuario_docente'];
             $this->id_anio_escolar = $campo['id_anio_escolar'];
             $this->id_asignatura = $campo['id_asignatura'];
-            $this->id_grado = $campo['id_grado'];
+            $this->id_grupo = $campo['id_grupo'];
             $this->link_clase_virtual = $campo['link_clase_virtual'];
             $this->intensidad_horaria = $campo['intensidad_horaria'];
+            $this->id_gd = $campo['id_gd'];
+            $this->nombre_grado = $campo['nombre_grado'];
         }
     }
 
@@ -49,7 +63,17 @@ class AsignacionDocente
 
     public function getIdGrado()
     {
-        return $this->id_grado;
+        return $this->id_gd;
+    }
+
+    public function getNombreGrado()
+    {
+        return $this->nombre_grado;
+    }
+
+    public function getIdGrupo()
+    {
+        return $this->id_grupo;
     }
 
     public function getLinkClaseVirtual()
@@ -82,9 +106,9 @@ class AsignacionDocente
         $this->id_asignatura = $id_asignatura;
     }
 
-    public function setIdGrado($id_grado): void
+    public function setIdGrupo($id_grupo): void
     {
-        $this->id_grado = $id_grado;
+        $this->id_grupo = $id_grupo;
     }
 
     public function setLinkClaseVirtual($link_clase_virtual): void
@@ -101,17 +125,17 @@ class AsignacionDocente
     {
         return new Usuario('id', $this->id_usuario_docente);
     }
-    
+
     public function getAnioEscolar()
     {
         return new AnioEscolar('id', $this->id_anio_escolar);
     }
-    
-    public function getNombreGrado()
+
+    public function getNombreGrupo()
     {
-        return new Grado('id', $this->id_grado);
+        return new Grupo('id', $this->id_grupo);
     }
-    
+
     public function getNombreAsignatura()
     {
         return new Asignatura('id', $this->id_asignatura);
@@ -119,18 +143,18 @@ class AsignacionDocente
 
     public function __toString()
     {
-        return $this->id_grado;
+        return $this->id_grupo;
     }
 
     public function guardar()
     {
-        $cadenaSQL = "INSERT INTO asignacion_docente (id_usuario_docente, id_anio_escolar, id_asignatura, id_grado, link_clase_virtual, intensidad_horaria) VALUES ('$this->id_usuario_docente','$this->id_anio_escolar','$this->id_asignatura','$this->id_grado','$this->link_clase_virtual','$this->intensidad_horaria')";
+        $cadenaSQL = "INSERT INTO asignacion_docente (id_usuario_docente, id_anio_escolar, id_asignatura, id_grupo, link_clase_virtual, intensidad_horaria) VALUES ('$this->id_usuario_docente','$this->id_anio_escolar','$this->id_asignatura','$this->id_grupo','$this->link_clase_virtual','$this->intensidad_horaria')";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
     public function modificar($ID)
     {
-        $cadenaSQL = "UPDATE asignacion_docente SET id_usuario_docente='{$this->id_usuario_docente}', id_anio_escolar='{$this->id_anio_escolar}', id_asignatura='{$this->id_asignatura}', id_grado='{$this->id_grado}', link_clase_virtual='{$this->link_clase_virtual}', intensidad_horaria ='{$this->intensidad_horaria}' WHERE id='{$ID}'";
+        $cadenaSQL = "UPDATE asignacion_docente SET id_usuario_docente='{$this->id_usuario_docente}', id_anio_escolar='{$this->id_anio_escolar}', id_asignatura='{$this->id_asignatura}', id_grupo='{$this->id_grupo}', link_clase_virtual='{$this->link_clase_virtual}', intensidad_horaria ='{$this->intensidad_horaria}' WHERE id='{$ID}'";
         ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
@@ -146,7 +170,17 @@ class AsignacionDocente
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, id_usuario_docente, id_anio_escolar, id_asignatura, id_grado, link_clase_virtual, intensidad_horaria FROM asignacion_docente $filtro $orden";
+        $cadenaSQL = "SELECT ";
+        $cadenaSQL .= "ad.id, ad.id_usuario_docente, ad.id_anio_escolar, ad.id_asignatura, ad.id_grupo, ad.link_clase_virtual, ad.intensidad_horaria, ";
+        $cadenaSQL .= "u.identificacion, u.nombres, u.apellidos, ";
+        $cadenaSQL .= "gd.id as id_gd, gd.nombre_grado, ";
+        $cadenaSQL .= "gr.nombre_grupo, ";
+        $cadenaSQL .= "a.nombre_asignatura ";
+        $cadenaSQL .= "FROM asignatura a ";
+        $cadenaSQL .= "JOIN asignacion_docente ad ON a.id = ad.id_asignatura ";
+        $cadenaSQL .= "JOIN usuario u ON ad.id_usuario_docente = u.id ";
+        $cadenaSQL .= "JOIN grupo gr ON ad.id_grupo = gr.id ";
+        $cadenaSQL .= "JOIN grado gd ON gr.id_grado = gd.id $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 
