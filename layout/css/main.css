@@ -141,13 +141,25 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 0.5rem;
+    border-bottom: 1px dotted #156150;
 }
 
-.as-box-calification .label {
+.as-box-calification .as-form-group {
     display: flex;
-    border: 1px solid;
     align-content: center;
     align-items: center;
+}
+
+.as-box-calification .as-form-group .as-form-check-label {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0.5rem;
 }
 
 .as-content .as-form .as-form-margin .as-form-input label {
@@ -477,6 +489,7 @@ body {
 
 .as-layout .as-form-margin .as-form-input .hide-label {
     visibility: hidden;
+    height: 1px;
 }
 
 .as-layout .as-form-margin .as-form-input .show-label {
@@ -505,6 +518,15 @@ body {
     padding: 0.4rem;
     font-size: 1.1rem;
     font-weight: 300;
+}
+
+.as-layout .as-form-margin .as-form-input input[type="text"]:not(:disabled) {
+    background: transparent;
+}
+
+.as-layout .as-form-margin .as-form-input input[type="text"]:disabled {
+    background: #dedada;
+    border-radius: .2rem;
 }
 
 .as-layout .as-form-margin .as-form-input select.as-form-select {

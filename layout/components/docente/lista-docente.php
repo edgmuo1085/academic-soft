@@ -2,10 +2,12 @@
 
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
+$editar = $USUARIO->getRolId();
 $lista = '';
 $count = 1;
 $consulta = '';
 $listaUsuarios = Usuario::getListaEnObjetos('rol_id=2', '');
+
 if (isset($_REQUEST['identificacion']) || isset($_REQUEST['nombres']) || isset($_REQUEST['apellidos'])) {
     $consulta .= !empty($_REQUEST['identificacion']) ? " AND identificacion LIKE '%{$_REQUEST['identificacion']}%'" : "";
     $consulta .= !empty($_REQUEST['nombres']) ? " AND nombres LIKE '%{$_REQUEST['nombres']}%'" : "";
@@ -23,11 +25,13 @@ foreach ($listaUsuarios as $item) {
     $lista .= "<td>{$item->getEmail()}</td>";
     $lista .= "<td>{$item->getDireccion()}</td>";
     $lista .= "<td>" . Generalidades::getEstadoUsuario($item->getEstado()) . "</td>";
-    $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/docente/form-docente.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
-    $lista .= $item->getEstado() == 1 ? "<a class='as-add' href='principal.php?CONTENIDO=layout/components/docente/form-asignacion-docente-create.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(3, 'Asignación docente') . "</a>" : "";
-    $lista .= "</td>";
+    if ($editar != 4) {
+        $lista .= "<td class='as-text-center'>";
+        $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/docente/form-docente.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+        $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
+        $lista .= $item->getEstado() == 1 ? "<a class='as-add' href='principal.php?CONTENIDO=layout/components/docente/form-asignacion-docente-create.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(3, 'Asignación docente') . "</a>" : "";
+        $lista .= "</td>";
+    }
     $lista .= "</tr>";
     $count++;
 }
@@ -77,9 +81,15 @@ foreach ($listaUsuarios as $item) {
     <div>
         <h3 class="as-title-table">LISTADO DE DOCENTES</h3>
     </div>
-    <div class="as-form-button-back">
-        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/docente/form-docente.php">Agregar docente</a>
-    </div>
+    <?php
+    if ($editar != 4) {
+    ?>
+        <div class="as-form-button-back">
+            <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/docente/form-docente.php">Agregar docente</a>
+        </div>
+    <?php
+    }
+    ?>
     <div class="as-table-responsive">
         <table class="as-table">
             <thead>
@@ -92,7 +102,13 @@ foreach ($listaUsuarios as $item) {
                     <th scope="col">Email</th>
                     <th scope="col">Dirección</th>
                     <th scope="col">Estado</th>
-                    <th scope="col">Opciones</th>
+                    <?php
+                    if ($editar != 4) {
+                    ?>
+                        <th scope="col">Opciones</th>
+                    <?php
+                    }
+                    ?>
                 </tr>
             </thead>
             <tbody>

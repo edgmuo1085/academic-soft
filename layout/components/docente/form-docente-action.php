@@ -1,11 +1,8 @@
 <?php
 
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHP.php to edit this template
- */
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
+$editar = $USUARIO->getRolId();
 
 $docente = new Usuario(null, null);
 switch ($_REQUEST['accion']) {
@@ -38,7 +35,17 @@ switch ($_REQUEST['accion']) {
     break;
 }
 
+if ($editar == 1 || $editar == 6) {
 ?>
-<script>
-  window.location = 'principal.php?CONTENIDO=layout/components/docente/lista-docente.php';
-</script>
+  <script>
+    window.location = 'principal.php?CONTENIDO=layout/components/docente/lista-docente.php';
+  </script>
+<?php
+} else {
+?>
+  <script>
+    window.location = 'principal.php?CONTENIDO=layout/components/docente/lista-asignacion-docente.php';
+  </script>
+<?php
+}
+?>
