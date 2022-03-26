@@ -2,6 +2,7 @@
 
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
+$editar = $USUARIO->getRolId();
 $lista = '';
 $count = 1;
 $selectMenuGrado = '';
@@ -10,33 +11,37 @@ $banderaAsignacion = false;
 $consulta = '';
 
 $arrayGrado = Grado::getListaEnObjetos(null, 'id');
-$listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos(null, "grado.id, grupo.nombre_grupo");
+if ($editar == 2) {
+    $listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos("us.identificacion = {$USUARIO->getIdentificacion()}", "us.nombres, u.identificacion, gd.nombre_grado, g.nombre_grupo");
+}
+else {
+    $listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos(null, "us.nombres, u.identificacion, gd.nombre_grado, g.nombre_grupo");
+}
 
-
-if (!empty($_REQUEST['identificacion']) || !empty($_REQUEST['nombres']) || !empty($_REQUEST['nombre_grupo']) || !empty($_REQUEST['id_grado'])) {
-    $listaGruposPorEstudiante = array();
+if (isset($_REQUEST['buscar'])) {
     if (!empty($_REQUEST['identificacion'])) {
-        $consulta .= " usuario.identificacion LIKE '%{$_REQUEST['identificacion']}%'";
+        $consulta .= " u.identificacion LIKE '%{$_REQUEST['identificacion']}%'";
         $bandera = true;
     }
 
     if (!empty($_REQUEST['nombres'])) {
-        $consulta .=  $bandera ? " AND usuario.nombres LIKE '%{$_REQUEST['nombres']}%'" : " usuario.nombres LIKE '%{$_REQUEST['nombres']}%'";
+        $consulta .=  $bandera ? " AND u.nombres LIKE '%{$_REQUEST['nombres']}%'" : " u.nombres LIKE '%{$_REQUEST['nombres']}%'";
         $bandera = true;
     }
 
     if (!empty($_REQUEST['id_grado'])) {
-        $consulta .=  $bandera ? " AND grado.id = {$_REQUEST['id_grado']}" : " grado.id = {$_REQUEST['id_grado']}";
+        $consulta .=  $bandera ? " AND gd.id = {$_REQUEST['id_grado']}" : " gd.id = {$_REQUEST['id_grado']}";
         $bandera = true;
     }
 
     if (!empty($_REQUEST['nombre_grupo'])) {
-        $consulta .=  $bandera ? " AND grupo.nombre_grupo LIKE '%{$_REQUEST['nombre_grupo']}%'" : " grupo.nombre_grupo LIKE '%{$_REQUEST['nombre_grupo']}%'";
+        $consulta .=  $bandera ? " AND g.nombre_grupo LIKE '%{$_REQUEST['nombre_grupo']}%'" : " g.nombre_grupo LIKE '%{$_REQUEST['nombre_grupo']}%'";
         $bandera = true;
     }
-    
+
     if ($bandera) {
-        $listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos("{$consulta}", "grado.id, grupo.nombre_grupo");
+        $listaGruposPorEstudiante = array();
+        $listaGruposPorEstudiante = GrupoEstudiante::getListaEnObjetos("{$consulta}", "us.nombres, u.identificacion, gd.nombre_grado, g.nombre_grupo");
     }
 }
 
@@ -47,14 +52,16 @@ foreach ($arrayGrado as $param_grado) {
 foreach ($listaGruposPorEstudiante as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreUsuarioEstudiante()}</a></td>";
+    $lista .= $editar == 1 || $editar == 6 ? "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreUsuarioEstudiante()}</a></td>" : "<td class='as-text-uppercase as-text-left'>{$item->getNombreUsuarioEstudiante()}</td>";
     $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreGrado()}</td>";
     $lista .= "<td>{$item->getNombreGrupo()}</td>";
     $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-grupo-edit.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
+    if ($editar != 2) {
+        $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-grupo-edit.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+        $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
+    }
     $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-create.php&accion=crear&id={$item->getIdUsuarioEstudiante()}'>" . Generalidades::getTooltip(3, 'Registrar inasistencia') . "</a>";
-    $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/notas/form-notas-create.php&accion=crear&id={$item->getIdUsuarioEstudiante()}'>" . Generalidades::getTooltip(4, 'Agregar Calificación') . "</a>";
+    $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/notas/form-notas-create-array.php&accion=crear&id={$item->getIdUsuarioEstudiante()}'>" . Generalidades::getTooltip(4, 'Agregar Calificación') . "</a>";
     $lista .= "</td>";
     $lista .= "</tr>";
     $count++;
@@ -109,6 +116,7 @@ foreach ($listaGruposPorEstudiante as $item) {
                             </select>
                         </div>
                     </div>
+                    <input type="hidden" name="buscar" value="buscar">
                     <div class="as-form-button">
                         <button class="as-color-btn-green" type="submit">
                             Buscar

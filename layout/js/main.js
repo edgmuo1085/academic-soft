@@ -60,3 +60,15 @@ if (document.getElementById("identificacion")) {
         }
     });
 }
+
+const habilitarCalificacion = (actividad, nota) => {
+    const actividadClick = document.querySelector("#" + actividad);
+    const notaClick = document.querySelector("#" + nota);
+
+    if (actividadClick.checked) {
+        notaClick.disabled = false;
+    } else {
+        notaClick.disabled = true;
+        notaClick.value = '';
+    }
+}

@@ -2,6 +2,7 @@
 
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
+$editar = $USUARIO->getRolId();
 $titulo = 'Adicionar';
 $array = new Usuario(null, null);
 $selected = '';
@@ -13,9 +14,17 @@ if (isset($_REQUEST['id'])) {
 ?>
 
 <div class="as-form-button-back">
-    <a href="principal.php?CONTENIDO=layout/components/docente/lista-docente.php" class="as-btn-back">
-        Regresar
-    </a>
+    <?php
+    if ($editar == 1 || $editar == 6) {
+        echo '<a href="principal.php?CONTENIDO=layout/components/docente/lista-docente.php" class="as-btn-back">
+                Regresar
+            </a>';
+    } else {
+        echo '<a href="principal.php?CONTENIDO=layout/components/docente/lista-asignacion-docente.php" class="as-btn-back">
+                Regresar
+            </a>';
+    }
+    ?>
 </div>
 
 <div class="as-form-content">
@@ -62,23 +71,27 @@ if (isset($_REQUEST['id'])) {
                     </div>
                 <?php
                 }
+                if ($editar == 1 || $editar == 6) {
                 ?>
-
-                <div class="as-form-fields">
-                    <div class="as-form-input">
-                        <label class="label" for="estado">Estado</label>
-                        <select class="as-form-select" name="estado" id="estado" required>
-                            <?php
-                            for ($i = 1; $i < 3; $i++) {
-                                $selected = $array->getEstado() == $i ? 'selected' : '';
-                                $selectMenu .= '<option value="' . $i . '" ' . $selected . ' >' . Generalidades::getEstadoUsuario($i) . ' </option>';
-                            }
-                            echo $selectMenu;
-                            ?>
-                        </select>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="label" for="estado">Estado</label>
+                            <select class="as-form-select" name="estado" id="estado" required>
+                                <?php
+                                for ($i = 1; $i < 3; $i++) {
+                                    $selected = $array->getEstado() == $i ? 'selected' : '';
+                                    $selectMenu .= '<option value="' . $i . '" ' . $selected . ' >' . Generalidades::getEstadoUsuario($i) . ' </option>';
+                                }
+                                echo $selectMenu;
+                                ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
-
+                <?php
+                } else {
+                    echo '<input type="hidden" name="estado" value="' . $array->getEstado() . '">';
+                }
+                ?>
             </div>
             <div class="as-form-button">
                 <button class="as-color-btn-green" type="submit">

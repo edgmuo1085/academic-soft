@@ -9,6 +9,7 @@ $selectMenuTipoActividad = '';
 $arrayPeriodoAcademico = PeriodoAcademico::getListaEnObjetos(null, 'inicio_periodo');
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
 $arrayTipoActividad = TipoActividad::getListaEnObjetos(null, 'nombre_actividad');
+$numeroTipoActividad = count($arrayTipoActividad);
 $count = 1;
 
 if (isset($_REQUEST['id'])) {
@@ -25,16 +26,16 @@ foreach ($arrayAsignatura as $paramA) {
 }
 
 foreach ($arrayTipoActividad as $paramG) {
-    $selectMenuTipoActividad .= '<div class="as-form-input">
-                                    <label class="label" for="actividad' . $paramG->getId() . '">
-                                        <input type="checkbox" name="actividad' . $paramG->getId() . '" id="actividad' . $paramG->getId() . '" required placeholder="' . $paramG->getNombreActividad() . '">' . $paramG->getNombreActividad() . '
-                                    </label>
-                                </div>
-                                <div class="as-form-input">
-                                    <label class="hide-label" for="nota">Calificación</label>
-                                    <input type="text" name="nota" id="nota" disabled required placeholder="Calificación" onkeypress="return valideKey(event);">
-                                </div>
-                                ';
+    $selectMenuTipoActividad .= '<div class="as-box-calification">
+                                    <div class="as-form-group">
+                                        <input type="checkbox" name="actividad' . $paramG->getId() . '" id="actividad' . $paramG->getId() . '" value="' . $paramG->getId() . '" onclick="habilitarCalificacion(\'actividad' . $paramG->getId() . '\',\'nota' . $paramG->getId() . '\')">
+                                        <label class="as-form-check-label" for="actividad' . $paramG->getId() . '">' . $paramG->getNombreActividad() . '</label>
+                                    </div>
+                                    <div class="as-form-input">
+                                        <input type="text" name="nota' . $paramG->getId() . '" id="nota' . $paramG->getId() . '" disabled placeholder="Calificación" onkeypress="return valideKey(event);">
+                                        <label class="hide-label" for="nota' . $paramG->getId() . '">Calificación</label>
+                                    </div>
+                                </div>';
 }
 ?>
 
@@ -79,35 +80,7 @@ foreach ($arrayTipoActividad as $paramG) {
                     </div>
                 </div>
 
-                <!-- <div class="as-form-fields">
-                    <div class="as-form-input">
-                        <label class="label" for="id_tipo_actividad">Tipo de actividad</label>
-                        <select class="as-form-select" name="id_tipo_actividad" id="id_tipo_actividad" required>
-                            <?php
-                            //echo $selectMenuTipoActividad;
-                            ?>
-                        </select>
-                    </div>
-                </div>
-               
-                <div class="as-form-input">
-                    <label class="hide-label" for="nota">Calificación</label>
-                    <input type="text" name="nota" id="nota" required placeholder="Calificación" onkeypress="return valideKey(event);">
-                </div>
-                -->
-
-                <!-- <?= $selectMenuTipoActividad ?> -->
-
-                <div class="as-box-calification">
-                    <label class="label" for="actividad">
-                        <input type="checkbox" name="actividad" id="actividad" required placeholder="">Taller 1
-                    </label>
-                    <label class="label" for="nota">
-                        Calificación
-                        <input type="text" name="nota" id="nota" required placeholder="Calificación" onkeypress="return valideKey(event);">
-                    </label>
-                </div>
-
+                <?= $selectMenuTipoActividad ?>
 
             </div>
             <div class="as-form-button">
@@ -118,6 +91,7 @@ foreach ($arrayTipoActividad as $paramG) {
         </div>
         <input type="hidden" name="id" value="<?= $arrayUsuario->getId() ?>">
         <input type="hidden" name="id_usuario_estudiante" value="<?= $_REQUEST['id'] ?>">
-        <input type="hidden" name="accion" value="<?php echo $titulo ?>">
+        <input type="hidden" name="numero_tipo_actividad" value="<?= $numeroTipoActividad ?>">
+        <input type="hidden" name="accion" value="AdicionarArray">
     </form>
 </div>

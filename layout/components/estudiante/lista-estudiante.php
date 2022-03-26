@@ -2,6 +2,7 @@
 
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
+$editar = $USUARIO->getRolId();
 $lista = '';
 $count = 1;
 $consulta = '';
@@ -24,11 +25,13 @@ foreach ($listaUsuarios as $item) {
     $lista .= "<td>{$item->getEmail()}</td>";
     $lista .= "<td>{$item->getDireccion()}</td>";
     $lista .= "<td>" . Generalidades::getEstadoUsuario($item->getEstado()) . "</td>";
-    $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
-    $lista .= $item->getEstado() == 1 ? "<a class='as-add' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-grupo-create.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(3, 'Agregar a grupo') . "</a>" : "";
-    $lista .= "</td>";
+    if ($editar != 2) {
+        $lista .= "<td class='as-text-center'>";
+        $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+        $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
+        $lista .= $item->getEstado() == 1 ? "<a class='as-add' href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-grupo-create.php&accion=crear&id={$item->getId()}'>" . Generalidades::getTooltip(3, 'Agregar a grupo') . "</a>" : "";
+        $lista .= "</td>";
+    }
     $lista .= "</tr>";
     $count++;
 }
@@ -79,9 +82,15 @@ foreach ($listaUsuarios as $item) {
     <div>
         <h3 class="as-title-table">LISTADO DE ESTUDIANTES</h3>
     </div>
-    <div class="as-form-button-back">
-        <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php">Agregar estudiante</a>
-    </div>
+    <?php
+    if ($editar != 2) {
+    ?>
+        <div class="as-form-button-back">
+            <a class="as-btn-back" href="principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php">Agregar estudiante</a>
+        </div>
+    <?php
+    }
+    ?>
     <div class="as-table-responsive">
         <table class="as-table">
             <thead>
@@ -94,7 +103,13 @@ foreach ($listaUsuarios as $item) {
                     <th scope="col">Email</th>
                     <th scope="col">Dirección</th>
                     <th scope="col">Estado</th>
-                    <th scope="col">Opciones</th>
+                    <?php
+                    if ($editar != 2) {
+                    ?>
+                        <th scope="col">Opciones</th>
+                    <?php
+                    }
+                    ?>
                 </tr>
             </thead>
             <tbody>
@@ -109,7 +124,7 @@ foreach ($listaUsuarios as $item) {
         let respuesta = confirm("Esta seguro de eliminar este registro?");
         if (respuesta) location = "principal.php?CONTENIDO=layout/components/estudiante/form-estudiante-action.php&accion=Eliminar&id=" + id;
     }
-    
+
     const clickTabShowHidden = document.querySelector("#as-tab-header-click");
     clickTabShowHidden.addEventListener("click", () => {
         const contentTab = clickTabShowHidden.nextElementSibling;

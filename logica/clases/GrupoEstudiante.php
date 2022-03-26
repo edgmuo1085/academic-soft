@@ -13,15 +13,19 @@ class GrupoEstudiante
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT ";
-                $cadenaSQL .= "grupo_estudiante.id, grupo_estudiante.id_usuario_estudiante, grupo_estudiante.id_grupo, grupo_estudiante.id_anio_escolar, ";
-                $cadenaSQL .= "usuario.id as id_usuario, usuario.identificacion, usuario.nombres, usuario.apellidos, ";
-                $cadenaSQL .= "grado.nombre_grado, ";
-                $cadenaSQL .= "grupo.id_grado as id_grado, grupo.nombre_grupo ";
-                $cadenaSQL .= "FROM grupo_estudiante ";
-                $cadenaSQL .= "JOIN usuario ON grupo_estudiante.id_usuario_estudiante = usuario.id ";
-                $cadenaSQL .= "JOIN grupo ON grupo_estudiante.id_grupo = grupo.id ";
-                $cadenaSQL .= "JOIN grado ON grupo.id_grado = grado.id WHERE $campo=$valor";
+                $cadenaSQL = "SELECT ge.id, ge.id_usuario_estudiante, ge.id_grupo, ge.id_anio_escolar, 
+                            u.id as id_usuario, u.identificacion, u.nombres, u.apellidos, 
+                            gd.nombre_grado, 
+                            g.id_grado as id_grado, g.nombre_grupo,
+                            us.identificacion,us.nombres, us.apellidos 
+                            FROM grupo_estudiante ge
+                            JOIN usuario u ON ge.id_usuario_estudiante = u.id 
+                            JOIN grupo g ON ge.id_grupo = g.id 
+                            JOIN grado gd ON g.id_grado = gd.id 
+                            JOIN asignacion_docente ad ON g.id = ad.id_grupo  
+                            JOIN usuario us ON ad.id_usuario_docente = us.id
+                            WHERE $campo=$valor 
+                            GROUP BY u.identificacion";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
 
@@ -53,7 +57,7 @@ class GrupoEstudiante
     {
         return $this->id_grado;
     }
-   
+
     public function getNombreGrado()
     {
         return $this->nombre_grado;
@@ -128,15 +132,19 @@ class GrupoEstudiante
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT ";
-        $cadenaSQL .= "grupo_estudiante.id, grupo_estudiante.id_usuario_estudiante, grupo_estudiante.id_grupo, grupo_estudiante.id_anio_escolar, ";
-        $cadenaSQL .= "usuario.id as id_usuario, usuario.identificacion, usuario.nombres, usuario.apellidos, ";
-        $cadenaSQL .= "grado.id as id_grado, grado.nombre_grado, ";
-        $cadenaSQL .= "grupo.id_grado, grupo.nombre_grupo ";
-        $cadenaSQL .= "FROM grupo_estudiante ";
-        $cadenaSQL .= "JOIN usuario ON grupo_estudiante.id_usuario_estudiante = usuario.id ";
-        $cadenaSQL .= "JOIN grupo ON grupo_estudiante.id_grupo = grupo.id ";
-        $cadenaSQL .= "JOIN grado ON grupo.id_grado = grado.id $filtro $orden";
+        $cadenaSQL = "SELECT ge.id, ge.id_usuario_estudiante, ge.id_grupo, ge.id_anio_escolar, 
+                        u.id as id_usuario, u.identificacion, u.nombres, u.apellidos, 
+                        gd.nombre_grado, 
+                        g.id_grado as id_grado, g.nombre_grupo,
+                        us.identificacion,us.nombres, us.apellidos 
+                        FROM grupo_estudiante ge
+                        JOIN usuario u ON ge.id_usuario_estudiante = u.id 
+                        JOIN grupo g ON ge.id_grupo = g.id 
+                        JOIN grado gd ON g.id_grado = gd.id 
+                        JOIN asignacion_docente ad ON g.id = ad.id_grupo  
+                        JOIN usuario us ON ad.id_usuario_docente = us.id
+                        $filtro 
+                        GROUP BY u.identificacion $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

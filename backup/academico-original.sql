@@ -528,39 +528,32 @@ VALUES (
         13
     ),
     (
-        'Registrar Inasistencias',
-        'principal.php?CONTENIDO=layout/components/inasistencias/form-register-inasistencias.php',
-        2,
-        10,
-        14
-    ),
-    (
         'Notas',
         '#',
         1,
         null,
-        15
+        14
     ),
     (
         'Consultar Notas',
         'principal.php?CONTENIDO=layout/components/notas/lista-notas.php',
         2,
-        15,
-        16
+        14,
+        15
     ),
     (
         'Imprimir Notas',
         '#',
         2,
-        15,
-        17
+        14,
+        16
     ),
     (
         'Tipo de Actividades',
         'principal.php?CONTENIDO=layout/components/tipo-actividad/lista-tipo-actividad.php',
         2,
-        15,
-        18
+        14,
+        17
     );
 --
 --
@@ -584,8 +577,7 @@ VALUES (6, 1, 1),
     (6, 14, 1),
     (6, 15, 1),
     (6, 16, 1),
-    (6, 17, 1),
-    (6, 18, 1);
+    (6, 17, 1);
 --rol=1 secretaria
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 1, 1),
@@ -604,8 +596,51 @@ VALUES (1, 1, 1),
     (1, 14, 1),
     (1, 15, 1),
     (1, 16, 1),
-    (1, 17, 1),
-    (1, 18, 1);
+    (1, 17, 1);
+--
+--
+/**permisos para un docente**/
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (2, 7, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (2, 9, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (2, 10, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (2, 11, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (2, 12, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (2, 13, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (2, 14, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (2, 15, 1);
+SELECT *
+FROM menu m;
+/**permisos para un estudiante**/
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (4, 7, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (4, 8, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (4, 10, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (4, 13, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (4, 14, 1);
+INSERT INTO permisos (id_rol, id_menu, estado)
+VALUES (4, 15, 1);
+SELECT *
+FROM menu m;
+--
+--
+--
+--
+--
+--
+--
+--
 --
 --
 --
@@ -714,3 +749,6 @@ order by index_schema,
 ---ALTER TABLE asignacion_docente DROP FOREIGN KEY asignacion_docente_ibfk_4;
 ---ALTER TABLE asignacion_docente RENAME COLUMN id_grado TO id_grupo;
 ---ALTER TABLE asignacion_docente ADD FOREIGN KEY(id_grupo) REFERENCES grupo(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+--
+--
+--
