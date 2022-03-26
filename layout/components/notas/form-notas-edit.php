@@ -16,7 +16,7 @@ $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
 $arrayTipoActividad = TipoActividad::getListaEnObjetos(null, 'nombre_actividad');
 
 if (isset($_REQUEST['id'])) {
-    $arrayNotas = new Notas('id', $_REQUEST['id']);
+    $arrayNotas = new Notas('n.id', $_REQUEST['id']);
     $arrayUsuario = new Usuario('id', $arrayNotas->getIdUsuarioEstudiante());
 }
 

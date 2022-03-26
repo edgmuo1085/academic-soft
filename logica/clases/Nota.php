@@ -10,12 +10,27 @@ class Notas
     protected $fecha_creacion;
     protected $fecha_modificacion;
     protected $nota;
+    protected $nombre_grado;
+    protected $nombre_grupo;
 
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT id, id_usuario_estudiante, id_asignatura, id_periodo_academico, id_tipo_actividad, fecha_creacion, fecha_modificacion, nota FROM nota WHERE $campo=$valor";
+                $cadenaSQL = "SELECT  n.id, n.id_usuario_estudiante, n.id_periodo_academico, n.id_asignatura, n.id_tipo_actividad, n.nota, n.fecha_creacion, n.fecha_modificacion,
+                            u.identificacion, u.nombres, u.apellidos, u.estado,
+                            pa.inicio_periodo, pa.finalizacion_periodo, pa.nombre, pa.id_anio_escolar,
+                            a.nombre_asignatura,
+                            ta.nombre_actividad,
+                            ge.id_grupo, g.nombre_grupo, g.id_grado, gd.nombre_grado 
+                            FROM nota n
+                            JOIN usuario u ON n.id_usuario_estudiante = u.id 
+                            JOIN periodo_academico pa ON n.id_periodo_academico = pa.id
+                            JOIN asignatura a ON n.id_asignatura = a.id
+                            JOIN tipo_actividad ta ON n.id_tipo_actividad = ta.id 
+                            JOIN grupo_estudiante ge ON u.id = ge.id_usuario_estudiante 
+                            JOIN grupo g ON ge.id_grupo = g.id
+                            JOIN grado gd ON g.id_grado = gd.id WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
             $this->id = $campo['id'];
@@ -24,6 +39,8 @@ class Notas
             $this->id_periodo_academico = $campo['id_periodo_academico'];
             $this->id_tipo_actividad = $campo['id_tipo_actividad'];
             $this->nota = $campo['nota'];
+            $this->nombre_grado = $campo['nombre_grado'];
+            $this->nombre_grupo = $campo['nombre_grupo'];
             $this->fecha_creacion = $campo['fecha_creacion'];
             $this->fecha_modificacion = $campo['fecha_modificacion'];
         }
@@ -57,6 +74,16 @@ class Notas
     public function getNota()
     {
         return $this->nota;
+    }
+
+    public function getNombreGrado()
+    {
+        return $this->nombre_grado;
+    }
+
+    public function getNombreGrupo()
+    {
+        return $this->nombre_grupo;
     }
 
     public function getFechaCreacion()
@@ -158,7 +185,20 @@ class Notas
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT id, id_usuario_estudiante, id_asignatura, id_periodo_academico, id_tipo_actividad, fecha_creacion, fecha_modificacion, nota FROM nota $filtro $orden";
+        $cadenaSQL = "SELECT n.id, n.id_usuario_estudiante, n.id_periodo_academico, n.id_asignatura, n.id_tipo_actividad, n.nota, n.fecha_creacion, n.fecha_modificacion,
+                            u.identificacion, u.nombres, u.apellidos, u.estado,
+                            pa.inicio_periodo, pa.finalizacion_periodo, pa.nombre, pa.id_anio_escolar,
+                            a.nombre_asignatura,
+                            ta.nombre_actividad,
+                            ge.id_grupo, g.nombre_grupo, g.id_grado, gd.nombre_grado 
+                            FROM nota n
+                            JOIN usuario u ON n.id_usuario_estudiante = u.id 
+                            JOIN periodo_academico pa ON n.id_periodo_academico = pa.id
+                            JOIN asignatura a ON n.id_asignatura = a.id
+                            JOIN tipo_actividad ta ON n.id_tipo_actividad = ta.id 
+                            JOIN grupo_estudiante ge ON u.id = ge.id_usuario_estudiante 
+                            JOIN grupo g ON ge.id_grupo = g.id
+                            JOIN grado gd ON g.id_grado = gd.id $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

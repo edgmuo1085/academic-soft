@@ -2,6 +2,7 @@
 
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
+$editar = $USUARIO->getRolId();
 $lista = '';
 $count = 1;
 $selectMenuAsignatura = '';
@@ -33,7 +34,7 @@ if (!empty($_REQUEST['identificacion']) || !empty($_REQUEST['nombres']) || !empt
         $consulta .=  $bandera ? " AND i.fecha_creacion LIKE '%{$_REQUEST['fecha_creacion']}%'" : " i.fecha_creacion LIKE '%{$_REQUEST['fecha_creacion']}%'";
         $bandera = true;
     }
-    
+
     if ($bandera) {
         $listaInasistencias = Inasistencias::getListaEnObjetos("{$consulta}", "i.id_asignatura, i.fecha_creacion");
     }
@@ -42,7 +43,7 @@ if (!empty($_REQUEST['identificacion']) || !empty($_REQUEST['nombres']) || !empt
 foreach ($listaInasistencias as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
-    $lista .= "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreEstudiante()}</a></td>";
+    $lista .= $editar == 1 || $editar == 6 ? "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreEstudiante()}</a></td>" : "<td class='as-text-uppercase as-text-left'>{$item->getNombreEstudiante()}</td>";
     $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreAsignatura()}</td>";
     $lista .= "<td>" . Generalidades::convertDate($item->getFechaCreacion(), false) . "</td>";
     $lista .= "<td>{$item->getCantidad()}</td>";
@@ -56,11 +57,13 @@ foreach ($listaInasistencias as $item) {
     $lista .= "<span class='as-leer-mas' onClick='leerMasHideShow(2, \"" . $txtResumido . $count . "\", \"" . $txtCompleto . $count . "\")'>Ocultar texto</span>";
     $lista .= "</div>";
     $lista .= "</td>";
-    $lista .= "<td class='as-text-center'>";
-    $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-edit.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
-    $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
-    $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-create.php&accion=crear&id={$item->getIdUsuarioEstudiante()}'>" . Generalidades::getTooltip(3, 'Registrar inasistencia') . "</a>";
-    $lista .= "</td>";
+    if ($editar != 4) {
+        $lista .= "<td class='as-text-center'>";
+        $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-edit.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+        $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
+        $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-create.php&accion=crear&id={$item->getIdUsuarioEstudiante()}'>" . Generalidades::getTooltip(3, 'Registrar inasistencia') . "</a>";
+        $lista .= "</td>";
+    }
     $lista .= "</tr>";
     $count++;
 }
@@ -136,7 +139,13 @@ foreach ($arrayAsignatura as $paramA) {
                     <th scope="col">Fecha</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Justificación</th>
-                    <th scope="col">Opciones</th>
+                    <?php
+                    if ($editar != 4) {
+                    ?>
+                        <th scope="col">Opciones</th>
+                    <?php
+                    }
+                    ?>
                 </tr>
             </thead>
             <tbody>

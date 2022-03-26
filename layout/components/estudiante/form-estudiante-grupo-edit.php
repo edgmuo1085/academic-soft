@@ -60,7 +60,9 @@ foreach ($arrayGrado as $paramG) {
                 <div class="as-form-fields">
                     <div class="as-form-input">
                         <label class="label" for="id_grupo">Grupo</label>
-                        <select class="as-form-select" name="id_grupo" id="id_grupo"></select>
+                        <select class="as-form-select" name="id_grupo" id="id_grupo">
+                            <option value="<?= $arrayGrupoEstudiante->getIdGrupo() ?>"><?= $arrayGrupoEstudiante->getNombreGrupo() ?></option>
+                        </select>
                     </div>
                 </div>
 
