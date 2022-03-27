@@ -642,6 +642,10 @@ tr {
     padding: .7rem .8rem;
 }
 
+.as-layout-table .as-content-data {
+    border: 1px solid #010101;
+}
+
 .as-text-center {
     text-align: center;
 }

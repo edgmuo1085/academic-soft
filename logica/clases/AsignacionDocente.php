@@ -11,22 +11,22 @@ class AsignacionDocente
     protected $intensidad_horaria;
     protected $id_gd;
     protected $nombre_grado;
+    protected $iden_docente;
 
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
-                $cadenaSQL = "SELECT ";
-                $cadenaSQL .= "ad.id, ad.id_usuario_docente, ad.id_anio_escolar, ad.id_asignatura, ad.id_grupo, ad.link_clase_virtual, ad.intensidad_horaria, ";
-                $cadenaSQL .= "u.identificacion, u.nombres, u.apellidos, ";
-                $cadenaSQL .= "gd.id as id_gd, gd.nombre_grado, ";
-                $cadenaSQL .= "gr.nombre_grupo, ";
-                $cadenaSQL .= "a.nombre_asignatura ";
-                $cadenaSQL .= "FROM asignatura a ";
-                $cadenaSQL .= "JOIN asignacion_docente ad ON a.id = ad.id_asignatura ";
-                $cadenaSQL .= "JOIN usuario u ON ad.id_usuario_docente = u.id ";
-                $cadenaSQL .= "JOIN grupo gr ON ad.id_grupo = gr.id ";
-                $cadenaSQL .= "JOIN grado gd ON gr.id_grado = gd.id WHERE $campo=$valor";
+                $cadenaSQL = "SELECT ad.id, ad.id_usuario_docente, ad.id_anio_escolar, ad.id_asignatura, ad.id_grupo, ad.link_clase_virtual, ad.intensidad_horaria, 
+                            u.identificacion as iden_docente, u.nombres, u.apellidos, 
+                            gd.id as id_gd, gd.nombre_grado, 
+                            gr.nombre_grupo, 
+                            a.nombre_asignatura 
+                            FROM asignatura a 
+                            JOIN asignacion_docente ad ON a.id = ad.id_asignatura 
+                            JOIN usuario u ON ad.id_usuario_docente = u.id 
+                            JOIN grupo gr ON ad.id_grupo = gr.id 
+                            JOIN grado gd ON gr.id_grado = gd.id WHERE $campo=$valor";
                 $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
             }
             $this->id = $campo['id'];
@@ -38,6 +38,7 @@ class AsignacionDocente
             $this->intensidad_horaria = $campo['intensidad_horaria'];
             $this->id_gd = $campo['id_gd'];
             $this->nombre_grado = $campo['nombre_grado'];
+            $this->iden_docente = $campo['iden_docente'];
         }
     }
 
@@ -49,6 +50,11 @@ class AsignacionDocente
     public function getIdUsuarioDocente()
     {
         return $this->id_usuario_docente;
+    }
+
+    public function getIdentificacionDocente()
+    {
+        return $this->iden_docente;
     }
 
     public function getIdAnioEscolar()
@@ -170,17 +176,16 @@ class AsignacionDocente
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
-        $cadenaSQL = "SELECT ";
-        $cadenaSQL .= "ad.id, ad.id_usuario_docente, ad.id_anio_escolar, ad.id_asignatura, ad.id_grupo, ad.link_clase_virtual, ad.intensidad_horaria, ";
-        $cadenaSQL .= "u.identificacion, u.nombres, u.apellidos, ";
-        $cadenaSQL .= "gd.id as id_gd, gd.nombre_grado, ";
-        $cadenaSQL .= "gr.nombre_grupo, ";
-        $cadenaSQL .= "a.nombre_asignatura ";
-        $cadenaSQL .= "FROM asignatura a ";
-        $cadenaSQL .= "JOIN asignacion_docente ad ON a.id = ad.id_asignatura ";
-        $cadenaSQL .= "JOIN usuario u ON ad.id_usuario_docente = u.id ";
-        $cadenaSQL .= "JOIN grupo gr ON ad.id_grupo = gr.id ";
-        $cadenaSQL .= "JOIN grado gd ON gr.id_grado = gd.id $filtro $orden";
+        $cadenaSQL = "SELECT ad.id, ad.id_usuario_docente, ad.id_anio_escolar, ad.id_asignatura, ad.id_grupo, ad.link_clase_virtual, ad.intensidad_horaria, 
+                    u.identificacion as iden_docente, u.nombres, u.apellidos, 
+                    gd.id as id_gd, gd.nombre_grado, 
+                    gr.nombre_grupo, 
+                    a.nombre_asignatura 
+                    FROM asignatura a 
+                    JOIN asignacion_docente ad ON a.id = ad.id_asignatura 
+                    JOIN usuario u ON ad.id_usuario_docente = u.id 
+                    JOIN grupo gr ON ad.id_grupo = gr.id 
+                    JOIN grado gd ON gr.id_grado = gd.id $filtro $orden";
         return ConectorBD::ejecutarQuery($cadenaSQL);
     }
 

@@ -8,13 +8,14 @@ class GrupoEstudiante
     protected $nombre_grado;
     protected $id_anio_escolar;
     protected $id_grado;
+    protected $iden_estudiante;
 
     public function __construct($campo, $valor)
     {
         if ($campo != null) {
             if (!is_array($campo)) {
                 $cadenaSQL = "SELECT ge.id, ge.id_usuario_estudiante, ge.id_grupo, ge.id_anio_escolar, 
-                            u.id as id_usuario, u.identificacion, u.nombres, u.apellidos, 
+                            u.id as id_usuario, u.identificacion as iden_estudiante, u.nombres, u.apellidos, 
                             gd.nombre_grado, 
                             g.id_grado as id_grado, g.nombre_grupo,
                             us.identificacion,us.nombres, us.apellidos 
@@ -35,6 +36,7 @@ class GrupoEstudiante
             $this->id_anio_escolar = $campo['id_anio_escolar'];
             $this->nombre_grado = $campo['nombre_grado'];
             $this->id_grado = $campo['id_grado'];
+            $this->iden_estudiante = $campo['iden_estudiante'];
         }
     }
 
@@ -46,6 +48,11 @@ class GrupoEstudiante
     public function getIdUsuarioEstudiante()
     {
         return $this->id_usuario_estudiante;
+    }
+
+    public function getIdentificacionEstudiante()
+    {
+        return $this->iden_estudiante;
     }
 
     public function getIdGrupo()
@@ -133,7 +140,7 @@ class GrupoEstudiante
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
         $cadenaSQL = "SELECT ge.id, ge.id_usuario_estudiante, ge.id_grupo, ge.id_anio_escolar, 
-                        u.id as id_usuario, u.identificacion, u.nombres, u.apellidos, 
+                        u.id as id_usuario, u.identificacion as iden_estudiante, u.nombres, u.apellidos, 
                         gd.nombre_grado, 
                         g.id_grado as id_grado, g.nombre_grupo,
                         us.identificacion,us.nombres, us.apellidos 

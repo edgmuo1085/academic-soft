@@ -2,9 +2,12 @@
 
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
+$editar = $USUARIO->getRolId();
 $titulo = 'Adicionar';
 $selectMenuAsignatura = '';
+$selectMenuDocente = '';
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
+$arrayDocente = Usuario::getListaEnObjetos("rol_id = 2", 'nombres');
 
 if (isset($_REQUEST['id'])) {
     $arrayUsuario = new Usuario('id', $_REQUEST['id']);
@@ -12,6 +15,10 @@ if (isset($_REQUEST['id'])) {
 
 foreach ($arrayAsignatura as $paramA) {
     $selectMenuAsignatura .= '<option value="' . $paramA->getId() . '">' . $paramA->getNombreAsignatura() . '</option>';
+}
+
+foreach ($arrayDocente as $paramD) {
+    $selectMenuDocente .= '<option class="as-text-uppercase" value="' . $paramD->getId() . '">' . $paramD->__toString() . '</option>';
 }
 ?>
 
@@ -34,6 +41,25 @@ foreach ($arrayAsignatura as $paramA) {
                     <label class="show-label"><span>Nombres: </span><?= $arrayUsuario->__toString() ?></label>
                 </div>
 
+                <?php
+                if ($editar == 1 || $editar == 6) {
+                ?>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="label" for="creado_por_docente">Docentes</label>
+                            <select class="as-form-select as-text-uppercase" name="creado_por_docente" id="creado_por_docente" required>
+                                <?php
+                                echo $selectMenuDocente;
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                <?php
+                } else {
+                    echo '<input type="hidden" name="creado_por_docente" value="' . $USUARIO->getId() . '">';
+                }
+                ?>
+
                 <div class="as-form-fields">
                     <div class="as-form-input">
                         <label class="label" for="id_asignatura">Asignaturas</label>
@@ -47,7 +73,7 @@ foreach ($arrayAsignatura as $paramA) {
 
                 <div class="as-form-input">
                     <label class="hide-label" for="cantidad">Cantidad</label>
-                    <input type="number" name="cantidad" id="cantidad" required placeholder="Número de inasistencias">
+                    <input type="number" name="cantidad" id="cantidad" value="1" required placeholder="Número de inasistencias">
                 </div>
 
                 <div class="as-form-input">
@@ -62,7 +88,7 @@ foreach ($arrayAsignatura as $paramA) {
             </div>
         </div>
         <input type="hidden" name="id" value="<?= $arrayUsuario->getId() ?>">
-        <input type="hidden" name="id_usuario_estudiante" value="<?= $_REQUEST['id'] ?>">
+        <input type="hidden" name="registrado_a_estudiante" value="<?= $_REQUEST['id'] ?>">
         <input type="hidden" name="accion" value="<?php echo $titulo ?>">
     </form>
 </div>

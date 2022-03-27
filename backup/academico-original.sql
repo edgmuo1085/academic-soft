@@ -145,10 +145,12 @@ CREATE TABLE inasistencias (
     justificacion TEXT NULL,
     fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_modificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    id_usuario_estudiante INT(4) NOT NULL,
     id_asignatura INT(4) NOT NULL,
-    FOREIGN KEY (id_usuario_estudiante) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    registrado_a_estudiante INT(4) NOT NULL,
+    creado_por_docente INT(4) NOT NULL,
+    FOREIGN KEY (id_asignatura) REFERENCES asignatura(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (registrado_a_estudiante) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (creado_por_docente) REFERENCES usuario(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 --
 --
@@ -521,39 +523,53 @@ VALUES (
         12
     ),
     (
-        'Inasistencias',
+        'Listar Inasistencias',
         'principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php',
         2,
         10,
         13
     ),
     (
+        'Gestionar Inasistencias',
+        'principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias-total.php',
+        2,
+        10,
+        14
+    ),
+    (
         'Notas',
         '#',
         1,
         null,
-        14
+        15
+    ),
+    (
+        'Gestionar Notas',
+        'principal.php?CONTENIDO=layout/components/notas/lista-notas.php',
+        2,
+        15,
+        16
     ),
     (
         'Consultar Notas',
-        'principal.php?CONTENIDO=layout/components/notas/lista-notas.php',
+        'principal.php?CONTENIDO=layout/components/notas/lista-notas-total.php',
         2,
-        14,
-        15
+        15,
+        17
     ),
     (
         'Imprimir Notas',
         '#',
         2,
-        14,
-        16
+        15,
+        18
     ),
     (
         'Tipo de Actividades',
         'principal.php?CONTENIDO=layout/components/tipo-actividad/lista-tipo-actividad.php',
         2,
-        14,
-        17
+        15,
+        19
     );
 --
 --
@@ -577,7 +593,9 @@ VALUES (6, 1, 1),
     (6, 14, 1),
     (6, 15, 1),
     (6, 16, 1),
-    (6, 17, 1);
+    (6, 17, 1),
+    (6, 18, 1),
+    (6, 19, 1);
 --rol=1 secretaria
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (1, 1, 1),
@@ -596,41 +614,33 @@ VALUES (1, 1, 1),
     (1, 14, 1),
     (1, 15, 1),
     (1, 16, 1),
-    (1, 17, 1);
+    (1, 17, 1),
+    (1, 18, 1),
+    (1, 19, 1);
 --
 --
 /**permisos para un docente**/
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 7, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 9, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 10, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 11, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 12, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 13, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 14, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (2, 15, 1);
+VALUES (2, 7, 1),
+    (2, 9, 1),
+    (2, 10, 1),
+    (2, 11, 1),
+    (2, 12, 1),
+    (2, 13, 1),
+    (2, 14, 1),
+    (2, 15, 1),
+    (2, 16, 1),
+    (2, 17, 1);
 SELECT *
 FROM menu m;
 /**permisos para un estudiante**/
 INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (4, 7, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (4, 8, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (4, 10, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (4, 13, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (4, 14, 1);
-INSERT INTO permisos (id_rol, id_menu, estado)
-VALUES (4, 15, 1);
+VALUES (4, 7, 1),
+(4, 8, 1),
+(4, 10, 1),
+(4, 13, 1),
+(4, 15, 1),
+(4, 17, 1);
 SELECT *
 FROM menu m;
 --
@@ -749,6 +759,6 @@ order by index_schema,
 ---ALTER TABLE asignacion_docente DROP FOREIGN KEY asignacion_docente_ibfk_4;
 ---ALTER TABLE asignacion_docente RENAME COLUMN id_grado TO id_grupo;
 ---ALTER TABLE asignacion_docente ADD FOREIGN KEY(id_grupo) REFERENCES grupo(id) ON DELETE RESTRICT ON UPDATE CASCADE;
---
+---ALTER TABLE academico.inasistencias ADD creado_por_docente int(4) NULL;
 --
 --
