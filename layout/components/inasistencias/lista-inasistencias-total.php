@@ -17,24 +17,16 @@ $txtResumido = 'as-texto-resumido';
 $txtCompleto = 'as-texto-completo';
 $arrayDocente = Usuario::getListaEnObjetos("rol_id = 2", 'nombres');
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
-$listaGruposPorEstudiante = array();
 
 if ($permisoAdminSecretaria) {
-    $listaInasistencias = Inasistencias::getListaEnObjetos(null, 'i.fecha_creacion DESC', false);
-} elseif ($editar == 2) {
-    $listaInasistencias = Inasistencias::getListaEnObjetos("us.identificacion = {$USUARIO->getIdentificacion()}", 'i.fecha_creacion DESC', false);
-} elseif ($editar == 4) {
-    $listaInasistencias = Inasistencias::getListaEnObjetos("u.identificacion = {$USUARIO->getIdentificacion()}", 'i.fecha_creacion DESC', false);
+    $listaInasistencias = Inasistencias::getListaEnObjetos(null, 'i.fecha_creacion DESC', true);
+} else {
+    $listaInasistencias = Inasistencias::getListaEnObjetos("us.identificacion = {$USUARIO->getIdentificacion()}", 'i.fecha_creacion DESC', true);
 }
 
 if (isset($_REQUEST['buscar'])) {
     if (!$permisoAdminSecretaria) {
-        $consulta = "us.identificacion = {$USUARIO->getIdentificacion()}";
-        $bandera = true;
-    }
-
-    if ($editar == '4') {
-        $consulta = "u.identificacion = {$USUARIO->getIdentificacion()}";
+        $consulta .= "us.identificacion = {$USUARIO->getIdentificacion()}";
         $bandera = true;
     }
 
@@ -65,7 +57,7 @@ if (isset($_REQUEST['buscar'])) {
 
     if ($bandera) {
         $listaGruposPorEstudiante = array();
-        $listaInasistencias = Inasistencias::getListaEnObjetos("{$consulta}", "i.fecha_creacion DESC", false);
+        $listaInasistencias = Inasistencias::getListaEnObjetos("{$consulta}", "i.fecha_creacion DESC", true);
     }
 }
 
@@ -89,6 +81,8 @@ foreach ($listaInasistencias as $item) {
     $lista .= "</td>";
     if ($editar != 4) {
         $lista .= "<td class='as-text-center'>";
+        $lista .= "<a class='as-edit' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-edit.php&accion=Modificar&id={$item->getId()}'>" . Generalidades::getTooltip(1, '') . "</a>";
+        $lista .= "<span class='as-trash' onClick='eliminar({$item->getId()})'>" . Generalidades::getTooltip(2, '') . "</span>";
         $lista .= "<a class='as-add' href='principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-create.php&accion=crear&id={$item->getRegistradoAEstudiante()}'>" . Generalidades::getTooltip(3, 'Registrar inasistencia') . "</a>";
         $lista .= "</td>";
     }
@@ -114,24 +108,19 @@ foreach ($arrayAsignatura as $paramA) {
         <div class="as-form-content">
             <form name="formulario" method="post" action="principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php" autocomplete="off">
                 <div class="as-form-margin">
-                    <?php
-                    if ($editar != 4) {
-                    ?>
-                        <div class="as-form-fields">
-                            <div class="as-form-input">
-                                <label class="hide-label" for="identificacion">Identificación</label>
-                                <input type="number" name="identificacion" id="identificacion" placeholder="Identificación">
-                            </div>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="hide-label" for="identificacion">Identificación</label>
+                            <input type="number" name="identificacion" id="identificacion" placeholder="Identificación">
                         </div>
-                        <div class="as-form-fields">
-                            <div class="as-form-input">
-                                <label class="hide-label" for="nombres">Nombres</label>
-                                <input type="text" name="nombres" id="nombres" placeholder="Nombres">
-                            </div>
+                    </div>
+                    <div class="as-form-fields">
+                        <div class="as-form-input">
+                            <label class="hide-label" for="nombres">Nombres</label>
+                            <input type="text" name="nombres" id="nombres" placeholder="Nombres">
                         </div>
+                    </div>
                     <?php
-                    }
-
                     if ($permisoAdminSecretaria) {
                     ?>
                         <div class="as-form-fields">
@@ -182,7 +171,7 @@ foreach ($arrayAsignatura as $paramA) {
 
 <div class="as-layout-table">
     <div>
-        <h3 class="as-title-table">LISTAR INASISTENCIAS POR SUMATORIA</h3>
+        <h3 class="as-title-table">GESTIONAR INASISTENCIAS</h3>
     </div>
     <div class="as-table-responsive">
         <table class="as-table">
@@ -212,6 +201,11 @@ foreach ($arrayAsignatura as $paramA) {
 </div>
 
 <script type="text/javascript">
+    const eliminar = (id) => {
+        let respuesta = confirm("Esta seguro de eliminar este registro?");
+        if (respuesta) location = "principal.php?CONTENIDO=layout/components/inasistencias/form-inasistencias-action.php&accion=Eliminar&id=" + id;
+    }
+
     const leerMasHideShow = (parametro, idResumido, idCompleto) => {
         let elementResumido = document.getElementById(idResumido);
         let elementCompleto = document.getElementById(idCompleto);

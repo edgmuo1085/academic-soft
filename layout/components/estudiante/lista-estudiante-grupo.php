@@ -52,6 +52,7 @@ foreach ($arrayGrado as $param_grado) {
 foreach ($listaGruposPorEstudiante as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getIdentificacionEstudiante()}</td>";
     $lista .= $editar == 1 || $editar == 6 ? "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/estudiante/form-estudiante.php&accion=Modificar&id={$item->getIdUsuarioEstudiante()}'>{$item->getNombreUsuarioEstudiante()}</a></td>" : "<td class='as-text-uppercase as-text-left'>{$item->getNombreUsuarioEstudiante()}</td>";
     $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreGrado()}</td>";
     $lista .= "<td>{$item->getNombreGrupo()}</td>";
@@ -141,6 +142,7 @@ foreach ($listaGruposPorEstudiante as $item) {
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Identificación</th>
                     <th scope="col">Estudiante</th>
                     <th scope="col">Grado</th>
                     <th scope="col">Grupo</th>

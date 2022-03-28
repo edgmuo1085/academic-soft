@@ -53,6 +53,7 @@ $roles = Rol::getListaEnObjetos("id={$USUARIO->getRolId()}", null)[0];
             ?>
             <li class="menu__item as-dropdown-submenu"><a href="#" class="as-menu__link as-submenu-btn"> <span>Perfil <?php echo $roles->getNombre(); ?> </span> <i class="fas fa-chevron-down"></i></a>
                 <ul class="as-submenu">
+                    <li class="menu__item"><a href="principal.php?CONTENIDO=layout/components/usuario/form-usuario.php&accion=Modificar&id=<?= $USUARIO->getId() ?>" class="as-menu__link as-submenu-color">Actualizar Datos</a></li>
                     <li class="menu__item"><a href="index.php" class="as-menu__link as-submenu-color">Cerrar sesión</a></li>
                 </ul>
             </li>
