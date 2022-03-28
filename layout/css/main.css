@@ -642,6 +642,99 @@ tr {
     padding: .7rem .8rem;
 }
 
+.as-layout-table .as-content-data {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgb(50, 138, 101);
+    border-radius: 5px;
+    margin: 0.5rem 0;
+}
+
+.as-layout-table .as-content-data h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.as-content-data-responsive {
+    position: relative;
+    overflow-x: auto;
+}
+
+.as-layout-table .as-content-data .as-content-data-header {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    border-top: 2px dotted rgb(50, 138, 101);
+    border-bottom: 2px solid rgb(50, 138, 101);
+    width: max-content;
+    margin: 0;
+    padding: 0;
+}
+
+.as-layout-table .as-content-data .as-content-data-header li {
+    padding: .6rem;
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin: 0.4rem 1rem;
+    text-transform: uppercase;
+}
+
+.as-layout-table .as-content-data .as-content-data-header li .as-content-data-title {
+    font-weight: bold;
+    text-transform: none;
+}
+
+.as-layout-table .as-content-data .as-content-data-course {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0.5rem;
+    grid-auto-rows: minmax(4rem, auto);
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px dotted rgb(50, 138, 101);
+}
+
+.as-layout-table .as-content-data .as-content-data-course>div {
+    padding: .6rem;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.as-layout-table .as-content-data .as-content-data-course .as-content-data-course-title {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    font-weight: bold;
+    border-right: 2px solid rgb(50, 138, 101);
+    margin: 0;
+    padding: 0;
+}
+
+.as-layout-table .as-content-data .as-content-data-course .as-content-data-activity {
+    grid-column: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: .5rem 0;
+}
+
+.as-layout-table .as-content-data .as-content-data-course .as-content-data-activity-item {
+    padding: 0;
+    margin: 0.5rem;
+    text-align: left;
+}
+
+.as-layout-table .as-content-data .as-content-data-course .as-content-data-activity-item .as-content-data-activity-title {
+    padding: 0;
+    border-bottom: 1px dotted #39ab6c;
+    font-weight: bold;
+    color: #1a4d42;
+    text-align: left;
+}
+
 .as-text-center {
     text-align: center;
 }
@@ -787,6 +880,9 @@ tr {
     .as-form-button button,
     .as-form-button a {
         width: 70%;
+    }
+    .as-layout-table .as-content-data .as-content-data-header {
+        width: 100%;
     }
 }
 

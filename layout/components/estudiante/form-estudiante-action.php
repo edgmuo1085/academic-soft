@@ -8,7 +8,6 @@
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 
 $docente = new Usuario(null, null);
-$grupoEstudiante = new GrupoEstudiante(null, null);
 switch ($_REQUEST['accion']) {
   case 'Adicionar':
     $docente->setIdentificacion($_REQUEST['identificacion']);

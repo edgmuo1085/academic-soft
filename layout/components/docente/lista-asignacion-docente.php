@@ -63,6 +63,7 @@ foreach ($arrayGrado as $paramG) {
 foreach ($listaAsignacionesDocente as $item) {
     $lista .= "<tr>";
     $lista .= '<th scope="row">' . $count . '</th>';
+    $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getIdentificacionDocente()}</td>";
     $lista .= "<td class='as-text-uppercase as-text-left'><a href='principal.php?CONTENIDO=layout/components/docente/form-docente.php&accion=Modificar&id={$item->getIdUsuarioDocente()}'>{$item->getNombreDocente()}</a></td>";
     $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreGrado()}</td>";
     $lista .= "<td class='as-text-uppercase as-text-left'>{$item->getNombreGrupo()}</td>";
@@ -170,6 +171,7 @@ foreach ($listaAsignacionesDocente as $item) {
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Identificación</th>
                     <th scope="col">Docente</th>
                     <th scope="col">Grado</th>
                     <th scope="col">Grupo</th>
