@@ -18,4 +18,5 @@ require_once 'logica/clases/AsignacionDocente.php';
 require_once 'logica/clases/Inasistencias.php';
 require_once 'logica/clases/TipoActividad.php';
 require_once 'logica/clases/Nota.php';
+require_once 'logica/clases/NotaConsulta.php';
 require_once 'logica/clases/GrupoEstudiante.php';

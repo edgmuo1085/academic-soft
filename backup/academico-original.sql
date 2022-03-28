@@ -630,7 +630,7 @@ VALUES (2, 7, 1),
     (2, 14, 1),
     (2, 15, 1),
     (2, 16, 1),
-    (2, 17, 1);
+    (2, 19, 1);
 SELECT *
 FROM menu m;
 /**permisos para un estudiante**/
