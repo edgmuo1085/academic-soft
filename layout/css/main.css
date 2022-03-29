@@ -706,6 +706,7 @@ tr {
     align-content: center;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     text-align: left;
     font-weight: bold;
     border-right: 2px solid rgb(50, 138, 101);
@@ -713,12 +714,19 @@ tr {
     padding: 0;
 }
 
+.as-layout-table .as-content-data .as-content-data-course .as-content-data-course-title>span {
+    display: block;
+    margin: .5rem 0;
+    padding: 0;
+    font-weight: bold;
+}
+
 .as-layout-table .as-content-data .as-content-data-course .as-content-data-activity {
     grid-column: 2 / 4;
     display: flex;
     flex-direction: column;
     padding: 0;
-    margin: .5rem 0;
+    margin: .3rem 0;
 }
 
 .as-layout-table .as-content-data .as-content-data-course .as-content-data-activity-item {

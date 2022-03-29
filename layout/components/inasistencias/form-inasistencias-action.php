@@ -3,7 +3,7 @@
 @session_start();
 if (!isset($_SESSION['usuario'])) header('location:../../index.php?mensaje=Acceso no autorizado');
 
-$inasistencias = new Inasistencias(null, null, true);
+$inasistencias = new Inasistencias(null, null, 'total');
 switch ($_REQUEST['accion']) {
   case 'Adicionar':
     $inasistencias->setCantidad($_REQUEST['cantidad']);
