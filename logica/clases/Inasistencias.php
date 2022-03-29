@@ -36,7 +36,7 @@ class Inasistencias
                     JOIN usuario u ON i.registrado_a_estudiante = u.id 
                     JOIN usuario us ON i.creado_por_docente = us.id WHERE $campo = $valor";
 
-                $cadenaSQLSum = "SELECT SUM(i.cantidad) as cantidad FROM inasistencias i WHERE $campo = $valor";
+                $cadenaSQLSum = "SELECT i.id, SUM(i.cantidad) as cantidad, i.justificacion, i.fecha_creacion, i.fecha_modificacion, i.id_asignatura, i.registrado_a_estudiante, i.creado_por_docente FROM inasistencias i WHERE $campo = $valor";
 
                 if ($all == 'total') {
                     $campo = ConectorBD::ejecutarQuery($cadenaSQLAll)[0];
@@ -203,7 +203,7 @@ class Inasistencias
                     GROUP BY i.id_asignatura, i.registrado_a_estudiante
                     $orden";
 
-        $cadenaSQLSum = "SELECT SUM(i.cantidad) as cantidad FROM inasistencias i $filtro $orden";
+        $cadenaSQLSum = "SELECT i.id, SUM(i.cantidad) as cantidad, i.justificacion, i.fecha_creacion, i.fecha_modificacion, i.id_asignatura, i.registrado_a_estudiante, i.creado_por_docente FROM inasistencias i $filtro $orden";
 
         if ($all == 'total') {
             return ConectorBD::ejecutarQuery($cadenaSQLAll);
