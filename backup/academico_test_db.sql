@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.5.12-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19  Distrib 10.5.15-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: academico
 -- ------------------------------------------------------
--- Server version	10.5.12-MariaDB-0+deb11u1
+-- Server version	10.5.15-MariaDB-0+deb11u1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -68,7 +68,7 @@ CREATE TABLE `asignacion_docente` (
   CONSTRAINT `asignacion_docente_ibfk_2` FOREIGN KEY (`id_anio_escolar`) REFERENCES `anio_escolar` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `asignacion_docente_ibfk_3` FOREIGN KEY (`id_asignatura`) REFERENCES `asignatura` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `asignacion_docente_ibfk_4` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `asignacion_docente` (
 
 LOCK TABLES `asignacion_docente` WRITE;
 /*!40000 ALTER TABLE `asignacion_docente` DISABLE KEYS */;
-INSERT INTO `asignacion_docente` VALUES (1,9,1,9,11,'#',12),(2,9,1,2,11,'#',12),(3,9,1,7,11,'#',12),(4,9,1,6,11,'#',12),(5,9,1,5,11,'#',12),(6,9,1,1,11,'#',12),(7,9,1,4,11,'#',12),(8,9,1,3,11,'#',12),(9,9,1,8,11,'#',1),(10,7,1,9,21,'#',3),(11,7,1,2,21,'#',3),(12,7,1,7,21,'#',3),(13,7,1,6,21,'#',3),(14,7,1,5,21,'#',3),(15,7,1,1,21,'#',3),(16,7,1,4,21,'#',3),(17,7,1,8,21,'#',3),(18,7,1,3,21,'#',3),(19,2,1,9,16,'#',1),(20,2,1,2,16,'#',1),(21,2,1,7,16,'#',3),(22,2,1,9,23,'#',2),(23,2,1,2,23,'#',2),(24,2,1,7,23,'#',2),(25,2,1,6,23,'#',2);
+INSERT INTO `asignacion_docente` VALUES (1,9,1,9,11,'#',12),(2,9,1,2,11,'#',12),(3,9,1,7,11,'#',12),(4,9,1,6,11,'#',12),(5,9,1,5,11,'#',12),(6,9,1,1,11,'#',12),(7,9,1,4,11,'#',12),(8,9,1,3,11,'#',12),(9,9,1,8,11,'#',1),(10,7,1,9,21,'#',3),(11,7,1,2,21,'#',3),(12,7,1,7,21,'#',3),(13,7,1,6,21,'#',3),(14,7,1,5,21,'#',3),(15,7,1,1,21,'#',3),(16,7,1,4,21,'#',3),(17,7,1,8,21,'#',3),(18,7,1,3,21,'#',3),(19,2,1,9,16,'#',1),(20,2,1,2,16,'#',1),(21,2,1,7,16,'#',3),(22,2,1,9,23,'#',2),(23,2,1,2,23,'#',2),(24,2,1,7,23,'#',2),(25,2,1,6,23,'#',2),(26,12,1,4,8,'#',2);
 /*!40000 ALTER TABLE `asignacion_docente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +178,7 @@ CREATE TABLE `grupo_estudiante` (
   CONSTRAINT `grupo_estudiante_ibfk_1` FOREIGN KEY (`id_usuario_estudiante`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `grupo_estudiante_ibfk_2` FOREIGN KEY (`id_grupo`) REFERENCES `grupo` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `grupo_estudiante_ibfk_3` FOREIGN KEY (`id_anio_escolar`) REFERENCES `anio_escolar` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +187,7 @@ CREATE TABLE `grupo_estudiante` (
 
 LOCK TABLES `grupo_estudiante` WRITE;
 /*!40000 ALTER TABLE `grupo_estudiante` DISABLE KEYS */;
-INSERT INTO `grupo_estudiante` VALUES (1,4,11,1),(2,13,21,1),(3,14,21,1),(4,15,16,1),(5,16,21,1),(6,17,16,1),(7,18,11,1),(8,19,23,1),(9,20,23,1),(10,24,16,1),(14,25,11,1);
+INSERT INTO `grupo_estudiante` VALUES (1,4,11,1),(2,13,21,1),(3,14,21,1),(4,15,16,1),(5,16,21,1),(6,17,16,1),(7,18,11,1),(8,19,23,1),(9,20,23,1),(10,24,16,1),(14,25,11,1),(15,26,8,1);
 /*!40000 ALTER TABLE `grupo_estudiante` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +273,7 @@ CREATE TABLE `menu` (
   PRIMARY KEY (`id`),
   KEY `es_hijo` (`es_hijo`),
   CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`es_hijo`) REFERENCES `menu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,7 +282,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (1,'Institución','#',1,NULL,1),(2,'Año escolar','principal.php?CONTENIDO=layout/components/anio-escolar/lista-anio.php',2,1,2),(3,'Periodo Academico','principal.php?CONTENIDO=layout/components/periodo-academico/lista-periodo.php',2,1,3),(4,'Grados','principal.php?CONTENIDO=layout/components/grado/lista-grado.php',2,1,4),(5,'Grupos','principal.php?CONTENIDO=layout/components/grupo/lista-grupo.php',2,1,5),(6,'Asignatura','principal.php?CONTENIDO=layout/components/asignatura/lista-asignatura.php',1,NULL,6),(7,'Docentes','#',1,NULL,7),(8,'Personal Docente','principal.php?CONTENIDO=layout/components/docente/lista-docente.php',2,7,8),(9,'Asignacion Docente','principal.php?CONTENIDO=layout/components/docente/lista-asignacion-docente.php',2,7,9),(10,'Estudiantes','#',1,NULL,10),(11,'Listado','principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante.php',2,10,11),(12,'Listado de Grupos','principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante-grupo.php',2,10,12),(13,'Listar Inasistencias','principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php',2,10,13),(14,'Gestionar Inasistencias','principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias-total.php',2,10,14),(15,'Notas','#',1,NULL,15),(16,'Consultar Notas','principal.php?CONTENIDO=layout/components/notas/lista-notas.php',2,15,16),(17,'Imprimir Notas','#',2,15,17),(18,'Tipo de Actividades','principal.php?CONTENIDO=layout/components/tipo-actividad/lista-tipo-actividad.php',2,15,18);
+INSERT INTO `menu` VALUES (1,'Institución','#',1,NULL,1),(2,'Año escolar','principal.php?CONTENIDO=layout/components/anio-escolar/lista-anio.php',2,1,2),(3,'Periodo Academico','principal.php?CONTENIDO=layout/components/periodo-academico/lista-periodo.php',2,1,3),(4,'Grados','principal.php?CONTENIDO=layout/components/grado/lista-grado.php',2,1,4),(5,'Grupos','principal.php?CONTENIDO=layout/components/grupo/lista-grupo.php',2,1,5),(6,'Asignatura','principal.php?CONTENIDO=layout/components/asignatura/lista-asignatura.php',1,NULL,6),(7,'Docentes','#',1,NULL,7),(8,'Personal Docente','principal.php?CONTENIDO=layout/components/docente/lista-docente.php',2,7,8),(9,'Asignacion Docente','principal.php?CONTENIDO=layout/components/docente/lista-asignacion-docente.php',2,7,9),(10,'Estudiantes','#',1,NULL,10),(11,'Listado','principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante.php',2,10,11),(12,'Listado de Grupos','principal.php?CONTENIDO=layout/components/estudiante/lista-estudiante-grupo.php',2,10,12),(13,'Listar Inasistencias','principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias.php',2,10,13),(14,'Gestionar Inasistencias','principal.php?CONTENIDO=layout/components/inasistencias/lista-inasistencias-total.php',2,10,14),(15,'Notas','#',1,NULL,15),(16,'Gestionar Notas','principal.php?CONTENIDO=layout/components/notas/lista-notas.php',2,15,16),(17,'Consultar Notas','principal.php?CONTENIDO=layout/components/notas/lista-notas-total.php',2,15,17),(18,'Imprimir Notas','#',2,15,18),(19,'Tipo de Actividades','principal.php?CONTENIDO=layout/components/tipo-actividad/lista-tipo-actividad.php',2,15,19);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,7 +311,7 @@ CREATE TABLE `nota` (
   CONSTRAINT `nota_ibfk_2` FOREIGN KEY (`id_asignatura`) REFERENCES `asignatura` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `nota_ibfk_3` FOREIGN KEY (`id_periodo_academico`) REFERENCES `periodo_academico` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `nota_ibfk_4` FOREIGN KEY (`id_tipo_actividad`) REFERENCES `tipo_actividad` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -320,7 +320,7 @@ CREATE TABLE `nota` (
 
 LOCK TABLES `nota` WRITE;
 /*!40000 ALTER TABLE `nota` DISABLE KEYS */;
-INSERT INTO `nota` VALUES (1,4,1,9,1,1,'2022-03-23 21:40:44','2022-03-23 21:40:44'),(2,4,1,9,2,2,'2022-03-23 21:40:58','2022-03-23 21:41:13'),(3,4,1,9,3,2,'2022-03-23 21:41:23','2022-03-23 21:41:23'),(4,4,1,9,4,3,'2022-03-23 21:41:30','2022-03-23 21:41:30'),(5,4,1,9,5,4,'2022-03-23 21:41:40','2022-03-23 21:41:40'),(8,4,1,9,6,5,'2022-03-26 00:25:50','2022-03-26 00:25:50'),(9,24,1,9,1,3.3,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(10,24,1,9,2,3.2,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(11,24,1,9,3,4,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(12,24,1,9,4,5,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(13,24,1,9,5,1,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(14,24,1,9,6,4.5,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(15,4,1,2,1,5,'2022-03-26 00:30:35','2022-03-26 00:30:35'),(16,4,1,2,2,4.5,'2022-03-26 00:30:35','2022-03-26 00:30:35'),(17,17,1,5,1,2.4,'2022-03-26 00:59:56','2022-03-26 00:59:56'),(18,17,1,5,3,5,'2022-03-26 00:59:56','2022-03-26 00:59:56'),(19,4,2,4,1,4,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(20,4,2,4,2,4,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(21,4,2,4,3,4,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(22,4,2,4,4,3,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(23,4,2,4,5,3,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(24,4,2,4,6,4.3,'2022-03-26 01:04:38','2022-03-26 01:04:38');
+INSERT INTO `nota` VALUES (1,4,1,9,1,1,'2022-03-23 21:40:44','2022-03-23 21:40:44'),(2,4,1,9,2,2,'2022-03-23 21:40:58','2022-03-23 21:41:13'),(3,4,1,9,3,2,'2022-03-23 21:41:23','2022-03-23 21:41:23'),(4,4,1,9,4,3,'2022-03-23 21:41:30','2022-03-23 21:41:30'),(5,4,1,9,5,4,'2022-03-23 21:41:40','2022-03-23 21:41:40'),(8,4,1,9,6,5,'2022-03-26 00:25:50','2022-03-26 00:25:50'),(9,24,1,9,1,3.3,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(10,24,1,9,2,3.2,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(11,24,1,9,3,4,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(12,24,1,9,4,5,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(13,24,1,9,5,1,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(14,24,1,9,6,4.5,'2022-03-26 00:27:40','2022-03-26 00:27:40'),(15,4,1,2,1,5,'2022-03-26 00:30:35','2022-03-26 00:30:35'),(16,4,1,2,2,4.5,'2022-03-26 00:30:35','2022-03-26 00:30:35'),(17,17,1,5,1,2.4,'2022-03-26 00:59:56','2022-03-26 00:59:56'),(18,17,1,5,3,5,'2022-03-26 00:59:56','2022-03-26 00:59:56'),(19,4,2,4,1,4,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(20,4,2,4,2,4,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(21,4,2,4,3,4,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(22,4,2,4,4,3,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(23,4,2,4,5,3,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(24,4,2,4,6,4.3,'2022-03-26 01:04:38','2022-03-26 01:04:38'),(25,4,1,2,1,4,'2022-03-27 21:01:15','2022-03-27 21:01:15'),(26,4,1,2,6,3,'2022-03-27 21:01:15','2022-03-27 21:01:15'),(27,4,1,1,1,4,'2022-03-27 22:03:23','2022-03-27 22:03:23'),(28,4,1,1,6,4,'2022-03-27 22:03:23','2022-03-27 22:03:38'),(29,17,1,8,6,5,'2022-03-27 22:04:04','2022-03-27 22:04:04');
 /*!40000 ALTER TABLE `nota` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,7 +349,7 @@ CREATE TABLE `periodo_academico` (
 
 LOCK TABLES `periodo_academico` WRITE;
 /*!40000 ALTER TABLE `periodo_academico` DISABLE KEYS */;
-INSERT INTO `periodo_academico` VALUES (1,'2023-01-01 23:59:59','2023-03-30 00:00:00','Periodo 1',1),(2,'2023-04-01 23:59:59','2023-06-30 00:00:00','Periodo 2',1),(3,'2023-07-01 23:59:59','2023-09-30 00:00:00','Periodo 3',1),(4,'2023-10-01 23:59:59','2023-12-30 00:00:00','Periodo 4',1);
+INSERT INTO `periodo_academico` VALUES (1,'2023-01-01 00:00:00','2023-03-30 00:00:00','Periodo Académico 1',1),(2,'2023-04-01 00:00:00','2023-06-30 00:00:00','Periodo Académico 2',1),(3,'2023-07-01 00:00:00','2023-09-30 00:00:00','Periodo Académico 3',1),(4,'2023-10-01 00:00:00','2023-12-30 00:00:00','Periodo Académico 4',1);
 /*!40000 ALTER TABLE `periodo_academico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,7 +370,7 @@ CREATE TABLE `permisos` (
   KEY `id_menu` (`id_menu`),
   CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `permisos_ibfk_2` FOREIGN KEY (`id_menu`) REFERENCES `menu` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,7 +379,7 @@ CREATE TABLE `permisos` (
 
 LOCK TABLES `permisos` WRITE;
 /*!40000 ALTER TABLE `permisos` DISABLE KEYS */;
-INSERT INTO `permisos` VALUES (1,6,1,1),(2,6,2,1),(3,6,3,1),(4,6,4,1),(5,6,5,1),(6,6,6,1),(7,6,7,1),(8,6,8,1),(9,6,9,1),(10,6,10,1),(11,6,11,1),(12,6,12,1),(13,6,13,1),(14,6,14,1),(15,6,15,1),(16,6,16,1),(17,6,17,1),(18,6,18,1),(19,1,1,1),(20,1,2,1),(21,1,3,1),(22,1,4,1),(23,1,5,1),(24,1,6,1),(25,1,7,1),(26,1,8,1),(27,1,9,1),(28,1,10,1),(29,1,11,1),(30,1,12,1),(31,1,13,1),(32,1,14,1),(33,1,15,1),(34,1,16,1),(35,1,17,1),(36,1,18,1),(37,2,7,1),(38,2,9,1),(39,2,10,1),(40,2,11,1),(41,2,12,1),(42,2,13,1),(43,2,14,1),(44,2,15,1),(45,2,16,1),(46,4,7,1),(47,4,8,1),(48,4,10,1),(49,4,13,1),(50,4,15,1),(51,4,16,1);
+INSERT INTO `permisos` VALUES (1,6,1,1),(2,6,2,1),(3,6,3,1),(4,6,4,1),(5,6,5,1),(6,6,6,1),(7,6,7,1),(8,6,8,1),(9,6,9,1),(10,6,10,1),(11,6,11,1),(12,6,12,1),(13,6,13,1),(14,6,14,1),(15,6,15,1),(16,6,16,1),(17,6,17,1),(18,6,18,1),(19,6,19,1),(20,1,1,1),(21,1,2,1),(22,1,3,1),(23,1,4,1),(24,1,5,1),(25,1,6,1),(26,1,7,1),(27,1,8,1),(28,1,9,1),(29,1,10,1),(30,1,11,1),(31,1,12,1),(32,1,13,1),(33,1,14,1),(34,1,15,1),(35,1,16,1),(36,1,17,1),(37,1,18,1),(38,1,19,1),(39,2,7,1),(40,2,9,1),(41,2,10,1),(42,2,11,1),(43,2,12,1),(44,2,13,1),(45,2,14,1),(46,2,15,1),(47,2,16,1),(49,4,7,1),(50,4,8,1),(51,4,10,1),(52,4,13,1),(53,4,15,1),(54,4,17,1),(55,2,19,1);
 /*!40000 ALTER TABLE `permisos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -454,7 +454,7 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `identificacion` (`identificacion`),
   KEY `rol_id` (`rol_id`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -463,7 +463,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'100100','Martha','Ordoñez','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',1,1),(2,'100101','Pedro','Cifuentes López','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',2,1),(3,'100102','Tipo','Peralta','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',3,1),(4,'100103','Carlos','Zambrano','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',4,1),(5,'100104','Desconocido','Desconocido','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',5,1),(6,'100105','Super','Admin','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',6,1),(7,'1085100100','Edgar','Muñoz Quenan','318555','leo@gmail.com','Las cuadras','f5624ad58b6c22764fe9cde2e2b14c02',2,1),(8,'200200','carlos','arias','123123','123correo@gmail.com','Las quintas de san pedro','c0d29696fc1eea771df60ff95a4772ff',2,1),(9,'300300','pedro','rodriguez','456789','correo@gmail.com','Corazon de jesus','c1a41159a94ed9bf45e035f6a2a2ca79',2,1),(10,'400400','pablo','cazanoba','753159','corr@gmail.com','las cuadras','60993fbe03e405d2e8a3b5ff3a3da0ab',2,1),(11,'500500','Andres','Nuñez','159489','gma@gmail.com','centro','52d710e0dc1cff3d59fb94fff0499f88',2,1),(12,'600600','oswaldo','caicedo','35748623','lolo@gmail.com','centro','e1b77e134717fc53615328dffe1243b8',2,1),(13,'45638111','Juan','Rosales','143265465','soal@gmail.com','asdfas','60b1bed66e12b0f7fe2d3e5a16e88048',4,1),(14,'52687','pepito','perez','465465','sss@gmail.com','santa martha','53e2efef8b2c6ee3511b8a9d51289fb6',4,1),(15,'369852147','Gloria','Jurado','23423','plata@ga.com','la plata','cc86a50fb8f3c4840cb346a0829f64a2',4,1),(16,'58223344','Carla','giraldo','23988','carl@gmail.com','las torres','ebb984c332fbc769447492cbfdb1d61f',4,1),(17,'3123568','jose','salsedo','878787','jos@gmail.com','la loma','dc273205ea79d74742ea062071561602',4,1),(18,'19990187','lila','gutierrez','7867887','li@gmail.com','lota','b5500c01bbdcf184a2b80b6a06280618',4,1),(19,'776621299','Luis alfredo','Quenan','86567656','juan@gmail.com','buenaventura','a6a117efd765b3eec9ffca8720633e98',4,1),(20,'86989111','Luisa','Bermuedez','8967876','ber@gmail.com','cota','19fac0babbf2310caf6ec02b493d8e1a',4,1),(21,'234234234','juan','benitez','89','ven@gmai.com','las cuadras','61b80f94cdd6d632f7bc38fd9ed91d9c',2,1),(22,'5452356','martin','aguirre','87786','mar@gmail.com','las cuadras','093194bbc36a6e62d1332180aed49933',2,1),(23,'90092074608','jorge','diaz','86986789','dgq@gmail.com','las cuadras','31cf42cc53eee73ac6f776231169eed5',2,1),(24,'23851001100','David','Perez','8786','coel@gmail.com','sta rita','6884c345df7c65f87e82fcf1300977e6',4,1),(25,'6767333','tes','te','11111','aaa@comr.cm','dds ','d3813a7cae2e05d76ead84ad422a5921',4,1);
+INSERT INTO `usuario` VALUES (1,'100100','Martha','Ordoñez','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',1,1),(2,'100101','Pedro Leon','Cifuentes López','12344321','test@gmail.com','Carrera 26','202cb962ac59075b964b07152d234b70',2,1),(3,'100102','Tipo','Peralta','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',3,1),(4,'100103','Carlos','Zambrano','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',4,1),(5,'100104','Desconocido','Desconocido','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',5,1),(6,'100105','Super','Admin','12344321','test@gmail.com','Cll. 19 # 3 - 1','202cb962ac59075b964b07152d234b70',6,1),(7,'1085100100','Edgar','Muñoz Quenan','318555','leo@gmail.com','Las cuadras','f5624ad58b6c22764fe9cde2e2b14c02',2,1),(8,'200200','carlos','arias','123123','123correo@gmail.com','Las quintas de san pedro','c0d29696fc1eea771df60ff95a4772ff',2,1),(9,'300300','pedro','rodriguez','456789','correo@gmail.com','Corazon de jesus','c1a41159a94ed9bf45e035f6a2a2ca79',2,1),(10,'400400','pablo','cazanoba','753159','corr@gmail.com','las cuadras','60993fbe03e405d2e8a3b5ff3a3da0ab',2,1),(11,'500500','Andres','Nuñez','159489','gma@gmail.com','centro','52d710e0dc1cff3d59fb94fff0499f88',2,1),(12,'600600','oswaldo','caicedo','35748623','lolo@gmail.com','centro','e1b77e134717fc53615328dffe1243b8',2,1),(13,'45638111','Juan','Rosales','143265465','soal@gmail.com','asdfas','60b1bed66e12b0f7fe2d3e5a16e88048',4,1),(14,'52687','pepito','perez','465465','sss@gmail.com','santa martha','53e2efef8b2c6ee3511b8a9d51289fb6',4,1),(15,'369852147','Gloria','Jurado','23423','plata@ga.com','la plata','cc86a50fb8f3c4840cb346a0829f64a2',4,1),(16,'58223344','Carla','giraldo','23988','carl@gmail.com','las torres','ebb984c332fbc769447492cbfdb1d61f',4,1),(17,'3123568','jose','salsedo','878787','jos@gmail.com','la loma','dc273205ea79d74742ea062071561602',4,1),(18,'19990187','lila','gutierrez','7867887','li@gmail.com','lota','b5500c01bbdcf184a2b80b6a06280618',4,1),(19,'776621299','Luis alfredo','Quenan','86567656','juan@gmail.com','buenaventura','a6a117efd765b3eec9ffca8720633e98',4,1),(20,'86989111','Luisa','Bermuedez','8967876','ber@gmail.com','cota','19fac0babbf2310caf6ec02b493d8e1a',4,1),(21,'234234234','juan','benitez','89','ven@gmai.com','las cuadras','61b80f94cdd6d632f7bc38fd9ed91d9c',2,1),(22,'5452356','martin','aguirre','87786','mar@gmail.com','las cuadras','093194bbc36a6e62d1332180aed49933',2,1),(23,'90092074608','jorge','diaz','86986789','dgq@gmail.com','las cuadras','31cf42cc53eee73ac6f776231169eed5',2,1),(24,'23851001100','David','Perez','8786','coel@gmail.com','sta rita','6884c345df7c65f87e82fcf1300977e6',4,1),(25,'6767333','tes','te','11111','aaa@comr.cm','dds ','d3813a7cae2e05d76ead84ad422a5921',4,1),(26,'5874135','Maria CAmila','Romero','45822','marty@gmail.co','Carrera 89 Cll 2','be577fb4de92565a0a45fb0e56e6e6dc',4,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -476,4 +476,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-27 17:21:57
+-- Dump completed on 2022-03-28 21:34:13
