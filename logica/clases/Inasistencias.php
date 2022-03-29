@@ -36,8 +36,12 @@ class Inasistencias
                     JOIN usuario u ON i.registrado_a_estudiante = u.id 
                     JOIN usuario us ON i.creado_por_docente = us.id WHERE $campo = $valor";
 
-                if ($all) {
+                $cadenaSQLSum = "SELECT SUM(i.cantidad) as cantidad FROM inasistencias i WHERE $campo = $valor";
+
+                if ($all == 'total') {
                     $campo = ConectorBD::ejecutarQuery($cadenaSQLAll)[0];
+                } elseif ($all == 'suma') {
+                    $campo = ConectorBD::ejecutarQuery($cadenaSQLSum)[0];
                 } else {
                     $campo = ConectorBD::ejecutarQuery($cadenaSQL)[0];
                 }
@@ -177,6 +181,16 @@ class Inasistencias
         else $filtro = " WHERE $filtro";
         if ($orden == null || $orden == '') $orden = '';
         else $orden = " ORDER BY $orden";
+
+        $cadenaSQLAll = "SELECT i.id, i.cantidad, i.justificacion, i.fecha_creacion, i.fecha_modificacion, i.id_asignatura, i.registrado_a_estudiante, i.creado_por_docente, 
+                    a.nombre_asignatura, 
+                    u.identificacion, u.nombres, u.apellidos, 
+                    us.identificacion, us.nombres, us.apellidos 
+                    FROM inasistencias i 
+                    JOIN asignatura a ON i.id_asignatura = a.id 
+                    JOIN usuario u ON i.registrado_a_estudiante = u.id 
+                    JOIN usuario us ON i.creado_por_docente = us.id $filtro $orden";
+
         $cadenaSQL = "SELECT i.id, SUM(i.cantidad) as cantidad, i.justificacion, i.fecha_creacion, i.fecha_modificacion, i.id_asignatura, i.registrado_a_estudiante, i.creado_por_docente, 
                     a.nombre_asignatura, 
                     u.identificacion, u.nombres, u.apellidos, 
@@ -188,16 +202,13 @@ class Inasistencias
                     $filtro 
                     GROUP BY i.id_asignatura, i.registrado_a_estudiante
                     $orden";
-        $cadenaSQLAll = "SELECT i.id, i.cantidad, i.justificacion, i.fecha_creacion, i.fecha_modificacion, i.id_asignatura, i.registrado_a_estudiante, i.creado_por_docente, 
-                    a.nombre_asignatura, 
-                    u.identificacion, u.nombres, u.apellidos, 
-                    us.identificacion, us.nombres, us.apellidos 
-                    FROM inasistencias i 
-                    JOIN asignatura a ON i.id_asignatura = a.id 
-                    JOIN usuario u ON i.registrado_a_estudiante = u.id 
-                    JOIN usuario us ON i.creado_por_docente = us.id $filtro $orden";
-        if ($all) {
+
+        $cadenaSQLSum = "SELECT SUM(i.cantidad) as cantidad FROM inasistencias i $filtro $orden";
+
+        if ($all == 'total') {
             return ConectorBD::ejecutarQuery($cadenaSQLAll);
+        } elseif ($all == 'suma') {
+            return ConectorBD::ejecutarQuery($cadenaSQLSum);
         } else {
             return ConectorBD::ejecutarQuery($cadenaSQL);
         }

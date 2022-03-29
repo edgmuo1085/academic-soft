@@ -19,7 +19,6 @@ if ($editar == 1 || $editar == 6) {
     $listaNotas = NotasConsulta::getListaEnObjetos("WHERE u.identificacion = {$USUARIO->getIdentificacion()} GROUP BY n.id_periodo_academico, u.identificacion", false);
 }
 
-
 foreach ($listaNotas as $key) {
 
     $lista .= '<div class="as-content-data">
@@ -40,8 +39,13 @@ foreach ($listaNotas as $key) {
         if ($asignatura->getIdPeriodoAcademico() == $key->getIdPeriodoAcademico() && $key->getIdUsuarioEstudiante() == $asignatura->getIdUsuarioEstudiante()) {
 
             $lista .= '<div class="as-content-data-course">
-                        <div class="as-content-data-course-title">' . $asignatura->getNombreAsignatura() . '</div>
-                        <div class="as-content-data-activity">';
+                        <div class="as-content-data-course-title"><span>' . $asignatura->getNombreAsignatura() . '</span>';
+            $listaInasistencias = Inasistencias::getListaEnObjetos("i.id_asignatura = {$asignatura->getIdAsignatura()} AND i.registrado_a_estudiante = {$key->getIdUsuarioEstudiante()}", null, 'suma');
+            foreach ($listaInasistencias as $inasistencia) {
+                $cantidad = $inasistencia->getCantidad() ? $inasistencia->getCantidad() : '0';
+                $lista .= '<span> Inasistencias: ' . $cantidad . '</span>';
+            }
+            $lista .= '</div><div class="as-content-data-activity">';
 
             $listaNotasAsignadas = NotasConsulta::getListaEnObjetos("", false);
 
@@ -60,7 +64,7 @@ foreach ($listaNotas as $key) {
                             </p>';
                     $cantidadNotas++;
                 }
-                
+
                 if ($contar == $posicion) {
                     $promedio = $asignatura->getNota() / $cantidadNotas;
                     $lista .= '<p class="as-content-data-activity-item"><span class="as-content-data-activity-title">Promedio :</span> ' . number_format($promedio, 2) . '</p>';

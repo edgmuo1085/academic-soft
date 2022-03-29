@@ -39,6 +39,11 @@ class Generalidades
                 return "<span class='as-tooltip'><i class='fas fa-check'></i> <span class='as-tooltiptext-left'>" . $texto . "</span> </span>";
                 break;
 
+            case 5:
+                $texto = $texto == '' ? 'Agregar' : $texto;
+                return "<span class='as-tooltip'><i class='fas fa-print'></i> <span class='as-tooltiptext-left'>" . $texto . "</span> </span>";
+                break;
+
             default:
                 return "<span class='as-tooltip'><i class='fas fa-edit'></i> <span class='as-tooltiptext'>Otra</span> </span>";
                 break;

@@ -559,7 +559,7 @@ VALUES (
     ),
     (
         'Imprimir Notas',
-        '#',
+        'principal.php?CONTENIDO=layout/components/notas/lista-notas-imprimir.php',
         2,
         15,
         18
@@ -631,8 +631,6 @@ VALUES (2, 7, 1),
     (2, 15, 1),
     (2, 16, 1),
     (2, 19, 1);
-SELECT *
-FROM menu m;
 /**permisos para un estudiante**/
 INSERT INTO permisos (id_rol, id_menu, estado)
 VALUES (4, 7, 1),
@@ -641,8 +639,6 @@ VALUES (4, 7, 1),
 (4, 13, 1),
 (4, 15, 1),
 (4, 17, 1);
-SELECT *
-FROM menu m;
 --
 --
 --

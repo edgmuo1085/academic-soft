@@ -8,11 +8,12 @@ $selected1 = '';
 $selected2 = '';
 $selectMenuAsignatura = '';
 $selectMenuDocente = '';
+$arrayInasistencia = array();
 $arrayDocente = Usuario::getListaEnObjetos("rol_id = 2", 'nombres');
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
 
 if (isset($_REQUEST['id'])) {
-    $arrayInasistencia = new Inasistencias('i.id', $_REQUEST['id'], true);
+    $arrayInasistencia = new Inasistencias('i.id', $_REQUEST['id'], 'total');
     $arrayUsuario = new Usuario('id', $arrayInasistencia->getRegistradoAEstudiante());
 }
 

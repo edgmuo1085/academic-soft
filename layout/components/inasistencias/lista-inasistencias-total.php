@@ -19,9 +19,9 @@ $arrayDocente = Usuario::getListaEnObjetos("rol_id = 2", 'nombres');
 $arrayAsignatura = Asignatura::getListaEnObjetos(null, 'nombre_asignatura');
 
 if ($permisoAdminSecretaria) {
-    $listaInasistencias = Inasistencias::getListaEnObjetos(null, 'i.fecha_creacion DESC', true);
+    $listaInasistencias = Inasistencias::getListaEnObjetos(null, 'i.fecha_creacion DESC', 'total');
 } else {
-    $listaInasistencias = Inasistencias::getListaEnObjetos("us.identificacion = {$USUARIO->getIdentificacion()}", 'i.fecha_creacion DESC', true);
+    $listaInasistencias = Inasistencias::getListaEnObjetos("us.identificacion = {$USUARIO->getIdentificacion()}", 'i.fecha_creacion DESC', 'total');
 }
 
 if (isset($_REQUEST['buscar'])) {
@@ -57,7 +57,7 @@ if (isset($_REQUEST['buscar'])) {
 
     if ($bandera) {
         $listaGruposPorEstudiante = array();
-        $listaInasistencias = Inasistencias::getListaEnObjetos("{$consulta}", "i.fecha_creacion DESC", true);
+        $listaInasistencias = Inasistencias::getListaEnObjetos("{$consulta}", "i.fecha_creacion DESC", 'total');
     }
 }
 
