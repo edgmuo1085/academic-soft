@@ -11,7 +11,7 @@ $arrayGrado = Grado::getListaEnObjetos(null, 'id');
 $arrayGrupoEstudiante = new GrupoEstudiante(null, null);
 
 if (isset($_REQUEST['id'])) {
-    $arrayGrupoEstudiante = new GrupoEstudiante('grupo_estudiante.id', $_REQUEST['id']);
+    $arrayGrupoEstudiante = new GrupoEstudiante('ge.id', $_REQUEST['id']);
     $arrayUsuario = new Usuario('id', $arrayGrupoEstudiante->getIdUsuarioEstudiante());
 }
 
